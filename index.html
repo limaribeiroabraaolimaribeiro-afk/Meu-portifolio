@@ -1,35 +1,468 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu portfólio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio — Abraão Lima Ribeiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/portfolio.css">
 </head>
 <body>
-    <h1>Olá, eu sou o Abraão</h1>
-    <h2>Quem sou eu?</h2>
-    <p>Olá sou o Abraão, tenho 18 anos, moro em LUIZ ALVES, SC, meu sonho é ser um bom programador. Ajudar minha familia e conseguir um bom emprego. Também estou ansioso para trabalhar de casa e ter mais tempo com minha família. Quero me esforçar ao máximo no DevClub para logo conseguir um emprego como programador.
-        <h1><b>Minhas metas para esse ano:</b></h1>
-    <ul>
-        <li>Comprar o carro dos meus sonhos</li>
-        <li>Ajudar minha família</li>
-        <li>Conseguir um emprego</li>
-        <li>Ser valorizado no meu novo emprego</li>
-        <li>Desenvolver na tecnologia</li>
-        <li>Ter minha casa própria</li>
-    </ul>
-    <br>
-    <a href="https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
-        Visite meu linkedin
-        </a>
-        <h1>Pessoas que eu gostaria que estivessem no DevClub</h1>
-        <ol>
-            <li>Meu irmão</li>
-            <li>Meus amigos</li>
-            <li>Meus pais</li>
-            <li>Meu primo</li>
-            <li>Minha namorada</li>
-        </ol>
-        <img src="./img/minha-foto.jpeg" alt="abraao-jpeg">
+
+<div class="viewer">
+
+  <div class="slide-counter"><span id="cur">1</span> / <span id="tot">7</span></div>
+
+  <!-- ============================================================
+       SLIDES WRAPPER
+       ============================================================ -->
+  <div class="slides-wrapper">
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 1 — CAPA
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-1 active" data-slide="1">
+      <div class="slide-inner">
+        <!-- Decorações geométricas -->
+        <div class="geo circ-cover-bg"></div>
+        <div class="geo circ-cover-sm"></div>
+        <div class="geo rect-cover"></div>
+
+        <!-- Foto -->
+        <div class="photo-col">
+          <!-- ✏️ TROQUE A FOTO: altere o src abaixo -->
+          <img src="img/minha-foto.jpeg" alt="Abraão Lima Ribeiro">
+        </div>
+
+        <!-- Texto -->
+        <div class="text-col">
+          <div class="logo-mark">
+            <div class="logo-bars"><span></span><span></span><span></span></div>
+          </div>
+
+          <!-- ✏️ TROQUE: "EU SOU" pode ser alterado -->
+          <p class="eyebrow">EU SOU</p>
+
+          <!-- ✏️ TROQUE: seu nome nas três linhas -->
+          <h1 class="cover-name">
+            <span class="line">ABRAÃO</span>
+            <span class="line line-accent">LIMA</span>
+            <span class="line">RIBEIRO</span>
+          </h1>
+
+          <div class="name-divider"></div>
+
+          <!-- ✏️ TROQUE: título e subtítulo profissional -->
+          <p class="cover-title">Desenvolvedor Web</p>
+          <p class="cover-subtitle">Front-end · Back-end · Soluções Digitais</p>
+
+          <div class="dot-row">
+            <span class="dot on"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 2 — SOBRE MIM
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-2" data-slide="2">
+      <div class="slide-inner">
+        <div class="geo circ-top-right"></div>
+
+        <div class="content-block">
+          <div class="about-header">
+            <div class="slide-num-tag">02</div>
+            <div>
+              <div class="sec-label">SOBRE MIM</div>
+            </div>
+          </div>
+
+          <div class="about-grid">
+            <!-- Foto lateral -->
+            <div class="about-photo-col">
+              <div class="about-photo-wrap">
+                <!-- ✏️ TROQUE: foto (mesmo caminho) -->
+                <img src="img/minha-foto.jpeg" alt="Abraão Lima Ribeiro">
+                <div class="about-photo-deco"></div>
+              </div>
+              <div class="info-tags">
+                <!-- ✏️ TROQUE: cidade e área -->
+                <span class="info-tag">📍 Luiz Alves, SC</span>
+                <span class="info-tag">💻 Dev Web</span>
+              </div>
+            </div>
+
+            <!-- Texto -->
+            <div class="about-text-col">
+              <!-- ✏️ TROQUE: nome e apresentação -->
+              <h2 class="about-name">Olá, eu sou<br><strong>Abraão Ribeiro</strong></h2>
+
+              <!-- ✏️ TROQUE: parágrafos de apresentação -->
+              <p class="about-text">
+                Tenho 18 anos e estou construindo minha carreira como Desenvolvedor Web,
+                com foco em criar soluções digitais elegantes, funcionais e eficientes.
+              </p>
+              <p class="about-text">
+                Sou movido pela vontade de crescer, aprender continuamente e contribuir
+                com projetos que gerem impacto real. Meu objetivo é trabalhar com
+                tecnologia de forma remota, entregando excelência em cada linha de código.
+              </p>
+
+              <div class="about-quote">
+                <!-- ✏️ TROQUE: frase de impacto -->
+                <span>"Comprometido com a evolução constante e com a entrega de valor real através da tecnologia."</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 3 — HABILIDADES
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-3" data-slide="3">
+      <div class="slide-inner">
+        <div class="geo circ-btm-left"></div>
+
+        <div class="content-block skills-layout">
+          <div class="sec-header-row">
+            <span class="big-num">03</span>
+            <div>
+              <div class="sec-label">HABILIDADES</div>
+              <!-- ✏️ TROQUE: título da seção -->
+              <h2 class="sec-title">Minhas<br><em>Competências</em></h2>
+            </div>
+          </div>
+
+          <!-- ✏️ TROQUE: adicione ou remova skill-pills em cada categoria -->
+          <div class="skills-grid">
+            <div class="skill-cat">
+              <div class="skill-cat-label">Front-End</div>
+              <div class="skill-items">
+                <div class="skill-pill">HTML5</div>
+                <div class="skill-pill">CSS3</div>
+                <div class="skill-pill">JavaScript</div>
+                <div class="skill-pill">React</div>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <div class="skill-cat-label">Back-End</div>
+              <div class="skill-items">
+                <div class="skill-pill">Node.js</div>
+                <div class="skill-pill">Express</div>
+                <div class="skill-pill">APIs REST</div>
+                <div class="skill-pill">MySQL</div>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <div class="skill-cat-label">Ferramentas</div>
+              <div class="skill-items">
+                <div class="skill-pill">Git / GitHub</div>
+                <div class="skill-pill">VS Code</div>
+                <div class="skill-pill">Figma</div>
+                <div class="skill-pill">Linux</div>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <div class="skill-cat-label">Soft Skills</div>
+              <div class="skill-items">
+                <div class="skill-pill hl">Proatividade</div>
+                <div class="skill-pill hl">Organização</div>
+                <div class="skill-pill hl">Comunicação</div>
+                <div class="skill-pill hl">Aprendizado</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ✏️ TROQUE: nome da skill + porcentagem no style="width: XX%" -->
+          <div class="bars-section">
+            <div class="bar-row">
+              <span class="bar-label">HTML / CSS</span>
+              <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+              <span class="bar-pct">88%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">JavaScript</span>
+              <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
+              <span class="bar-pct">72%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">React</span>
+              <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+              <span class="bar-pct">60%</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Node.js</span>
+              <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
+              <span class="bar-pct">55%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 4 — PROJETOS
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-4" data-slide="4">
+      <div class="slide-inner">
+        <div class="geo circ-top-right" style="opacity:.09"></div>
+
+        <div class="content-block">
+          <div class="sec-header-row">
+            <span class="big-num">04</span>
+            <div>
+              <div class="sec-label">PROJETOS</div>
+              <!-- ✏️ TROQUE: título da seção -->
+              <h2 class="sec-title">Meus<br><em>Trabalhos</em></h2>
+            </div>
+          </div>
+
+          <!-- ✏️ TROQUE: título, descrição e tags de cada projeto -->
+          <div class="proj-grid">
+            <div class="proj-card feat">
+              <div class="proj-num">01</div>
+              <h3 class="proj-title">Portfólio Pessoal</h3>
+              <p class="proj-desc">Site pessoal desenvolvido com HTML, CSS e JavaScript puro. Design responsivo e moderno para apresentação profissional online.</p>
+              <div class="proj-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+            </div>
+
+            <div class="proj-card">
+              <div class="proj-num">02</div>
+              <h3 class="proj-title">Aplicação Web</h3>
+              <p class="proj-desc">Sistema desenvolvido com React e Node.js. Interface intuitiva e funcionalidades dinâmicas integradas com API REST.</p>
+              <div class="proj-tags"><span>React</span><span>Node</span><span>MySQL</span></div>
+            </div>
+
+            <div class="proj-card">
+              <div class="proj-num">03</div>
+              <h3 class="proj-title">API REST</h3>
+              <p class="proj-desc">API completa com autenticação JWT, rotas organizadas e integração com banco de dados relacional.</p>
+              <div class="proj-tags"><span>Node</span><span>Express</span><span>JWT</span></div>
+            </div>
+
+            <div class="proj-card">
+              <div class="proj-num">04</div>
+              <h3 class="proj-title">Em Desenvolvimento</h3>
+              <p class="proj-desc">Novos projetos em construção. Acompanhe meu GitHub para novidades em breve.</p>
+              <div class="proj-tags"><span>Em breve</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 5 — DIFERENCIAIS
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-5" data-slide="5">
+      <div class="slide-inner">
+        <div class="geo circ-left-mid"></div>
+
+        <div class="diff-wrap">
+          <!-- Coluna esquerda -->
+          <div class="diff-left">
+            <div class="slide-num-tag">05</div>
+            <div class="sec-label">DIFERENCIAIS</div>
+            <!-- ✏️ TROQUE: título e lead -->
+            <h2 class="diff-big-title">O que me<br><em>destaca</em></h2>
+            <p class="diff-lead">Mais do que habilidades técnicas, carrego valores que fazem a diferença em qualquer equipe ou projeto.</p>
+
+            <div class="diff-photo-sm">
+              <!-- ✏️ TROQUE: foto (mesmo caminho) -->
+              <img src="img/minha-foto.jpeg" alt="Abraão">
+            </div>
+          </div>
+
+          <!-- Coluna direita — lista de diferenciais -->
+          <!-- ✏️ TROQUE: títulos e textos dos diferenciais -->
+          <div class="diff-right">
+            <div class="diff-list">
+              <div class="diff-item">
+                <span class="diff-diamond">◆</span>
+                <div>
+                  <h4>Aprendizado Contínuo</h4>
+                  <p>Busco sempre evoluir, acompanhar tendências e aprimorar minhas habilidades constantemente.</p>
+                </div>
+              </div>
+              <div class="diff-item">
+                <span class="diff-diamond">◆</span>
+                <div>
+                  <h4>Comprometimento</h4>
+                  <p>Entrego resultados com responsabilidade, pontualidade e dedicação total em cada projeto.</p>
+                </div>
+              </div>
+              <div class="diff-item">
+                <span class="diff-diamond">◆</span>
+                <div>
+                  <h4>Visão de Produto</h4>
+                  <p>Codifico pensando no usuário final — usabilidade, performance e experiência sempre em foco.</p>
+                </div>
+              </div>
+              <div class="diff-item">
+                <span class="diff-diamond">◆</span>
+                <div>
+                  <h4>Trabalho em Equipe</h4>
+                  <p>Colaborativo, comunicativo e aberto ao feedback para construir soluções cada vez melhores.</p>
+                </div>
+              </div>
+              <div class="diff-item">
+                <span class="diff-diamond">◆</span>
+                <div>
+                  <h4>Autonomia</h4>
+                  <p>Capacidade de trabalhar de forma independente, com organização, foco e autogestão.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 6 — OBJETIVO PROFISSIONAL
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-6" data-slide="6">
+      <div class="slide-inner">
+        <div class="geo circ-center"></div>
+
+        <div class="content-block">
+          <div class="slide-num-tag">06</div>
+          <div class="sec-label">OBJETIVO PROFISSIONAL</div>
+
+          <div class="obj-content">
+            <!-- ✏️ TROQUE: título do objetivo -->
+            <h2 class="obj-big-title">Onde quero<br><em>chegar</em></h2>
+
+            <div class="obj-statement">
+              <!-- ✏️ TROQUE: declaração de objetivo -->
+              <p>Busco minha primeira oportunidade como <strong>Desenvolvedor Web Júnior</strong>, contribuindo com projetos digitais modernos e de impacto, preferencialmente em regime remoto ou híbrido.</p>
+            </div>
+
+            <!-- ✏️ TROQUE: áreas de interesse -->
+            <div class="obj-areas">
+              <div class="obj-area">
+                <span class="obj-arrow">→</span>
+                <div>
+                  <h4>Desenvolvimento Front-End</h4>
+                  <p>Interfaces modernas, responsivas e com foco em experiência do usuário.</p>
+                </div>
+              </div>
+              <div class="obj-area">
+                <span class="obj-arrow">→</span>
+                <div>
+                  <h4>Full-Stack Web</h4>
+                  <p>Soluções completas, do servidor à interface, com tecnologias modernas.</p>
+                </div>
+              </div>
+              <div class="obj-area">
+                <span class="obj-arrow">→</span>
+                <div>
+                  <h4>Trabalho Remoto</h4>
+                  <p>Atuação em projetos dinâmicos com times ágeis e culturas de inovação.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ✏️ TROQUE: frase final do objetivo -->
+            <blockquote class="obj-quote">"Estou pronto para contribuir, aprender e crescer junto com o time."</blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SLIDE 7 — CONTATO
+         ────────────────────────────────────────────────────────── -->
+    <div class="slide slide-7" data-slide="7">
+      <div class="slide-inner">
+        <div class="geo circ-contact"></div>
+
+        <div class="content-block contact-layout">
+          <div class="contact-top">
+            <div class="contact-photo">
+              <!-- ✏️ TROQUE: foto (mesmo caminho) -->
+              <img src="img/minha-foto.jpeg" alt="Abraão Lima Ribeiro">
+              <div class="contact-photo-ring"></div>
+            </div>
+            <div>
+              <div class="slide-num-tag">07</div>
+              <div class="sec-label">CONTATO</div>
+              <!-- ✏️ TROQUE: chamada e subtítulo -->
+              <h2 class="contact-title">Vamos<br>conversar?</h2>
+              <p class="contact-sub">Estou disponível para oportunidades, projetos e colaborações. Entre em contato!</p>
+            </div>
+          </div>
+
+          <!-- ✏️ TROQUE: seus dados de contato reais -->
+          <div class="contact-cards">
+            <div class="c-card">
+              <div class="c-card-icon">✉</div>
+              <div class="c-card-label">E-mail</div>
+              <div class="c-card-value">seuemail@email.com</div>
+            </div>
+            <div class="c-card">
+              <div class="c-card-icon">in</div>
+              <div class="c-card-label">LinkedIn</div>
+              <div class="c-card-value">linkedin.com/in/abraão-lima-ribeiro</div>
+            </div>
+            <div class="c-card">
+              <div class="c-card-icon">📱</div>
+              <div class="c-card-label">WhatsApp</div>
+              <div class="c-card-value">(XX) XXXXX-XXXX</div>
+            </div>
+            <div class="c-card">
+              <div class="c-card-icon">⌨</div>
+              <div class="c-card-label">GitHub</div>
+              <div class="c-card-value">github.com/abraao-ribeiro</div>
+            </div>
+          </div>
+
+          <div class="contact-closing">
+            <!-- ✏️ TROQUE: nome e localização -->
+            <span class="closing-name">ABRAÃO LIMA RIBEIRO</span>
+            <span class="closing-role">Desenvolvedor Web · Luiz Alves, SC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /slides-wrapper -->
+
+
+  <!-- Botões de navegação -->
+  <button class="nav-btn prev" id="prevBtn" onclick="go(-1)">&#8592;</button>
+  <button class="nav-btn next" id="nextBtn" onclick="go(1)">&#8594;</button>
+
+  <!-- Indicadores de ponto -->
+  <div class="dots-nav">
+    <span class="nav-dot on"  onclick="jump(1)"></span>
+    <span class="nav-dot"     onclick="jump(2)"></span>
+    <span class="nav-dot"     onclick="jump(3)"></span>
+    <span class="nav-dot"     onclick="jump(4)"></span>
+    <span class="nav-dot"     onclick="jump(5)"></span>
+    <span class="nav-dot"     onclick="jump(6)"></span>
+    <span class="nav-dot"     onclick="jump(7)"></span>
+  </div>
+
+  <div class="export-hint">
+    ← → para navegar &nbsp;|&nbsp; <kbd>P</kbd> para exportar PDF
+  </div>
+
+</div><!-- /viewer -->
+
+<script src="js/portfolio.js"></script>
 </body>
 </html>

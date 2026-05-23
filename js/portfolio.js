@@ -7,16 +7,17 @@ function render() {
   document.getElementById('cur').textContent = current;
   document.getElementById('tot').textContent = TOTAL;
 
+  // Slides
   document.querySelectorAll('.slide').forEach(el => {
-    const n = +el.dataset.slide;
-    el.classList.toggle('active', n === current);
-    el.classList.toggle('exit',   n !== current);
+    el.classList.toggle('active', +el.dataset.slide === current);
   });
 
-  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+  // Pontos
+  document.querySelectorAll('.hud-dots .dot').forEach((d, i) => {
     d.classList.toggle('on', i + 1 === current);
   });
 
+  // Setas
   document.getElementById('prevBtn').disabled = current === 1;
   document.getElementById('nextBtn').disabled = current === TOTAL;
 }
@@ -37,12 +38,7 @@ function jump(n) {
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
   if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1);
-  // P = imprimir/exportar todos os slides
-  if (e.key === 'p' || e.key === 'P') {
-    // Antes de imprimir: tornar todos os slides visíveis via classe especial
-    // (o @media print já usa display:block em .slide)
-    window.print();
-  }
+  if (e.key === 'p' || e.key === 'P') window.print();
 });
 
 // Swipe (mobile)

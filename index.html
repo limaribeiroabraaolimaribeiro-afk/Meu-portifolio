@@ -11,110 +11,99 @@
 </head>
 <body>
 
-<div class="viewer">
-
-  <div class="slide-counter"><span id="cur">1</span> / <span id="tot">7</span></div>
-
   <!-- ============================================================
-       SLIDES WRAPPER
+       VIEWER — fixado ao viewport, sem fundo escuro
        ============================================================ -->
-  <div class="slides-wrapper">
+  <div class="viewer">
+    <div class="slides-wrap">
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 1 — CAPA
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-1 active" data-slide="1">
-      <div class="slide-inner">
-        <!-- Decorações geométricas -->
-        <div class="geo circ-cover-bg"></div>
-        <div class="geo circ-cover-sm"></div>
-        <div class="geo rect-cover"></div>
+      <!-- ── SLIDE 1 — CAPA ──────────────────────────────────── -->
+      <div class="slide s1 active" data-slide="1">
+        <div class="geo g-circ-lg"></div>
+        <div class="geo g-circ-sm"></div>
+        <div class="geo g-bar"></div>
 
-        <!-- Foto -->
-        <div class="photo-col">
-          <!-- ✏️ TROQUE A FOTO: altere o src abaixo -->
+        <!-- Foto ocupa metade esquerda -->
+        <div class="cover-photo">
+          <!-- ✏️ FOTO: altere o src para trocar a imagem -->
           <img src="img/minha-foto.jpeg" alt="Abraão Lima Ribeiro">
         </div>
 
-        <!-- Texto -->
-        <div class="text-col">
-          <div class="logo-mark">
-            <div class="logo-bars"><span></span><span></span><span></span></div>
+        <!-- Texto ocupa metade direita -->
+        <div class="cover-text">
+          <div class="brand-mark">
+            <span></span><span></span><span></span>
           </div>
 
-          <!-- ✏️ TROQUE: "EU SOU" pode ser alterado -->
+          <!-- ✏️ TROQUE: "EU SOU" -->
           <p class="eyebrow">EU SOU</p>
 
           <!-- ✏️ TROQUE: seu nome nas três linhas -->
           <h1 class="cover-name">
-            <span class="line">ABRAÃO</span>
-            <span class="line line-accent">LIMA</span>
-            <span class="line">RIBEIRO</span>
+            <span class="n-line">ABRAÃO</span>
+            <span class="n-line n-accent">LIMA</span>
+            <span class="n-line">RIBEIRO</span>
           </h1>
 
-          <div class="name-divider"></div>
+          <div class="name-rule"></div>
 
           <!-- ✏️ TROQUE: título e subtítulo profissional -->
           <p class="cover-title">Desenvolvedor Web</p>
-          <p class="cover-subtitle">Front-end · Back-end · Soluções Digitais</p>
+          <p class="cover-sub">Front-end · Back-end · Soluções Digitais</p>
 
-          <div class="dot-row">
-            <span class="dot on"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+          <div class="pip-row">
+            <span class="pip on"></span>
+            <span class="pip"></span>
+            <span class="pip"></span>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 2 — SOBRE MIM
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-2" data-slide="2">
-      <div class="slide-inner">
-        <div class="geo circ-top-right"></div>
+      <!-- ── SLIDE 2 — SOBRE MIM ─────────────────────────────── -->
+      <div class="slide s2" data-slide="2">
+        <div class="geo g-circ-tr"></div>
 
-        <div class="content-block">
-          <div class="about-header">
-            <div class="slide-num-tag">02</div>
+        <div class="blk">
+          <div class="row-tag">
+            <span class="num-tag">02</span>
             <div>
-              <div class="sec-label">SOBRE MIM</div>
+              <p class="sec-lbl">SOBRE MIM</p>
             </div>
           </div>
 
           <div class="about-grid">
-            <!-- Foto lateral -->
+            <!-- Foto -->
             <div class="about-photo-col">
-              <div class="about-photo-wrap">
-                <!-- ✏️ TROQUE: foto (mesmo caminho) -->
+              <div class="about-img-wrap">
+                <!-- ✏️ FOTO -->
                 <img src="img/minha-foto.jpeg" alt="Abraão Lima Ribeiro">
-                <div class="about-photo-deco"></div>
+                <div class="about-img-border"></div>
               </div>
-              <div class="info-tags">
+              <div class="info-chips">
                 <!-- ✏️ TROQUE: cidade e área -->
-                <span class="info-tag">📍 Luiz Alves, SC</span>
-                <span class="info-tag">💻 Dev Web</span>
+                <span>📍 Luiz Alves, SC</span>
+                <span>💻 Desenvolvedor Web</span>
               </div>
             </div>
 
             <!-- Texto -->
-            <div class="about-text-col">
+            <div class="about-txt-col">
               <!-- ✏️ TROQUE: nome e apresentação -->
-              <h2 class="about-name">Olá, eu sou<br><strong>Abraão Ribeiro</strong></h2>
+              <h2 class="about-title">Olá, eu sou<br><strong>Abraão Ribeiro</strong></h2>
 
               <!-- ✏️ TROQUE: parágrafos de apresentação -->
-              <p class="about-text">
+              <p class="body-txt">
                 Tenho 18 anos e estou construindo minha carreira como Desenvolvedor Web,
                 com foco em criar soluções digitais elegantes, funcionais e eficientes.
               </p>
-              <p class="about-text">
+              <p class="body-txt">
                 Sou movido pela vontade de crescer, aprender continuamente e contribuir
                 com projetos que gerem impacto real. Meu objetivo é trabalhar com
                 tecnologia de forma remota, entregando excelência em cada linha de código.
               </p>
 
-              <div class="about-quote">
+              <div class="quote-block">
                 <!-- ✏️ TROQUE: frase de impacto -->
                 <span>"Comprometido com a evolução constante e com a entrega de valor real através da tecnologia."</span>
               </div>
@@ -122,106 +111,98 @@
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 3 — HABILIDADES
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-3" data-slide="3">
-      <div class="slide-inner">
-        <div class="geo circ-btm-left"></div>
+      <!-- ── SLIDE 3 — HABILIDADES ───────────────────────────── -->
+      <div class="slide s3" data-slide="3">
+        <div class="geo g-circ-bl"></div>
 
-        <div class="content-block skills-layout">
-          <div class="sec-header-row">
-            <span class="big-num">03</span>
+        <div class="blk skills-blk">
+          <div class="row-tag">
+            <span class="num-tag">03</span>
             <div>
-              <div class="sec-label">HABILIDADES</div>
+              <p class="sec-lbl">HABILIDADES</p>
               <!-- ✏️ TROQUE: título da seção -->
               <h2 class="sec-title">Minhas<br><em>Competências</em></h2>
             </div>
           </div>
 
-          <!-- ✏️ TROQUE: adicione ou remova skill-pills em cada categoria -->
+          <!-- ✏️ TROQUE: adicione ou remova skill-pills -->
           <div class="skills-grid">
-            <div class="skill-cat">
-              <div class="skill-cat-label">Front-End</div>
-              <div class="skill-items">
-                <div class="skill-pill">HTML5</div>
-                <div class="skill-pill">CSS3</div>
-                <div class="skill-pill">JavaScript</div>
-                <div class="skill-pill">React</div>
+            <div class="skill-col">
+              <p class="skill-cat">Front-End</p>
+              <div class="skill-tags">
+                <div class="tag">HTML5</div>
+                <div class="tag">CSS3</div>
+                <div class="tag">JavaScript</div>
+                <div class="tag">React</div>
               </div>
             </div>
-            <div class="skill-cat">
-              <div class="skill-cat-label">Back-End</div>
-              <div class="skill-items">
-                <div class="skill-pill">Node.js</div>
-                <div class="skill-pill">Express</div>
-                <div class="skill-pill">APIs REST</div>
-                <div class="skill-pill">MySQL</div>
+            <div class="skill-col">
+              <p class="skill-cat">Back-End</p>
+              <div class="skill-tags">
+                <div class="tag">Node.js</div>
+                <div class="tag">Express</div>
+                <div class="tag">APIs REST</div>
+                <div class="tag">MySQL</div>
               </div>
             </div>
-            <div class="skill-cat">
-              <div class="skill-cat-label">Ferramentas</div>
-              <div class="skill-items">
-                <div class="skill-pill">Git / GitHub</div>
-                <div class="skill-pill">VS Code</div>
-                <div class="skill-pill">Figma</div>
-                <div class="skill-pill">Linux</div>
+            <div class="skill-col">
+              <p class="skill-cat">Ferramentas</p>
+              <div class="skill-tags">
+                <div class="tag">Git / GitHub</div>
+                <div class="tag">VS Code</div>
+                <div class="tag">Figma</div>
+                <div class="tag">Linux</div>
               </div>
             </div>
-            <div class="skill-cat">
-              <div class="skill-cat-label">Soft Skills</div>
-              <div class="skill-items">
-                <div class="skill-pill hl">Proatividade</div>
-                <div class="skill-pill hl">Organização</div>
-                <div class="skill-pill hl">Comunicação</div>
-                <div class="skill-pill hl">Aprendizado</div>
+            <div class="skill-col">
+              <p class="skill-cat">Soft Skills</p>
+              <div class="skill-tags">
+                <div class="tag warm">Proatividade</div>
+                <div class="tag warm">Organização</div>
+                <div class="tag warm">Comunicação</div>
+                <div class="tag warm">Aprendizado</div>
               </div>
             </div>
           </div>
 
-          <!-- ✏️ TROQUE: nome da skill + porcentagem no style="width: XX%" -->
-          <div class="bars-section">
+          <!-- ✏️ TROQUE: nome da skill e porcentagem no style="width: XX%" -->
+          <div class="bars">
             <div class="bar-row">
-              <span class="bar-label">HTML / CSS</span>
+              <span class="bar-lbl">HTML / CSS</span>
               <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
               <span class="bar-pct">88%</span>
             </div>
             <div class="bar-row">
-              <span class="bar-label">JavaScript</span>
+              <span class="bar-lbl">JavaScript</span>
               <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
               <span class="bar-pct">72%</span>
             </div>
             <div class="bar-row">
-              <span class="bar-label">React</span>
+              <span class="bar-lbl">React</span>
               <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
               <span class="bar-pct">60%</span>
             </div>
             <div class="bar-row">
-              <span class="bar-label">Node.js</span>
+              <span class="bar-lbl">Node.js</span>
               <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
               <span class="bar-pct">55%</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 4 — PROJETOS
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-4" data-slide="4">
-      <div class="slide-inner">
-        <div class="geo circ-top-right" style="opacity:.09"></div>
+      <!-- ── SLIDE 4 — PROJETOS ──────────────────────────────── -->
+      <div class="slide s4" data-slide="4">
+        <div class="geo g-circ-tr" style="opacity:.08"></div>
 
-        <div class="content-block">
-          <div class="sec-header-row">
-            <span class="big-num">04</span>
+        <div class="blk">
+          <div class="row-tag">
+            <span class="num-tag">04</span>
             <div>
-              <div class="sec-label">PROJETOS</div>
+              <p class="sec-lbl">PROJETOS</p>
               <!-- ✏️ TROQUE: título da seção -->
               <h2 class="sec-title">Meus<br><em>Trabalhos</em></h2>
             </div>
@@ -230,120 +211,93 @@
           <!-- ✏️ TROQUE: título, descrição e tags de cada projeto -->
           <div class="proj-grid">
             <div class="proj-card feat">
-              <div class="proj-num">01</div>
-              <h3 class="proj-title">Portfólio Pessoal</h3>
+              <span class="proj-num">01</span>
+              <h3 class="proj-name">Portfólio Pessoal</h3>
               <p class="proj-desc">Site pessoal desenvolvido com HTML, CSS e JavaScript puro. Design responsivo e moderno para apresentação profissional online.</p>
               <div class="proj-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
             </div>
-
             <div class="proj-card">
-              <div class="proj-num">02</div>
-              <h3 class="proj-title">Aplicação Web</h3>
+              <span class="proj-num">02</span>
+              <h3 class="proj-name">Aplicação Web</h3>
               <p class="proj-desc">Sistema desenvolvido com React e Node.js. Interface intuitiva e funcionalidades dinâmicas integradas com API REST.</p>
               <div class="proj-tags"><span>React</span><span>Node</span><span>MySQL</span></div>
             </div>
-
             <div class="proj-card">
-              <div class="proj-num">03</div>
-              <h3 class="proj-title">API REST</h3>
+              <span class="proj-num">03</span>
+              <h3 class="proj-name">API REST</h3>
               <p class="proj-desc">API completa com autenticação JWT, rotas organizadas e integração com banco de dados relacional.</p>
               <div class="proj-tags"><span>Node</span><span>Express</span><span>JWT</span></div>
             </div>
-
             <div class="proj-card">
-              <div class="proj-num">04</div>
-              <h3 class="proj-title">Em Desenvolvimento</h3>
+              <span class="proj-num">04</span>
+              <h3 class="proj-name">Em Desenvolvimento</h3>
               <p class="proj-desc">Novos projetos em construção. Acompanhe meu GitHub para novidades em breve.</p>
               <div class="proj-tags"><span>Em breve</span></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 5 — DIFERENCIAIS
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-5" data-slide="5">
-      <div class="slide-inner">
-        <div class="geo circ-left-mid"></div>
+      <!-- ── SLIDE 5 — DIFERENCIAIS ──────────────────────────── -->
+      <div class="slide s5" data-slide="5">
+        <div class="geo g-circ-lm"></div>
 
         <div class="diff-wrap">
-          <!-- Coluna esquerda -->
+          <!-- Esquerda -->
           <div class="diff-left">
-            <div class="slide-num-tag">05</div>
-            <div class="sec-label">DIFERENCIAIS</div>
+            <span class="num-tag">05</span>
+            <p class="sec-lbl">DIFERENCIAIS</p>
             <!-- ✏️ TROQUE: título e lead -->
-            <h2 class="diff-big-title">O que me<br><em>destaca</em></h2>
+            <h2 class="diff-title">O que me<br><em>destaca</em></h2>
             <p class="diff-lead">Mais do que habilidades técnicas, carrego valores que fazem a diferença em qualquer equipe ou projeto.</p>
-
-            <div class="diff-photo-sm">
-              <!-- ✏️ TROQUE: foto (mesmo caminho) -->
+            <div class="diff-photo">
+              <!-- ✏️ FOTO -->
               <img src="img/minha-foto.jpeg" alt="Abraão">
             </div>
           </div>
 
-          <!-- Coluna direita — lista de diferenciais -->
+          <!-- Direita — lista -->
           <!-- ✏️ TROQUE: títulos e textos dos diferenciais -->
           <div class="diff-right">
             <div class="diff-list">
               <div class="diff-item">
-                <span class="diff-diamond">◆</span>
-                <div>
-                  <h4>Aprendizado Contínuo</h4>
-                  <p>Busco sempre evoluir, acompanhar tendências e aprimorar minhas habilidades constantemente.</p>
-                </div>
+                <span class="diamond">◆</span>
+                <div><h4>Aprendizado Contínuo</h4><p>Busco sempre evoluir, acompanhar tendências e aprimorar minhas habilidades constantemente.</p></div>
               </div>
               <div class="diff-item">
-                <span class="diff-diamond">◆</span>
-                <div>
-                  <h4>Comprometimento</h4>
-                  <p>Entrego resultados com responsabilidade, pontualidade e dedicação total em cada projeto.</p>
-                </div>
+                <span class="diamond">◆</span>
+                <div><h4>Comprometimento</h4><p>Entrego resultados com responsabilidade, pontualidade e dedicação total em cada projeto.</p></div>
               </div>
               <div class="diff-item">
-                <span class="diff-diamond">◆</span>
-                <div>
-                  <h4>Visão de Produto</h4>
-                  <p>Codifico pensando no usuário final — usabilidade, performance e experiência sempre em foco.</p>
-                </div>
+                <span class="diamond">◆</span>
+                <div><h4>Visão de Produto</h4><p>Codifico pensando no usuário final — usabilidade, performance e experiência sempre em foco.</p></div>
               </div>
               <div class="diff-item">
-                <span class="diff-diamond">◆</span>
-                <div>
-                  <h4>Trabalho em Equipe</h4>
-                  <p>Colaborativo, comunicativo e aberto ao feedback para construir soluções cada vez melhores.</p>
-                </div>
+                <span class="diamond">◆</span>
+                <div><h4>Trabalho em Equipe</h4><p>Colaborativo, comunicativo e aberto ao feedback para construir soluções cada vez melhores.</p></div>
               </div>
               <div class="diff-item">
-                <span class="diff-diamond">◆</span>
-                <div>
-                  <h4>Autonomia</h4>
-                  <p>Capacidade de trabalhar de forma independente, com organização, foco e autogestão.</p>
-                </div>
+                <span class="diamond">◆</span>
+                <div><h4>Autonomia</h4><p>Capacidade de trabalhar de forma independente, com organização, foco e autogestão.</p></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 6 — OBJETIVO PROFISSIONAL
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-6" data-slide="6">
-      <div class="slide-inner">
-        <div class="geo circ-center"></div>
+      <!-- ── SLIDE 6 — OBJETIVO ──────────────────────────────── -->
+      <div class="slide s6" data-slide="6">
+        <div class="geo g-circ-center"></div>
 
-        <div class="content-block">
-          <div class="slide-num-tag">06</div>
-          <div class="sec-label">OBJETIVO PROFISSIONAL</div>
+        <div class="blk">
+          <span class="num-tag">06</span>
+          <p class="sec-lbl">OBJETIVO PROFISSIONAL</p>
 
-          <div class="obj-content">
+          <div class="obj-body">
             <!-- ✏️ TROQUE: título do objetivo -->
-            <h2 class="obj-big-title">Onde quero<br><em>chegar</em></h2>
+            <h2 class="obj-title">Onde quero<br><em>chegar</em></h2>
 
             <div class="obj-statement">
               <!-- ✏️ TROQUE: declaração de objetivo -->
@@ -353,115 +307,104 @@
             <!-- ✏️ TROQUE: áreas de interesse -->
             <div class="obj-areas">
               <div class="obj-area">
-                <span class="obj-arrow">→</span>
-                <div>
-                  <h4>Desenvolvimento Front-End</h4>
-                  <p>Interfaces modernas, responsivas e com foco em experiência do usuário.</p>
-                </div>
+                <span class="arrow">→</span>
+                <div><h4>Desenvolvimento Front-End</h4><p>Interfaces modernas, responsivas e com foco em experiência do usuário.</p></div>
               </div>
               <div class="obj-area">
-                <span class="obj-arrow">→</span>
-                <div>
-                  <h4>Full-Stack Web</h4>
-                  <p>Soluções completas, do servidor à interface, com tecnologias modernas.</p>
-                </div>
+                <span class="arrow">→</span>
+                <div><h4>Full-Stack Web</h4><p>Soluções completas, do servidor à interface, com tecnologias modernas.</p></div>
               </div>
               <div class="obj-area">
-                <span class="obj-arrow">→</span>
-                <div>
-                  <h4>Trabalho Remoto</h4>
-                  <p>Atuação em projetos dinâmicos com times ágeis e culturas de inovação.</p>
-                </div>
+                <span class="arrow">→</span>
+                <div><h4>Trabalho Remoto</h4><p>Atuação em projetos dinâmicos com times ágeis e culturas de inovação.</p></div>
               </div>
             </div>
 
-            <!-- ✏️ TROQUE: frase final do objetivo -->
+            <!-- ✏️ TROQUE: frase final -->
             <blockquote class="obj-quote">"Estou pronto para contribuir, aprender e crescer junto com o time."</blockquote>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 7 — CONTATO
-         ────────────────────────────────────────────────────────── -->
-    <div class="slide slide-7" data-slide="7">
-      <div class="slide-inner">
-        <div class="geo circ-contact"></div>
+      <!-- ── SLIDE 7 — CONTATO ───────────────────────────────── -->
+      <div class="slide s7" data-slide="7">
+        <div class="geo g-circ-contact"></div>
 
-        <div class="content-block contact-layout">
-          <div class="contact-top">
-            <div class="contact-photo">
-              <!-- ✏️ TROQUE: foto (mesmo caminho) -->
+        <div class="blk contact-blk">
+          <!-- Topo: foto + chamada -->
+          <div class="ct-top">
+            <div class="ct-photo">
+              <!-- ✏️ FOTO -->
               <img src="img/minha-foto.jpeg" alt="Abraão Lima Ribeiro">
-              <div class="contact-photo-ring"></div>
+              <div class="ct-ring"></div>
             </div>
             <div>
-              <div class="slide-num-tag">07</div>
-              <div class="sec-label">CONTATO</div>
+              <span class="num-tag">07</span>
+              <p class="sec-lbl">CONTATO</p>
               <!-- ✏️ TROQUE: chamada e subtítulo -->
-              <h2 class="contact-title">Vamos<br>conversar?</h2>
-              <p class="contact-sub">Estou disponível para oportunidades, projetos e colaborações. Entre em contato!</p>
+              <h2 class="ct-title">Vamos<br>conversar?</h2>
+              <p class="ct-sub">Estou disponível para oportunidades, projetos e colaborações. Entre em contato!</p>
             </div>
           </div>
 
-          <div class="contact-cards">
-            <a class="c-card" href="mailto:contato.abraaolima@gmail.com">
-              <div class="c-card-icon">✉</div>
-              <div class="c-card-label">E-mail</div>
-              <div class="c-card-value">contato.abraaolima@gmail.com</div>
+          <!-- Cards de contato — ✏️ TROQUE: seus dados reais -->
+          <div class="ct-cards">
+            <a class="ct-card" href="mailto:contato.abraaolima@gmail.com">
+              <div class="ct-icon">✉</div>
+              <div class="ct-lbl">E-mail</div>
+              <div class="ct-val">contato.abraaolima@gmail.com</div>
             </a>
-            <a class="c-card" href="https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320" target="_blank" rel="noopener">
-              <div class="c-card-icon">in</div>
-              <div class="c-card-label">LinkedIn</div>
-              <div class="c-card-value">linkedin.com/in/abraão-lima-ribeiro</div>
+            <a class="ct-card" href="https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320" target="_blank" rel="noopener">
+              <div class="ct-icon">in</div>
+              <div class="ct-lbl">LinkedIn</div>
+              <div class="ct-val">linkedin.com/in/abraão-lima-ribeiro</div>
             </a>
-            <a class="c-card" href="https://wa.me/5547992101675" target="_blank" rel="noopener">
-              <div class="c-card-icon">📱</div>
-              <div class="c-card-label">WhatsApp</div>
-              <div class="c-card-value">(47) 99210-1675</div>
+            <a class="ct-card" href="https://wa.me/5547992101675" target="_blank" rel="noopener">
+              <div class="ct-icon">📱</div>
+              <div class="ct-lbl">WhatsApp</div>
+              <div class="ct-val">(47) 99210-1675</div>
             </a>
-            <a class="c-card" href="https://github.com/limaribeiroabraaolimaribeiro-afk" target="_blank" rel="noopener">
-              <div class="c-card-icon">⌨</div>
-              <div class="c-card-label">GitHub</div>
-              <div class="c-card-value">github.com/limaribeiroabraaolimaribeiro-afk</div>
+            <a class="ct-card" href="https://github.com/limaribeiroabraaolimaribeiro-afk" target="_blank" rel="noopener">
+              <div class="ct-icon">⌨</div>
+              <div class="ct-lbl">GitHub</div>
+              <div class="ct-val">github.com/limaribeiroabraaolimaribeiro-afk</div>
             </a>
           </div>
 
-          <div class="contact-closing">
+          <!-- Rodapé -->
+          <div class="ct-footer">
             <!-- ✏️ TROQUE: nome e localização -->
-            <span class="closing-name">ABRAÃO LIMA RIBEIRO</span>
-            <span class="closing-role">Desenvolvedor Web · Luiz Alves, SC</span>
+            <span class="ct-name">ABRAÃO LIMA RIBEIRO</span>
+            <span class="ct-role">Desenvolvedor Web · Luiz Alves, SC</span>
           </div>
         </div>
       </div>
-    </div>
 
-  </div><!-- /slides-wrapper -->
+    </div><!-- /slides-wrap -->
+  </div><!-- /viewer -->
 
 
-  <!-- Botões de navegação -->
-  <button class="nav-btn prev" id="prevBtn" onclick="go(-1)">&#8592;</button>
-  <button class="nav-btn next" id="nextBtn" onclick="go(1)">&#8594;</button>
+  <!-- ============================================================
+       NAVEGAÇÃO — fora do viewer, fixada ao viewport
+       ============================================================ -->
+  <div class="hud-counter"><span id="cur">1</span> / <span id="tot">7</span></div>
 
-  <!-- Indicadores de ponto -->
-  <div class="dots-nav">
-    <span class="nav-dot on"  onclick="jump(1)"></span>
-    <span class="nav-dot"     onclick="jump(2)"></span>
-    <span class="nav-dot"     onclick="jump(3)"></span>
-    <span class="nav-dot"     onclick="jump(4)"></span>
-    <span class="nav-dot"     onclick="jump(5)"></span>
-    <span class="nav-dot"     onclick="jump(6)"></span>
-    <span class="nav-dot"     onclick="jump(7)"></span>
+  <button class="hud-btn hud-prev" id="prevBtn" onclick="go(-1)">&#8592;</button>
+  <button class="hud-btn hud-next" id="nextBtn" onclick="go(1)">&#8594;</button>
+
+  <div class="hud-dots">
+    <span class="dot on"  onclick="jump(1)"></span>
+    <span class="dot"     onclick="jump(2)"></span>
+    <span class="dot"     onclick="jump(3)"></span>
+    <span class="dot"     onclick="jump(4)"></span>
+    <span class="dot"     onclick="jump(5)"></span>
+    <span class="dot"     onclick="jump(6)"></span>
+    <span class="dot"     onclick="jump(7)"></span>
   </div>
 
-  <div class="export-hint">
-    ← → para navegar &nbsp;|&nbsp; <kbd>P</kbd> para exportar PDF
-  </div>
+  <div class="hud-hint">← → navegar &nbsp;|&nbsp; <kbd>P</kbd> PDF</div>
 
-</div><!-- /viewer -->
-
-<script src="js/portfolio.js"></script>
+  <script src="js/portfolio.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /* =========================================
    PORTFÓLIO — ABRAÃO LIMA RIBEIRO
-   Redesign comercial · Dark premium
-   Azul → Roxo → Ciano
+   Identidade comercial · Light premium
+   Off-white + Laranja + Azul escuro
    ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -15,26 +15,35 @@
 
 /* ── VARIÁVEIS ───────────────────────────────────────────────── */
 :root {
-  --bg:          #0B0F19;
-  --bg-soft:     #0a0d16;
-  --surface:     #111827;
-  --surface-2:   #161e30;
-  --border:      rgba(255,255,255,.08);
+  --bg:          #FFF7ED;
+  --bg-soft:     #FFFFFF;
+  --surface:     #FFFFFF;
+  --border:      #E5E7EB;
+  --border-accent: #FED7AA;
 
-  --blue:        #2563EB;
-  --purple:      #6C63FF;
-  --cyan:        #00D4FF;
+  --navy:        #0F172A;
+  --navy-soft:   #1E293B;
 
-  --grad:        linear-gradient(135deg, var(--blue), var(--purple));
-  --grad-text:   linear-gradient(135deg, var(--purple), var(--cyan));
-  --grad-soft:   linear-gradient(135deg, rgba(108,99,255,.16), rgba(0,212,255,.10));
+  --orange:      #F97316;
+  --orange-dk:   #EA580C;
+  --orange-lt:   #FED7AA;
 
-  --txt:         #FFFFFF;
-  --txt-md:      #A1A1AA;
-  --txt-lt:      #6b6b80;
+  --grad:        linear-gradient(135deg, var(--orange), var(--orange-dk));
+  --grad-text:   linear-gradient(135deg, var(--orange), var(--orange-dk));
+  --grad-soft:   linear-gradient(135deg, rgba(249,115,22,.10), rgba(254,215,170,.35));
+
+  --txt:         #111827;
+  --txt-md:      #64748B;
+  --txt-lt:      #94A3B8;
+
+  --txt-on-dark:    #F8FAFC;
+  --txt-on-dark-md: #94A3B8;
 
   --whatsapp:    #25D366;
   --whatsapp-dk: #1ebe5b;
+
+  --shadow-card:       0 4px 24px rgba(15,23,42,.06);
+  --shadow-card-hover: 0 16px 40px rgba(249,115,22,.16);
 
   --f-body:      'Inter', system-ui, sans-serif;
 
@@ -105,20 +114,20 @@ img { max-width: 100%; display: block; }
 .btn-primary {
   background: var(--grad);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(37,99,235,.35);
+  box-shadow: 0 8px 24px rgba(249,115,22,.35);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(108,99,255,.5);
+  box-shadow: 0 12px 32px rgba(234,88,12,.45);
 }
 .btn-outline {
   background: transparent;
-  color: var(--txt);
+  color: var(--navy);
   border-color: var(--border);
 }
 .btn-outline:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
+  border-color: var(--orange);
+  color: var(--orange-dk);
   transform: translateY(-2px);
 }
 .btn-whatsapp {
@@ -146,7 +155,7 @@ img { max-width: 100%; display: block; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: rgba(11,15,25,.7);
+  background: rgba(255,247,237,.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
@@ -160,11 +169,11 @@ img { max-width: 100%; display: block; }
 .logo {
   font-size: 20px;
   font-weight: 800;
-  color: var(--txt);
+  color: var(--navy);
   text-decoration: none;
   letter-spacing: -.5px;
 }
-.logo span { color: var(--cyan); }
+.logo span { color: var(--orange); }
 
 .nav {
   display: flex;
@@ -177,7 +186,7 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   transition: color .2s ease;
 }
-.nav a:hover { color: var(--txt); }
+.nav a:hover { color: var(--orange-dk); }
 
 .nav-cta { flex-shrink: 0; }
 
@@ -196,7 +205,7 @@ img { max-width: 100%; display: block; }
   display: block;
   width: 18px; height: 2px;
   margin: 0 auto;
-  background: var(--txt);
+  background: var(--navy);
   border-radius: 2px;
   transition: transform .25s ease, opacity .25s ease;
 }
@@ -218,14 +227,14 @@ img { max-width: 100%; display: block; }
 }
 .glow-1 {
   width: 520px; height: 520px;
-  background: var(--blue);
-  opacity: .30;
+  background: var(--orange-lt);
+  opacity: .55;
   top: -180px; left: -140px;
 }
 .glow-2 {
   width: 460px; height: 460px;
-  background: var(--purple);
-  opacity: .22;
+  background: var(--navy-soft);
+  opacity: .10;
   bottom: -200px; right: -120px;
 }
 .hero-inner {
@@ -239,7 +248,7 @@ img { max-width: 100%; display: block; }
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 3px;
-  color: var(--cyan);
+  color: var(--orange-dk);
   text-transform: uppercase;
   margin-bottom: 18px;
 }
@@ -249,6 +258,7 @@ img { max-width: 100%; display: block; }
   font-weight: 900;
   line-height: 1.12;
   letter-spacing: -1px;
+  color: var(--navy);
   margin-bottom: 22px;
 }
 
@@ -274,11 +284,12 @@ img { max-width: 100%; display: block; }
 .hero-badge {
   font-size: 13px;
   font-weight: 600;
-  color: var(--txt-md);
+  color: var(--navy);
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-accent);
   padding: 9px 16px;
   border-radius: 999px;
+  box-shadow: var(--shadow-card);
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -300,6 +311,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -.5px;
+  color: var(--navy);
   margin: 10px 0 14px;
 }
 .section-lead {
@@ -320,12 +332,13 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 32px 28px;
+  box-shadow: var(--shadow-card);
   transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 .service-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(108,99,255,.4);
-  box-shadow: 0 16px 40px rgba(108,99,255,.18);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card-hover);
 }
 .service-icon {
   display: inline-flex;
@@ -340,6 +353,7 @@ img { max-width: 100%; display: block; }
 .service-card h3 {
   font-size: 18px;
   font-weight: 700;
+  color: var(--navy);
   margin-bottom: 10px;
 }
 .service-card p {
@@ -364,12 +378,13 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-card);
   transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 .proj-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(0,212,255,.35);
-  box-shadow: 0 16px 40px rgba(0,212,255,.12);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card-hover);
 }
 .proj-card.featured {
   grid-column: span 2;
@@ -398,7 +413,7 @@ img { max-width: 100%; display: block; }
 }
 .proj-media-icon {
   font-size: 48px;
-  opacity: .5;
+  opacity: .55;
 }
 
 .proj-body {
@@ -420,11 +435,12 @@ img { max-width: 100%; display: block; }
   background: var(--grad);
   padding: 5px 14px;
   border-radius: 999px;
-  box-shadow: 0 4px 14px rgba(37,99,235,.4);
+  box-shadow: 0 4px 14px rgba(234,88,12,.4);
 }
 .proj-name {
   font-size: clamp(19px, 2vw, 24px);
   font-weight: 800;
+  color: var(--navy);
   margin-bottom: 10px;
 }
 .proj-desc {
@@ -437,13 +453,13 @@ img { max-width: 100%; display: block; }
   font-size: 13px;
   color: var(--txt);
   line-height: 1.65;
-  background: rgba(0,212,255,.06);
-  border-left: 3px solid var(--cyan);
+  background: rgba(249,115,22,.06);
+  border-left: 3px solid var(--orange);
   padding: 10px 14px;
   border-radius: 0 8px 8px 0;
   margin-bottom: 18px;
 }
-.proj-problem strong { color: var(--cyan); }
+.proj-problem strong { color: var(--orange-dk); }
 .proj-tags {
   display: flex;
   flex-wrap: wrap;
@@ -455,9 +471,9 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   letter-spacing: .5px;
   text-transform: uppercase;
-  color: var(--cyan);
-  background: rgba(0,212,255,.08);
-  border: 1px solid rgba(0,212,255,.18);
+  color: var(--orange-dk);
+  background: rgba(249,115,22,.08);
+  border: 1px solid rgba(249,115,22,.18);
   padding: 5px 12px;
   border-radius: 999px;
 }
@@ -482,10 +498,12 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius);
   padding: 26px 22px;
   background: var(--surface);
-  transition: border-color .25s ease, transform .25s ease;
+  box-shadow: var(--shadow-card);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
 .process-card:hover {
-  border-color: rgba(0,212,255,.35);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-4px);
 }
 .process-num {
@@ -502,6 +520,7 @@ img { max-width: 100%; display: block; }
 .process-card h3 {
   font-size: 16px;
   font-weight: 700;
+  color: var(--navy);
   margin-bottom: 8px;
 }
 .process-card p {
@@ -516,6 +535,14 @@ img { max-width: 100%; display: block; }
 .contact {
   text-align: center;
   overflow: hidden;
+  background: var(--navy);
+}
+.contact .hero-glow {
+  filter: blur(140px);
+}
+.contact .glow-2 {
+  background: var(--orange);
+  opacity: .25;
 }
 .contact-inner {
   position: relative;
@@ -527,11 +554,12 @@ img { max-width: 100%; display: block; }
   font-size: clamp(28px, 5vw, 48px);
   font-weight: 900;
   letter-spacing: -1px;
+  color: var(--txt-on-dark);
   margin-bottom: 16px;
 }
 .contact-sub {
   font-size: clamp(15px, 1.8vw, 18px);
-  color: var(--txt-md);
+  color: var(--txt-on-dark-md);
   margin-bottom: 36px;
 }
 
@@ -539,7 +567,7 @@ img { max-width: 100%; display: block; }
    FOOTER
    ══════════════════════════════════════════════════════════════ */
 .footer {
-  border-top: 1px solid var(--border);
+  background: var(--navy-soft);
   padding: 36px 0;
 }
 .footer-inner {
@@ -553,11 +581,12 @@ img { max-width: 100%; display: block; }
   display: block;
   font-size: 15px;
   font-weight: 700;
+  color: var(--txt-on-dark);
 }
 .footer-role {
   display: block;
   font-size: 13px;
-  color: var(--txt-lt);
+  color: var(--txt-on-dark-md);
   margin-top: 2px;
 }
 .footer-links {
@@ -566,11 +595,11 @@ img { max-width: 100%; display: block; }
 }
 .footer-links a {
   font-size: 13px;
-  color: var(--txt-md);
+  color: var(--txt-on-dark-md);
   text-decoration: none;
   transition: color .2s ease;
 }
-.footer-links a:hover { color: var(--cyan); }
+.footer-links a:hover { color: var(--orange); }
 
 /* ══════════════════════════════════════════════════════════════
    BOTÃO FLUTUANTE WHATSAPP
@@ -624,7 +653,7 @@ img { max-width: 100%; display: block; }
     flex-direction: column;
     position: absolute;
     top: 72px; left: 0; right: 0;
-    background: rgba(11,15,25,.97);
+    background: rgba(255,247,237,.97);
     backdrop-filter: blur(14px);
     padding: 20px 24px;
     gap: 18px;

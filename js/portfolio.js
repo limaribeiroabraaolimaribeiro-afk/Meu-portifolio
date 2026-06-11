@@ -14,7 +14,7 @@ try {
   });
 
   const floatBtn = document.getElementById('whatsappFloat');
-  if (floatBtn) floatBtn.href = baseUrl;
+  if (floatBtn) floatBtn.href = ctaUrl;
 } catch (err) {
   console.error('Falha ao configurar links do WhatsApp:', err);
 }
@@ -25,6 +25,7 @@ try {
 
   if (grid && typeof PROJECTS !== 'undefined') {
     const projects = [...PROJECTS].sort((a, b) => (b.destaque ? 1 : 0) - (a.destaque ? 1 : 0));
+    const baseUrl = `https://wa.me/${WHATSAPP_NUMBER}`;
 
     grid.innerHTML = projects.map(p => {
       const cardClass = `proj-card reveal${p.destaque ? ' featured' : ''}`;
@@ -32,20 +33,27 @@ try {
       const tags = p.tags.map(t => `<span>${t}</span>`).join('');
 
       const prodBtn = p.urlProd
-        ? `<a class="btn btn-primary btn-sm" href="${p.urlProd}" target="_blank" rel="noopener">Ver projeto online</a>`
-        : `<span class="btn btn-primary btn-sm btn-disabled">Ver projeto online</span>`;
+        ? `<a class="btn btn-primary btn-sm" href="${p.urlProd}" target="_blank" rel="noopener">Ver projeto</a>`
+        : `<span class="btn btn-primary btn-sm btn-disabled">Ver projeto</span>`;
 
-      const githubBtn = p.urlGithub
-        ? `<a class="btn btn-outline btn-sm" href="${p.urlGithub}" target="_blank" rel="noopener">GitHub</a>`
-        : '';
+      const similarMsg = encodeURIComponent(`Olá! Vi o projeto "${p.nome}" no seu portfólio e quero algo parecido para o meu negócio.`);
+      const similarBtn = `<a class="btn btn-outline btn-sm" href="${baseUrl}?text=${similarMsg}" target="_blank" rel="noopener">Falar sobre algo parecido</a>`;
 
       return `
         <div class="${cardClass}">
           ${badge}
-          <h3 class="proj-name">${p.nome}</h3>
-          <p class="proj-desc">${p.descricao}</p>
-          <div class="proj-tags">${tags}</div>
-          <div class="proj-actions">${prodBtn}${githubBtn}</div>
+          <div class="proj-media">
+            <span class="proj-media-icon">${p.icone || '💻'}</span>
+            <!-- TODO: Substituir pelo print/mockup real do projeto (${p.imagem}) -->
+            <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="proj-body">
+            <h3 class="proj-name">${p.nome}</h3>
+            <p class="proj-desc">${p.descricao}</p>
+            <p class="proj-problem"><strong>Resolve:</strong> ${p.problema}</p>
+            <div class="proj-tags">${tags}</div>
+            <div class="proj-actions">${prodBtn}${similarBtn}</div>
+          </div>
         </div>
       `;
     }).join('');

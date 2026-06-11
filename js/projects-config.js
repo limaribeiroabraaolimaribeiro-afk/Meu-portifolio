@@ -49,8 +49,7 @@ const PROJECTS = [
     nome: "JS Autocar",
     descricao: "Sistema de agendamento online para lava-rápidos: os clientes marcam horário sozinhos pelo site e o negócio organiza toda a agenda automaticamente.",
     tags: ["JavaScript", "Agendamento Online", "PWA"],
-    // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
-    urlProd: null,
+    urlProd: "https://js-autocar.onrender.com",
     urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/JS-Autocar",
     destaque: false
   },
@@ -59,8 +58,7 @@ const PROJECTS = [
     nome: "Controle de Gastos PRO",
     descricao: "Aplicativo web para controle financeiro pessoal ou empresarial, com registro de gastos por categoria e relatórios visuais para decisões mais rápidas.",
     tags: ["Node.js", "API REST", "Banco de Dados"],
-    // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
-    urlProd: null,
+    urlProd: "https://limaribeiroabraaolimaribeiro-afk.github.io/controle-gastos/",
     urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/controle-gastos",
     destaque: false
   },
@@ -69,8 +67,7 @@ const PROJECTS = [
     nome: "Agrisolo Apontamentos",
     descricao: "Sistema PWA para apontamento de serviços no campo: controle de horímetro, turnos e histórico de operações, funcionando até mesmo sem conexão com a internet.",
     tags: ["PWA", "JavaScript", "Offline-first"],
-    // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
-    urlProd: null,
+    urlProd: "https://limaribeiroabraaolimaribeiro-afk.github.io/agrisolo/",
     urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/agrisolo",
     destaque: false
   },
@@ -89,8 +86,7 @@ const PROJECTS = [
     nome: "TrufasPay",
     descricao: "PWA para controle de vendas fiadas: organiza pendências de clientes e dispara cobranças automáticas pelo WhatsApp, reduzindo a inadimplência.",
     tags: ["PWA", "JavaScript", "WhatsApp"],
-    // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
-    urlProd: null,
+    urlProd: "https://limaribeiroabraaolimaribeiro-afk.github.io/TrufasPay/",
     urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/TrufasPay",
     destaque: false
   }

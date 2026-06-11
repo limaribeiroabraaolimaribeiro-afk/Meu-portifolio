@@ -68,13 +68,17 @@ img { max-width: 100%; display: block; }
   color: transparent;
 }
 
-/* ── REVEAL ON SCROLL ──────────────────────────────────────────── */
-.reveal {
+/* ── REVEAL ON SCROLL ──────────────────────────────────────────────
+   ".reveal" fica visível por padrão (funciona sem JS / se o JS falhar).
+   js/portfolio.js adiciona ".reveal-init" (oculta) só quando consegue
+   rodar, e depois ".visible" via IntersectionObserver para animar.
+   ─────────────────────────────────────────────────────────────── */
+.reveal-init {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity .7s ease, transform .7s ease;
 }
-.reveal.visible {
+.reveal-init.visible {
   opacity: 1;
   transform: translateY(0);
 }

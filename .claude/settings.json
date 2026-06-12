@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /tmp /c/Users/abraao.ribeiro.AFM/AppData/Local/Temp -maxdepth 4 -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" 2>/dev/null | grep -i -E \"paste|clip|image|temp\" | head -20)",
+      "Read(//c/Users/abraao.ribeiro.AFM/AppData/Local/Temp/**)",
+      "Bash(find /c/Users/abraao.ribeiro.AFM -maxdepth 6 \\\\\\( -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" \\\\\\) -newermt \"2026-06-11 00:00\" 2>/dev/null | head -30)",
+      "Read(//c/Users/abraao.ribeiro.AFM/**)"
+    ]
+  }
+}

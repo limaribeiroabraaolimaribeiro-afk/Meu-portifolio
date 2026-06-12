@@ -24,22 +24,19 @@ const PROJECTS = [
     id: "nexa-story",
     nome: "Nexa Story",
     icone: "🛍️",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/nexa-story.png",
+    imagem: "img/Nexa-Story.jpg",
     descricao: "E-commerce completo com vitrine de produtos, carrinho, checkout, painel administrativo, notificações e fluxo de pedidos.",
     problema: "Ideal para marcas de beleza e cuidados pessoais que querem vender online com aparência profissional, sem depender de marketplaces.",
     tags: ["React", "Node.js", "E-commerce", "Mercado Pago"],
-    // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
-    urlProd: null,
+    urlProd: "https://www.nexastory.com.br",
     urlGithub: null,
-    destaque: true
+    destaque: false
   },
   {
     id: "day-lanches",
     nome: "Day Lanches",
     icone: "🍔",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/day-lanches.png",
+    imagem: "img/Day-Lanches.jpg",
     descricao: "Cardápio digital online para lanchonete, com pedidos diretos pelo site, visual atrativo e navegação rápida pelo celular.",
     problema: "Resolve a dependência de aplicativos de delivery: o cliente pede direto pelo site, sem taxas por venda.",
     tags: ["HTML", "CSS", "JavaScript", "Cardápio Digital"],
@@ -59,19 +56,19 @@ const PROJECTS = [
     // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
     urlProd: null,
     urlGithub: null,
-    destaque: true
+    destaque: false
   },
   {
     id: "js-autocar",
     nome: "JS Autocar",
     icone: "🚗",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/js-autocar.png",
+    imagem: "img/Js-autocar.jpg",
     descricao: "Site/sistema para serviços automotivos com apresentação profissional, lista de serviços, agendamento online e área administrativa.",
     problema: "Resolve a desorganização de agendamentos manuais: o cliente marca o horário sozinho e o negócio acompanha tudo pelo painel.",
     tags: ["JavaScript", "Agendamento Online", "PWA"],
-    urlProd: "https://js-autocar.onrender.com",
+    urlProd: "https://js-autocar.onrender.com/",
     urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/JS-Autocar",
+    accent: "blue",
     destaque: false
   },
   {
@@ -91,8 +88,7 @@ const PROJECTS = [
     id: "agrisolo-apontamentos",
     nome: "Agrisolo Apontamentos",
     icone: "🌱",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/agrisolo-apontamentos.png",
+    imagem: "img/Agrisolo.jpg",
     descricao: "Sistema de apontamentos para operação interna, com identificação por crachá, controle de turno, horímetro e histórico completo de registros.",
     problema: "Substitui anotações em papel por um registro digital confiável, mesmo em áreas sem sinal de internet.",
     tags: ["PWA", "JavaScript", "Offline-first"],

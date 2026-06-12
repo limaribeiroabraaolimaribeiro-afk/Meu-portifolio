@@ -28,7 +28,8 @@ try {
     const baseUrl = `https://wa.me/${WHATSAPP_NUMBER}`;
 
     grid.innerHTML = projects.map(p => {
-      const cardClass = `proj-card reveal${p.destaque ? ' featured' : ''}`;
+      const accentClass = p.accent ? ` proj-card--${p.accent}` : '';
+      const cardClass = `proj-card reveal${p.destaque ? ' featured' : ''}${accentClass}`;
       const badge = p.destaque ? '<span class="proj-badge">Destaque</span>' : '';
       const tags = p.tags.map(t => `<span>${t}</span>`).join('');
 
@@ -44,8 +45,7 @@ try {
           ${badge}
           <div class="proj-media">
             <span class="proj-media-icon">${p.icone || '💻'}</span>
-            <!-- TODO: Substituir pelo print/mockup real do projeto (${p.imagem}) -->
-            <img src="${p.imagem}" alt="${p.nome}" loading="lazy" onerror="this.remove()">
+            <img src="${p.imagem}" alt="Preview do projeto ${p.nome}" loading="lazy" onerror="this.remove()">
           </div>
           <div class="proj-body">
             <h3 class="proj-name">${p.nome}</h3>

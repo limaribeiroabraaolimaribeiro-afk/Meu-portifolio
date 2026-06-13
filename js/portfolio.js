@@ -40,6 +40,8 @@ try {
       const similarMsg = encodeURIComponent(`Olá! Vi o projeto "${p.nome}" no seu portfólio e quero algo parecido para o meu negócio.`);
       const similarBtn = `<a class="btn btn-outline btn-sm" href="${baseUrl}?text=${similarMsg}" target="_blank" rel="noopener">Falar sobre algo parecido</a>`;
 
+      const desc = p.destaque ? p.descricao : (p.subtitulo || p.descricao);
+
       return `
         <div class="${cardClass}">
           ${badge}
@@ -49,7 +51,7 @@ try {
           </div>
           <div class="proj-body">
             <h3 class="proj-name">${p.nome}</h3>
-            <p class="proj-desc">${p.descricao}</p>
+            <p class="proj-desc">${desc}</p>
             <p class="proj-problem"><strong>Resolve:</strong> ${p.problema}</p>
             <div class="proj-tags">${tags}</div>
             <div class="proj-actions">${prodBtn}${similarBtn}</div>

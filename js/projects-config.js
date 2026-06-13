@@ -21,21 +21,10 @@ const WHATSAPP_MESSAGE = "Olá, vi seu portfólio e tenho interesse em um projet
 // - icone: emoji usado como placeholder visual enquanto não há imagem
 const PROJECTS = [
   {
-    id: "nexa-story",
-    nome: "Nexa Story",
-    icone: "🛍️",
-    imagem: "img/Nexa-Story.jpg",
-    descricao: "E-commerce completo com vitrine de produtos, carrinho, checkout, painel administrativo, notificações e fluxo de pedidos.",
-    problema: "Ideal para marcas de beleza e cuidados pessoais que querem vender online com aparência profissional, sem depender de marketplaces.",
-    tags: ["React", "Node.js", "E-commerce", "Mercado Pago"],
-    urlProd: "https://www.nexastory.com.br",
-    urlGithub: null,
-    destaque: false
-  },
-  {
     id: "day-lanches",
     nome: "Day Lanches",
     icone: "🍔",
+    subtitulo: "Site institucional + cardápio online",
     imagem: "img/Day-Lanches.jpg",
     descricao: "Cardápio digital online para lanchonete, com pedidos diretos pelo site, visual atrativo e navegação rápida pelo celular.",
     problema: "Resolve a dependência de aplicativos de delivery: o cliente pede direto pelo site, sem taxas por venda.",
@@ -45,9 +34,37 @@ const PROJECTS = [
     destaque: true
   },
   {
+    id: "nexa-story",
+    nome: "Nexa Story",
+    icone: "🛍️",
+    subtitulo: "Site institucional",
+    imagem: "img/Nexa-Story.jpg",
+    descricao: "E-commerce completo com vitrine de produtos, carrinho, checkout, painel administrativo, notificações e fluxo de pedidos.",
+    problema: "Ideal para marcas de beleza e cuidados pessoais que querem vender online com aparência profissional, sem depender de marketplaces.",
+    tags: ["React", "Node.js", "E-commerce", "Mercado Pago"],
+    urlProd: "https://www.nexastory.com.br",
+    urlGithub: null,
+    destaque: false
+  },
+  {
+    id: "controle-gastos-pro",
+    nome: "Controle de Gastos PRO",
+    icone: "📊",
+    subtitulo: "Sistema de gestão financeira",
+    // TODO: SUBSTITUIR_IMAGEM_AQUI
+    imagem: "img/projects/controle-gastos-pro.png",
+    descricao: "PWA para controle financeiro com gráficos, histórico de lançamentos, categorias personalizadas, simulações e recursos inteligentes.",
+    problema: "Ajuda pessoas e pequenos negócios a enxergarem para onde o dinheiro está indo e planejarem com mais segurança.",
+    tags: ["Node.js", "API REST", "PWA"],
+    urlProd: "https://limaribeiroabraaolimaribeiro-afk.github.io/controle-gastos/",
+    urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/controle-gastos",
+    destaque: false
+  },
+  {
     id: "funcionario-ia",
     nome: "Funcionário de IA / Automação WhatsApp",
     icone: "🤖",
+    subtitulo: "Automação WhatsApp",
     // TODO: SUBSTITUIR_IMAGEM_AQUI
     imagem: "img/projects/funcionario-ia.png",
     descricao: "Automação inteligente para atendimento no WhatsApp: capta clientes, responde dúvidas automaticamente e organiza as conversas.",
@@ -62,6 +79,7 @@ const PROJECTS = [
     id: "js-autocar",
     nome: "JS Autocar",
     icone: "🚗",
+    subtitulo: "Agendamento automotivo",
     imagem: "img/Js-autocar.jpg",
     descricao: "Site/sistema para serviços automotivos com apresentação profissional, lista de serviços, agendamento online e área administrativa.",
     problema: "Resolve a desorganização de agendamentos manuais: o cliente marca o horário sozinho e o negócio acompanha tudo pelo painel.",
@@ -72,22 +90,10 @@ const PROJECTS = [
     destaque: false
   },
   {
-    id: "controle-gastos-pro",
-    nome: "Controle de Gastos PRO",
-    icone: "📊",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/controle-gastos-pro.png",
-    descricao: "PWA para controle financeiro com gráficos, histórico de lançamentos, categorias personalizadas, simulações e recursos inteligentes.",
-    problema: "Ajuda pessoas e pequenos negócios a enxergarem para onde o dinheiro está indo e planejarem com mais segurança.",
-    tags: ["Node.js", "API REST", "PWA"],
-    urlProd: "https://limaribeiroabraaolimaribeiro-afk.github.io/controle-gastos/",
-    urlGithub: "https://github.com/limaribeiroabraaolimaribeiro-afk/controle-gastos",
-    destaque: false
-  },
-  {
     id: "agrisolo-apontamentos",
     nome: "Agrisolo Apontamentos",
     icone: "🌱",
+    subtitulo: "Sistema de apontamentos",
     imagem: "img/Agrisolo.jpg",
     descricao: "Sistema de apontamentos para operação interna, com identificação por crachá, controle de turno, horímetro e histórico completo de registros.",
     problema: "Substitui anotações em papel por um registro digital confiável, mesmo em áreas sem sinal de internet.",
@@ -100,6 +106,7 @@ const PROJECTS = [
     id: "vitrinefy",
     nome: "Vitrinefy",
     icone: "🏬",
+    subtitulo: "Vitrine digital",
     // TODO: SUBSTITUIR_IMAGEM_AQUI
     imagem: "img/projects/vitrinefy.png",
     descricao: "Vitrine digital multi-loja para apresentar produtos com visual atrativo e facilitar o contato direto com o cliente pelo WhatsApp.",
@@ -114,6 +121,7 @@ const PROJECTS = [
     id: "trufaspay",
     nome: "TrufasPay",
     icone: "🍫",
+    subtitulo: "Controle de cobranças",
     // TODO: SUBSTITUIR_IMAGEM_AQUI
     imagem: "img/projects/trufaspay.png",
     descricao: "PWA para controle de vendas fiadas, com fila de cobrança e disparo automático de mensagens via WhatsApp.",

@@ -2188,7 +2188,7 @@ img {
   .proj-card.featured .proj-problem {
     padding: 11px 12px !important;
     border-radius: 12px !important;
-    background: linear-gradient(135deg, rgba(255,122,0,.18), rgba(255,122,0,.05)) !important;
+    background: linear-gradient(135deg, rgba(255,122,0,.05), rgba(255,122,0,.05)) !important;
     border: 1px solid rgba(255,122,0,.30) !important;
     font-size: 11.5px !important;
     line-height: 1.42 !important;

@@ -1751,3 +1751,585 @@ img {
     font-size: 10.2px;
   }
 }
+
+/* ============================================================
+   CORREÇÃO DEFINITIVA — HERO + FUNDO + CARDS + PROJETOS MOBILE
+   Cole no FINAL do portfolio.css
+   ============================================================ */
+
+@media (max-width: 720px) {
+
+  /* BASE */
+  body {
+    background: #050505 !important;
+    overflow-x: hidden !important;
+  }
+
+  .container {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+
+  /* HEADER */
+  .header {
+    background: rgba(5, 5, 5, .94) !important;
+    border-bottom: 1px solid rgba(255,255,255,.06) !important;
+  }
+
+  .header-inner {
+    height: 82px !important;
+  }
+
+  .logo {
+    font-size: 24px !important;
+    font-weight: 900 !important;
+  }
+
+  .nav-toggle {
+    display: flex !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    background: rgba(18,18,18,.85) !important;
+    border: 1px solid rgba(255,255,255,.16) !important;
+  }
+
+  /* HERO FUNDO MAIS PRETO, MENOS MARROM */
+  .hero {
+    min-height: 100vh !important;
+    padding: 104px 0 42px !important;
+    overflow: hidden !important;
+    background:
+      radial-gradient(circle at 82% 28%, rgba(255,122,0,.22), transparent 18%),
+      radial-gradient(circle at 92% 36%, rgba(255,122,0,.10), transparent 28%),
+      linear-gradient(180deg, #050505 0%, #060606 48%, #050505 100%) !important;
+  }
+
+  .hero::before {
+    content: "" !important;
+    position: absolute !important;
+    width: 180px !important;
+    height: 180px !important;
+    top: 198px !important;
+    right: -18px !important;
+    border-radius: 50% !important;
+    border: 2px solid rgba(255,122,0,.62) !important;
+    box-shadow:
+      0 0 26px rgba(255,122,0,.48),
+      inset 0 0 28px rgba(255,122,0,.12) !important;
+    opacity: .88 !important;
+    z-index: 1 !important;
+  }
+
+  .hero::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    height: auto !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(
+        90deg,
+        #050505 0%,
+        rgba(5,5,5,.96) 34%,
+        rgba(5,5,5,.48) 58%,
+        rgba(5,5,5,.20) 100%
+      ),
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 68%,
+        #050505 100%
+      ) !important;
+  }
+
+  .hero-inner {
+    position: relative !important;
+    z-index: 5 !important;
+    display: block !important;
+    min-height: 635px !important;
+  }
+
+  /*
+    IMPORTANTE:
+    isso solta os cards de dentro da coluna esquerda.
+    Sem isso, os 3 cards ficam pequenos e presos no texto.
+  */
+  .hero-text {
+    display: contents !important;
+  }
+
+  /* TEXTO DA HERO */
+  .hero .eyebrow {
+    position: relative !important;
+    z-index: 10 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: max-content !important;
+    max-width: calc(100vw - 44px) !important;
+    margin: 18px 0 18px !important;
+    padding: 7px 12px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(255,122,0,.75) !important;
+    background: rgba(5,5,5,.62) !important;
+    color: #fff !important;
+    font-size: 9.5px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: .35px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 0 22px rgba(255,122,0,.13) !important;
+  }
+
+  .hero-title {
+    position: relative !important;
+    z-index: 10 !important;
+    max-width: 270px !important;
+    margin: 0 0 16px !important;
+    font-size: 32px !important;
+    line-height: 1.08 !important;
+    letter-spacing: -1.6px !important;
+    color: #fff !important;
+    text-align: left !important;
+  }
+
+  .hero-title .grad-text {
+    background: linear-gradient(135deg, #ff9a2f, #ff6a00) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+  }
+
+  .hero-sub {
+    position: relative !important;
+    z-index: 10 !important;
+    max-width: 260px !important;
+    margin: 0 0 24px !important;
+    color: rgba(255,255,255,.78) !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    text-align: left !important;
+  }
+
+  /* BOTÕES LADO A LADO */
+  .hero-actions {
+    position: relative !important;
+    z-index: 12 !important;
+    width: 100% !important;
+    max-width: 350px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin: 0 0 44px !important;
+  }
+
+  .hero-actions .btn {
+    min-height: 48px !important;
+    padding: 0 16px !important;
+    border-radius: 11px !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+  }
+
+  .hero-actions .btn:first-child {
+    flex: 1.08 !important;
+    background: linear-gradient(135deg, #25d366, #16b855) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 12px 28px rgba(37,211,102,.34) !important;
+  }
+
+  .hero-actions .btn-outline {
+    flex: .88 !important;
+    background: rgba(8,8,8,.68) !important;
+    border: 1px solid rgba(255,122,0,.78) !important;
+    color: #fff !important;
+  }
+
+  /* FOTO MAIS IGUAL À REFERÊNCIA */
+  .hero-photo {
+    position: absolute !important;
+    z-index: 6 !important;
+    top: 56px !important;
+    right: -92px !important;
+    width: 82% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .hero-photo::before {
+    content: "" !important;
+    position: absolute !important;
+    z-index: -1 !important;
+    width: 70% !important;
+    aspect-ratio: 1 !important;
+    top: 24% !important;
+    right: 12% !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle, rgba(255,122,0,.32), rgba(255,122,0,.10) 48%, transparent 72%) !important;
+    filter: blur(8px) !important;
+  }
+
+  .hero-photo-frame {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    aspect-ratio: auto !important;
+  }
+
+  .hero-photo-frame::after,
+  .hero-photo-badge {
+    display: none !important;
+  }
+
+  .hero-photo-frame img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 500px !important;
+    object-fit: contain !important;
+    object-position: center top !important;
+    border-radius: 0 !important;
+    filter: saturate(1.08) contrast(1.08) brightness(.94) !important;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 72%,
+      rgba(0,0,0,.65) 84%,
+      transparent 100%
+    ) !important;
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 72%,
+      rgba(0,0,0,.65) 84%,
+      transparent 100%
+    ) !important;
+  }
+
+  /* CARDS DA HERO — AGORA OCUPAM A LARGURA TODA */
+  .hero-badges {
+    position: relative !important;
+    z-index: 14 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    margin: 74px 0 0 !important;
+  }
+
+  .hero-badge {
+    position: relative !important;
+    min-height: 126px !important;
+    padding: 16px 12px 14px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025)),
+      rgba(18,18,18,.94) !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+    box-shadow: 0 16px 34px rgba(0,0,0,.34) !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .hero-badge:nth-child(n+4) {
+    display: none !important;
+  }
+
+  .hero-badge::before {
+    display: block !important;
+    margin-bottom: 14px !important;
+    color: #ff7a00 !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+  }
+
+  .hero-badge:nth-child(1)::before {
+    content: "▭";
+  }
+
+  .hero-badge:nth-child(2)::before {
+    content: "</>";
+    font-size: 25px !important;
+    font-weight: 900 !important;
+  }
+
+  .hero-badge:nth-child(3)::before {
+    content: "◔";
+  }
+
+  .hero-badge:nth-child(1)::after {
+    content: "Sites\A profissionais\A\A Design moderno\A e alta conversão";
+  }
+
+  .hero-badge:nth-child(2)::after {
+    content: "Sistemas\A web\A\A Soluções completas\A e escaláveis";
+  }
+
+  .hero-badge:nth-child(3)::after {
+    content: "Automações\A WhatsApp\A\A Atendimento 24/7\A e mais vendas";
+  }
+
+  .hero-badge::after {
+    white-space: pre-line !important;
+    color: rgba(255,255,255,.74) !important;
+    font-size: 10.8px !important;
+    font-weight: 600 !important;
+    line-height: 1.32 !important;
+  }
+
+  /* PROJETOS — AJUSTE IGUAL AO MOCKUP */
+  #projetos {
+    padding-top: 36px !important;
+    background: #050505 !important;
+  }
+
+  #projetos .container {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  #projetos .section-head {
+    margin-bottom: 16px !important;
+  }
+
+  #projetos .eyebrow {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    letter-spacing: .3px !important;
+  }
+
+  #projetos .eyebrow::before {
+    content: "" !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background: #ff7a00 !important;
+    display: inline-block !important;
+  }
+
+  #projetos .section-title,
+  #projetos .section-lead {
+    display: none !important;
+  }
+
+  .projects-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .proj-card.featured {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 12px !important;
+    border-radius: 18px !important;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
+      rgba(8,8,8,.96) !important;
+    border: 1px solid rgba(255,122,0,.62) !important;
+    box-shadow:
+      0 18px 48px rgba(0,0,0,.55),
+      0 0 24px rgba(255,122,0,.10) !important;
+  }
+
+  .proj-card.featured .proj-media {
+    min-height: 188px !important;
+    height: 100% !important;
+    border-radius: 13px !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    overflow: hidden !important;
+  }
+
+  .proj-card.featured .proj-media img {
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  .proj-card.featured .proj-body {
+    padding: 2px 0 !important;
+  }
+
+  .proj-card.featured .proj-name {
+    color: #fff !important;
+    font-size: 20px !important;
+    line-height: 1.12 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .proj-card.featured .proj-desc {
+    color: rgba(255,255,255,.72) !important;
+    font-size: 12.5px !important;
+    line-height: 1.48 !important;
+    margin-bottom: 9px !important;
+  }
+
+  .proj-card.featured .proj-problem {
+    padding: 11px 12px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, rgba(255,122,0,.18), rgba(255,122,0,.05)) !important;
+    border: 1px solid rgba(255,122,0,.30) !important;
+    font-size: 11.5px !important;
+    line-height: 1.42 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .proj-card.featured .proj-tags {
+    gap: 6px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .proj-card.featured .proj-tags span {
+    padding: 5px 8px !important;
+    border-radius: 7px !important;
+    font-size: 9.5px !important;
+  }
+
+  .proj-card.featured .proj-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    min-height: 40px !important;
+    padding: 8px 8px !important;
+    border-radius: 10px !important;
+    font-size: 11px !important;
+  }
+
+  .proj-badge {
+    top: 11px !important;
+    left: 11px !important;
+    padding: 6px 10px !important;
+    border-radius: 8px !important;
+    font-size: 9.5px !important;
+  }
+
+  .proj-card:not(.featured) {
+    min-height: 176px !important;
+    border-radius: 14px !important;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)),
+      rgba(10,10,10,.96) !important;
+    border: 1px solid rgba(255,255,255,.12) !important;
+    overflow: hidden !important;
+  }
+
+  .proj-card:not(.featured) .proj-media {
+    aspect-ratio: 1.24 / .82 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255,255,255,.08) !important;
+  }
+
+  .proj-card:not(.featured) .proj-media img {
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  .proj-card:not(.featured) .proj-body {
+    padding: 10px !important;
+  }
+
+  .proj-card:not(.featured) .proj-name {
+    color: #fff !important;
+    font-size: 12.5px !important;
+    line-height: 1.18 !important;
+    margin-bottom: 3px !important;
+  }
+
+  .proj-card:not(.featured) .proj-desc {
+    color: rgba(255,255,255,.58) !important;
+    font-size: 10.5px !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+  }
+
+  .proj-card:not(.featured) .proj-problem,
+  .proj-card:not(.featured) .proj-tags,
+  .proj-card:not(.featured) .proj-actions {
+    display: none !important;
+  }
+}
+
+/* CELULAR PEQUENO — MANTÉM LAYOUT IGUAL, SEM EMPILHAR */
+@media (max-width: 380px) {
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .hero-text {
+    display: contents !important;
+  }
+
+  .hero-title {
+    max-width: 260px !important;
+    font-size: 30px !important;
+  }
+
+  .hero-sub {
+    max-width: 248px !important;
+    font-size: 13.3px !important;
+  }
+
+  .hero-photo {
+    top: 62px !important;
+    right: -102px !important;
+    width: 86% !important;
+  }
+
+  .hero-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    max-width: 335px !important;
+  }
+
+  .hero-actions .btn {
+    min-height: 46px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    font-size: 12px !important;
+  }
+
+  .hero-badges {
+    margin-top: 60px !important;
+    gap: 10px !important;
+  }
+
+  .hero-badge {
+    min-height: 118px !important;
+    padding: 13px 9px !important;
+  }
+
+  .hero-badge::after {
+    font-size: 10px !important;
+  }
+
+  .proj-card.featured {
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1fr) !important;
+  }
+}

@@ -779,11 +779,137 @@ img { max-width: 100%; display: block; }
     justify-content: center;
   }
 
-  .hero { padding: 128px 0 64px; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions .btn { text-align: center; }
-  .hero-photo { max-width: 260px; margin-bottom: 28px; }
-  .hero-photo-badge { padding: 8px 16px; }
+  /* ── HERO — composição estilo landing page ──────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 96px 0 48px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 78% 28%, rgba(255,122,0,.34), transparent 28%),
+      radial-gradient(circle at 86% 34%, rgba(255,106,0,.18), transparent 34%),
+      linear-gradient(180deg, #050505 0%, #090604 55%, #050505 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    display: block;
+    min-height: 620px;
+    text-align: left;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 3;
+    max-width: 68%;
+    margin: 0;
+    padding-top: 54px;
+    text-align: left;
+  }
+
+  .hero-photo {
+    position: absolute;
+    z-index: 2;
+    top: 18px;
+    right: -68px;
+    width: 76%;
+    max-width: none;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .hero-photo-frame {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+    aspect-ratio: auto;
+  }
+
+  .hero-photo-frame::after {
+    display: none;
+  }
+
+  .hero-photo-frame img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    object-fit: contain;
+    object-position: center top;
+    filter: saturate(1.08) contrast(1.08);
+  }
+
+  .hero-photo-badge {
+    display: none;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,122,0,.55);
+    border-radius: 999px;
+    padding: 7px 12px;
+    background: rgba(5,5,5,.45);
+    font-size: 10px;
+    letter-spacing: .8px;
+    margin-bottom: 18px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+    line-height: 1.12;
+    letter-spacing: -1.2px;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+
+  .hero-sub {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.74);
+    margin-bottom: 24px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 34px;
+  }
+  .hero-actions .btn {
+    padding: 13px 16px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .hero-badges {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    justify-content: stretch;
+    position: relative;
+    z-index: 4;
+    margin-top: 36px;
+  }
+  .hero-badges .hero-badge:nth-child(n+4) {
+    display: none;
+  }
+
+  .hero-badge {
+    border-radius: 14px;
+    padding: 14px 10px;
+    background: rgba(18,18,18,.82);
+    border: 1px solid rgba(255,255,255,.10);
+    color: #fff;
+    font-size: 11px;
+    line-height: 1.35;
+    white-space: normal;
+    box-shadow: none;
+  }
 
   .section { padding: 64px 0; }
   .services-grid { grid-template-columns: 1fr; }
@@ -801,4 +927,24 @@ img { max-width: 100%; display: block; }
     bottom: 16px; right: 16px;
   }
   .whatsapp-float-text { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVO — TELAS MUITO PEQUENAS (≤ 380px)
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 380px) {
+  .hero-text {
+    max-width: 72%;
+    padding-top: 44px;
+  }
+  .hero-title { font-size: 28px; }
+  .hero-photo {
+    width: 84%;
+    right: -78px;
+  }
+  .hero-badges { gap: 8px; }
+  .hero-badge {
+    padding: 12px 8px;
+    font-size: 10px;
+  }
 }

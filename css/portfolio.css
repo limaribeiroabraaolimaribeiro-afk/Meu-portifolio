@@ -373,7 +373,7 @@ img {
   z-index: 4;
   justify-self: end;
   width: min(480px, 100%);
-  margin-top: 10px;
+  margin-top: 1px;
 }
 
 .hero-photo::before {
@@ -931,7 +931,7 @@ img {
     gap: 16px;
     padding: 18px;
     border-radius: 18px;
-    background: rgba(10,10,10,.96);
+    background: transparent !important;
     border: 1px solid rgba(255,255,255,.10);
   }
 
@@ -4647,7 +4647,7 @@ img {
     z-index: 6 !important;
 
     /* sobe mais a foto */
-    top: 32px !important;
+    top: -70px !important;
 
     /* mantém ela na direita */
     right: -14px !important;
@@ -4764,8 +4764,8 @@ img {
   /* faixa de cima */
   .hero .eyebrow {
     margin-bottom: 14px !important;
-    padding: 6px 11px !important;
-    font-size: 8.6px !important;
+    padding: 6px 3px !important;
+    font-size: 10px !important;
     letter-spacing: .2px !important;
     line-height: 1 !important;
   }
@@ -4871,5 +4871,235 @@ img {
 
   .hero-badge::after {
     font-size: 8.9px !important;
+  }
+}
+
+/* FORÇA HEADER TRANSPARENTE NO MOBILE */
+@media (max-width: 720px) {
+  header.header,
+  .header,
+  body .header {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .header .container,
+  .header-inner {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .header::before,
+  .header::after,
+  .header-inner::before,
+  .header-inner::after {
+    display: none !important;
+    content: none !important;
+    background: transparent !important;
+  }
+
+  .nav-toggle {
+    background: rgba(5,5,5,.35) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}
+
+.texto-laranja {
+  background: linear-gradient(90deg, #ffb347, #ff7a00, #ff3d00) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+}
+
+@media (max-width: 720px) {
+  .hero .eyebrow {
+    position: relative !important;
+    top: -8px !important;
+    left: -6px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;      /* centraliza na vertical */
+    justify-content: center !important;  /* centraliza na horizontal */
+    gap: 5px !important;
+
+    padding: 5px 7px !important;
+    font-size: 6.7px !important;
+    line-height: 1 !important;
+    text-align: center !important;
+
+    max-width: max-content !important;
+    white-space: nowrap !important;
+  }
+
+  .hero .eyebrow::before {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-title {
+    max-width: 260px !important;
+    font-size: 20px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -1.1px !important;
+    font-weight: 12px !important;
+    margin-top: -12px !important; /* sobe o título */
+  }
+
+  .hero-title .linha-title {
+    display: block !important;
+  }
+
+  .hero-title .linha-nowrap {
+    white-space: nowrap !important;
+  }
+
+  .hero-title .grad-text {
+    display: inline !important;
+    background: linear-gradient(135deg, #ff9a2f, #ff6a00) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-sub {
+    max-width: 190px !important;  /* deixa o texto mais estreito e longe da imagem */
+    font-size: 10.5px !important; /* diminui o texto */
+    line-height: 1.35 !important; /* aproxima as linhas */
+    margin-bottom: 16px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-actions {
+    max-width: 210px !important; /* largura total dos dois botões */
+    display: grid !important;
+    grid-template-columns: 1.15fr .85fr !important; /* 1º maior, 2º menor */
+    gap: 10px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hero-actions .btn {
+    height: 32px !important;       /* diminui a altura */
+    min-height: 38px !important;
+    padding: 0 10px !important;
+    font-size: 10.8px !important;  /* diminui o texto */
+    border-radius: 10px !important;
+  }
+
+  /* Botão verde */
+  .hero-actions .btn:first-child {
+    width: 100% !important;
+  }
+
+  /* Botão Ver projetos */
+  .hero-actions .btn-outline {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-actions {
+    position: relative !important;
+    z-index: 30 !important;
+    width: 100% !important;
+    max-width: 214px !important;
+    display: grid !important;
+    grid-template-columns: 1.2fr .9fr !important;
+    gap: 8px !important;
+    margin: 0 0 18px !important;
+  }
+
+  .hero-actions .btn {
+    width: 100% !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 8px !important;
+    border-radius: 10px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+
+    font-size: 9.6px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  /* Botão WhatsApp — verde escuro */
+  .hero-actions .btn-whatsapp,
+  .hero-actions a.btn-whatsapp,
+  .hero-actions a.whatsapp-link,
+  .hero-actions a.btn.btn-whatsapp,
+  .hero-actions a.btn.btn-whatsapp.whatsapp-link,
+  .hero-actions a:first-child {
+    background: #16743f !important;
+    background-color: #16743f !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 8px 18px rgba(22, 116, 63, .35) !important;
+  }
+
+  .hero-actions .btn-whatsapp:hover,
+  .hero-actions a.btn-whatsapp:hover,
+  .hero-actions a.whatsapp-link:hover,
+  .hero-actions a:first-child:hover {
+    background: #16743f !important;
+    background-color: #16743f !important;
+    background-image: none !important;
+    color: #ffffff !important;
+  }
+
+  /* Botão Ver projetos */
+  .hero-actions .btn-outline {
+    background: rgba(8, 8, 8, .75) !important;
+    background-image: none !important;
+    color: #fff !important;
+    border: 1px solid #ff7a00 !important;
+    box-shadow: 0 0 15px rgba(255, 122, 0, .18) !important;
+  }
+
+  .hero-actions .wa-icon {
+    width: 13px !important;
+    height: 13px !important;
+    min-width: 13px !important;
+    max-width: 13px !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+  .hero-actions .btn-whatsapp span {
+    line-height: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  .hero-actions .cor {
+    color: #ff7a00 !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    margin-left: 2px !important;
   }
 }

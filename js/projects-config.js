@@ -51,8 +51,7 @@ const PROJECTS = [
     nome: "Controle de Gastos PRO",
     icone: "📊",
     subtitulo: "Sistema de gestão financeira",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/controle-gastos-pro.png",
+    imagem: null,
     descricao: "PWA para controle financeiro com gráficos, histórico de lançamentos, categorias personalizadas, simulações e recursos inteligentes.",
     problema: "Ajuda pessoas e pequenos negócios a enxergarem para onde o dinheiro está indo e planejarem com mais segurança.",
     tags: ["Node.js", "API REST", "PWA"],
@@ -65,8 +64,7 @@ const PROJECTS = [
     nome: "Funcionário de IA / Automação WhatsApp",
     icone: "🤖",
     subtitulo: "Automação WhatsApp",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/funcionario-ia.png",
+    imagem: null,
     descricao: "Automação inteligente para atendimento no WhatsApp: capta clientes, responde dúvidas automaticamente e organiza as conversas.",
     problema: "Pensado para negócios que perdem vendas por demora no atendimento — a IA responde 24h, mesmo fora do horário comercial.",
     tags: ["Inteligência Artificial", "WhatsApp API", "Automação", "n8n"],
@@ -107,8 +105,7 @@ const PROJECTS = [
     nome: "Vitrinefy",
     icone: "🏬",
     subtitulo: "Vitrine digital",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/vitrinefy.png",
+    imagem: null,
     descricao: "Vitrine digital multi-loja para apresentar produtos com visual atrativo e facilitar o contato direto com o cliente pelo WhatsApp.",
     problema: "Indicado para quem precisa expor o catálogo online rapidamente, sem o custo de uma loja virtual completa.",
     tags: ["HTML", "CSS", "JavaScript", "Vitrine Online"],
@@ -122,8 +119,7 @@ const PROJECTS = [
     nome: "TrufasPay",
     icone: "🍫",
     subtitulo: "Controle de cobranças",
-    // TODO: SUBSTITUIR_IMAGEM_AQUI
-    imagem: "img/projects/trufaspay.png",
+    imagem: null,
     descricao: "PWA para controle de vendas fiadas, com fila de cobrança e disparo automático de mensagens via WhatsApp.",
     problema: "Reduz a inadimplência de pequenos negócios, organizando quem deve, quanto deve e quando cobrar.",
     tags: ["PWA", "JavaScript", "WhatsApp"],

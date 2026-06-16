@@ -47,7 +47,7 @@ try {
           ${badge}
           <div class="proj-media">
             <span class="proj-media-icon">${p.icone || '💻'}</span>
-            <img src="${p.imagem}" alt="Preview do projeto ${p.nome}" loading="lazy" onerror="this.remove()">
+            ${p.imagem ? `<img src="${p.imagem}" alt="Preview do projeto ${p.nome}" loading="lazy" onerror="this.style.display='none'">` : ''}
           </div>
           <div class="proj-body">
             <h3 class="proj-name">${p.nome}</h3>

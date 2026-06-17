@@ -5604,7 +5604,7 @@ img {
     grid-row: 2 !important;
 
     display: block !important;
-    margin-top: 8px !important;
+    margin-top: 25px !important;
 
     color: rgba(255,255,255,.50) !important;
     font-size: 6.4px !important;
@@ -5641,3 +5641,280 @@ img {
     margin-top: 6px !important;
   }
 }
+
+@media (max-width: 720px) {
+  .hero-badges {
+    width: 100% !important;          /* diminui a largura total dos 3 cards */
+    max-width: 390px !important;    /* controla o tamanho máximo */
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 7px !important;
+    margin: 8px 0 0 !important;
+  }
+
+  .hero-badge {
+    height: 108px !important;        /* diminui a altura */
+    min-height: 66px !important;
+    padding: 13px 9px !important;    /* diminui o espaço interno */
+    border-radius: 9px !important;
+
+    grid-template-columns: 28px 1fr !important;
+    column-gap: 6px !important;
+  }
+
+  .hero-badge-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .hero-badge strong {
+    font-size: 7.6px !important;
+    line-height: 1.05 !important;
+  }
+
+  .hero-badge > span {
+    font-size: 6px !important;
+    line-height: 1.1 !important;
+    margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-badges {
+    width: 100% !important;
+    max-width: none !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 14px !important;
+  }
+
+  .hero-badge {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-badges {
+    width: calc(100vw - 88px) !important; /* distância total das laterais */
+    max-width: none !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+
+    margin: 14px auto 0 auto !important; /* centraliza esquerda/direita */
+  }
+}
+
+@media (max-width: 720px) {
+  .hero .eyebrow,
+  .hero-title,
+  .hero-sub,
+  .hero-actions {
+    margin-left: 22px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-photo {
+    right: -30px !important; /* move a imagem para a direita */
+  }
+}
+
+/* =========================================================
+   AJUSTE FINAL — CONTEÚDO DOS CARDS HERO MOBILE
+   Mantém tamanho dos cards e ajusta só ícone/textos
+   ========================================================= */
+
+@media (max-width: 720px) {
+  /* Mantém os cards no tamanho atual, ajusta só o conteúdo interno */
+  .hero-badge {
+    display: grid !important;
+    grid-template-columns: 34px 1fr !important; /* espaço do ícone maior */
+    grid-template-rows: auto auto !important;
+    column-gap: 7px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Aumenta os emojis/ícones */
+  .hero-badge-icon {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+    margin-top: 0 !important;
+    object-fit: contain !important;
+  }
+
+  /* Faz o bloco de texto ocupar o espaço certo */
+  .hero-badge-text {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    min-width: 0 !important;
+    grid-column: 2 !important;
+    grid-row: 1 / 3 !important;
+  }
+
+  /* Texto branco */
+  .hero-badge-text strong,
+  .hero-badge strong {
+    color: #ffffff !important;
+    font-size: 8.4px !important;
+    font-weight: 900 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.25px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    white-space: normal !important;
+  }
+
+  .hero-badge-text strong span,
+  .hero-badge strong span {
+    display: block !important;
+    color: #ffffff !important;
+    font-size: 8.4px !important;
+    font-weight: 900 !important;
+    line-height: 1.05 !important;
+    margin: 0 !important;
+  }
+
+  /* Texto cinza mais abaixo */
+  .hero-badge-text > span,
+  .hero-badge-desc,
+  .hero-badge > span {
+    color: rgba(255, 255, 255, .52) !important;
+    font-size: 6.1px !important;
+    font-weight: 600 !important;
+    line-height: 1.12 !important;
+    margin-top: 12px !important; /* distância entre branco e cinza */
+    display: block !important;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Texto branco dos cards */
+  .hero-badge-text strong,
+  .hero-badge strong,
+  .hero-badge-text strong span,
+  .hero-badge strong span {
+    font-size: 9.2px !important;
+    line-height: 1.05 !important;
+    font-weight: 900 !important;
+  }
+
+  /* Texto cinza dos cards */
+  .hero-badge-text > span,
+  .hero-badge-desc,
+  .hero-badge > span {
+    font-size: 7.8px !important;
+    line-height: 1.15 !important;
+    font-weight: 600 !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-badge-text strong,
+  .hero-badge strong,
+  .hero-badge-text strong span,
+  .hero-badge strong span {
+    transform: translateY(3px) !important; /* desce as palavras brancas */
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-badges {
+    margin-top: 28px !important; /* aumenta a distância dos botões */
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-badge {
+    height: 94px !important;
+    min-height: 94px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .logo {
+    margin-left: 22px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Diminui o espaço depois dos cards da hero */
+  .hero {
+    padding-bottom: 8px !important;
+  }
+
+  /* Diminui a altura vazia da hero */
+  .hero-inner {
+    min-height: 560px !important;
+  }
+
+  /* Sobe o título PROJETOS DESENVOLVIDOS */
+  #projetos {
+    padding-top: 8px !important;
+  }
+
+  #projetos .section-head {
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  #projetos {
+    margin-top: -180px !important; /* sobe a seção */
+    padding-top: 0 !important;
+    position: relative !important;
+    z-index: 30 !important;
+  }
+
+  #projetos .section-head {
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+/* =========================================================
+   ALINHAMENTO FINAL — HERO CARDS E PROJETOS NA MESMA LARGURA
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .hero-badges,
+  #projetos .container {
+    width: calc(100vw - 88px) !important;
+    max-width: none !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #projetos {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #projetos .section-head,
+  #projetos .projects-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+

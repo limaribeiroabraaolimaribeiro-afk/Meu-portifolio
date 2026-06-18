@@ -34,21 +34,42 @@ try {
       const tags = p.tags.map(t => `<span>${t}</span>`).join('');
 
       const prodBtn = p.urlProd
-        ? `<a class="btn btn-primary btn-sm" href="${p.urlProd}" target="_blank" rel="noopener">Ver projeto</a>`
+        ? `<a class="btn btn-primary btn-sm" href="${p.urlProd}" target="_blank" rel="noopener">Ver projeto ${p.destaque ? '<span class="btn-arrow">&gt;</span>' : ''}</a>`
         : `<span class="btn btn-primary btn-sm btn-disabled">Ver projeto</span>`;
 
       const similarMsg = encodeURIComponent(`Olá! Vi o projeto "${p.nome}" no seu portfólio e quero algo parecido para o meu negócio.`);
-      const similarBtn = `<a class="btn btn-outline btn-sm" href="${baseUrl}?text=${similarMsg}" target="_blank" rel="noopener">Falar sobre algo parecido</a>`;
+      const similarLabel = p.destaque ? 'Ver detalhes' : 'Falar sobre algo parecido';
+      const similarBtn = `<a class="btn btn-outline btn-sm" href="${baseUrl}?text=${similarMsg}" target="_blank" rel="noopener">${similarLabel}</a>`;
 
       const desc = p.destaque ? p.descricao : (p.subtitulo || p.descricao);
 
-      return `
-        <div class="${cardClass}">
-          ${badge}
-          <div class="proj-media">
+      const techPills = p.destaque
+        ? `<div class="proj-tech-under">${p.tags.slice(0, 3).map(t => {
+            const key = t.toLowerCase();
+            const cls = key === 'html' ? 'tech-html' : key === 'css' ? 'tech-css' : key.includes('javascript') ? 'tech-js' : '';
+            return `<span class="tech-pill ${cls}">${t}</span>`;
+          }).join('')}</div>`
+        : '';
+
+      const mediaBlock = p.destaque
+        ? `<div class="proj-media">
+            ${badge}
             <span class="proj-media-icon">${p.icone || '💻'}</span>
             ${p.imagem ? `<img src="${p.imagem}" alt="Preview do projeto ${p.nome}" loading="lazy" onerror="this.style.display='none'">` : ''}
-          </div>
+          </div>`
+        : `<div class="proj-media">
+            <span class="proj-media-icon">${p.icone || '💻'}</span>
+            ${p.imagem ? `<img src="${p.imagem}" alt="Preview do projeto ${p.nome}" loading="lazy" onerror="this.style.display='none'">` : ''}
+          </div>`;
+
+      const leftCol = p.destaque
+        ? `<div class="proj-featured-left">${mediaBlock}${techPills}</div>`
+        : mediaBlock;
+
+      return `
+        <div class="${cardClass}">
+          ${p.destaque ? '' : badge}
+          ${leftCol}
           <div class="proj-body">
             <h3 class="proj-name">${p.nome}</h3>
             <p class="proj-desc">${desc}</p>

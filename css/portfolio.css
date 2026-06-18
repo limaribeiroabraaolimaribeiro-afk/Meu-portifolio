@@ -6030,7 +6030,7 @@ img {
 
   /* PROJETOS */
   #projetos {
-    margin-top: -172px !important;
+    margin-top: -190px !important;
     padding-top: 0 !important;
   }
 
@@ -6696,5 +6696,444 @@ img {
   .proj-card:not(.featured) .proj-media {
     height: 62px !important;
     min-height: 62px !important;
+  }
+}
+
+/* =========================================================
+   ALINHAMENTO FINAL — MARGEM ÚNICA PARA TUDO NO MOBILE
+   ESTE BLOCO TEM QUE SER O ÚLTIMO DO CSS
+   ========================================================= */
+
+@media (max-width: 430px) {
+  :root {
+    --top-x: 6px;
+    --section-x: 16px;
+    --section-w: calc(100vw - 32px);
+  }
+
+  .logo,
+  .hero .eyebrow,
+  .hero-title,
+  .hero-sub,
+  .hero-actions {
+    margin-left: var(--top-x) !important;
+  }
+
+  .hero-badges {
+    width: var(--section-w) !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: none !important;
+  }
+
+  #projetos {
+    margin-top: -205px !important;
+  }
+
+  #projetos .container {
+    width: var(--section-w) !important;
+    max-width: none !important;
+    margin-left: var(--section-x) !important;
+    margin-right: var(--section-x) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    transform: none !important;
+  }
+
+  #projetos .section-head,
+  #projetos .projects-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .proj-card.featured {
+    display: grid !important;
+    grid-template-columns: .95fr 1fr !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    align-items: start !important;
+  }
+
+  .proj-featured-left {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .proj-card.featured .proj-media {
+    width: 100% !important;
+    min-height: 132px !important;
+    height: 132px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+
+  .proj-card.featured .proj-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 8px !important;
+    transform: none !important;
+  }
+
+  .proj-tech-under {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    margin-top: 12px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow: visible !important;
+  }
+
+  .tech-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 12px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    color: #fff !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+    flex: 0 0 auto !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.12),
+      0 6px 12px rgba(0,0,0,.32) !important;
+  }
+
+  .tech-html {
+    background: linear-gradient(135deg, #7b1f0c 0%, #a43a16 55%, #4d1307 100%) !important;
+  }
+
+  .tech-css {
+    background: linear-gradient(135deg, #06376f 0%, #0d5aa8 55%, #05224a 100%) !important;
+  }
+
+  .tech-js {
+    background: linear-gradient(135deg, #6a4a05 0%, #9b7612 55%, #3f2b02 100%) !important;
+  }
+
+  .proj-card.featured .proj-tags {
+    display: none !important;
+  }
+
+  .proj-card.featured .proj-name {
+    font-size: 14px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .proj-card.featured .proj-desc {
+    font-size: 9.4px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .proj-card.featured .proj-problem {
+    padding: 6px 7px !important;
+    font-size: 8.7px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    height: 28px !important;
+    min-height: 28px !important;
+    font-size: 8.3px !important;
+  }
+}
+
+/* IMAGEM + BADGE DO CARD DESTAQUE — MOBILE */
+@media (max-width: 720px) {
+  .proj-card.featured .proj-media {
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    border: 1.5px solid #ff7a00 !important;
+    border-radius: 16px !important;
+    background: #0b0b0b !important;
+  }
+
+  .proj-card.featured .proj-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+    border-radius: 0 !important;
+    transform: none !important;
+  }
+
+  .proj-card.featured .proj-badge {
+    position: absolute !important;
+    top: 9px !important;
+    left: 9px !important;
+    z-index: 5 !important;
+    background: linear-gradient(135deg, #ff8a2a, #ff6800) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 9px !important;
+    padding: 6px 11px !important;
+    font-size: 9.5px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: .3px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 4px 12px rgba(255,106,0,.35) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .proj-tech-under {
+    gap: 6px !important;
+  }
+
+  .tech-pill {
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 0 9px !important;
+    font-size: 9px !important;
+  }
+
+  .proj-card.featured .proj-media {
+    aspect-ratio: 1 / 0.95 !important;
+    border-radius: 14px !important;
+  }
+
+  .proj-card.featured .proj-badge {
+    top: 7px !important;
+    left: 7px !important;
+    padding: 5px 9px !important;
+    font-size: 8.5px !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* CORREÇÃO: PROJETOS + BOTÕES DO CARD DESTAQUE — MOBILE */
+@media (max-width: 720px) {
+  #projetos {
+    margin-top: -195px !important;
+    padding-top: 6px !important;
+    position: relative !important;
+    z-index: 30 !important;
+  }
+
+  #projetos .section-head {
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .proj-card.featured {
+    overflow: hidden !important;
+    min-height: auto !important;
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+
+  .proj-card.featured .proj-body {
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .proj-card.featured .proj-media {
+    width: 96% !important;
+    min-height: 178px !important;
+    height: 178px !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .proj-card.featured .proj-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .proj-card.featured .proj-body > .proj-tags {
+    display: none !important;
+  }
+
+  .proj-card.featured .proj-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14px 0 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 11px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    text-decoration: none !important;
+    gap: 5px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn:first-child {
+    background: linear-gradient(180deg, #ff9a3d 0%, #ff7a00 45%, #ff5a00 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 10px 24px rgba(255,122,0,.32) !important;
+  }
+
+  .proj-card.featured .proj-actions .btn:last-child {
+    background: rgba(10,10,10,.92) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,122,0,.65) !important;
+    box-shadow: none !important;
+  }
+
+  .proj-card.featured .proj-actions .btn svg {
+    width: 12px !important;
+    height: 12px !important;
+    flex: 0 0 12px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #projetos {
+    margin-top: -185px !important;
+    padding-top: 6px !important;
+  }
+
+  .proj-card.featured .proj-media {
+    height: 168px !important;
+    min-height: 168px !important;
+  }
+
+  .proj-card.featured .proj-actions {
+    gap: 6px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 8px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* AJUSTE FINO: TAGS MENORES + BOTÕES MAIORES */
+@media (max-width: 720px) {
+  .tech-pill {
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 0 10px !important;
+    font-size: 9.8px !important;
+    border-radius: 7px !important;
+  }
+
+  .proj-tech-under {
+    gap: 6px !important;
+  }
+
+  .proj-card.featured .proj-actions {
+    grid-template-columns: 1.12fr 1fr !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 12px !important;
+    border-radius: 9px !important;
+    font-size: 11.2px !important;
+    font-weight: 900 !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .tech-pill {
+    height: 26px !important;
+    min-height: 26px !important;
+    padding: 0 8px !important;
+    font-size: 9px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    height: 32px !important;
+    min-height: 32px !important;
+    font-size: 10.5px !important;
+    padding: 0 9px !important;
+  }
+}
+
+/* AJUSTE FINO FINAL: BOTÕES MAIS BAIXOS + SETA ">" */
+@media (max-width: 720px) {
+  .proj-card.featured .proj-actions {
+    margin-top: 12px !important;
+    align-items: center !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 10px !important;
+    border-radius: 9px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    font-size: 10.4px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    overflow: hidden !important;
+  }
+
+  .proj-card.featured .proj-actions .btn .btn-arrow {
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    margin-left: 2px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .proj-card.featured .proj-actions {
+    margin-top: 10px !important;
+    gap: 7px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 8px !important;
+    font-size: 9.8px !important;
   }
 }

@@ -85,19 +85,153 @@ try {
   console.error('Falha ao renderizar projetos:', err);
 }
 
-// ── MENU MOBILE ─────────────────────────────────────────────────
+// ── MENU MOBILE — OVERLAY PREMIUM ───────────────────────────────
 try {
   const header = document.getElementById('header');
   const toggle = document.getElementById('navToggle');
 
   if (header && toggle) {
+    const waBase = `https://wa.me/${WHATSAPP_NUMBER}`;
+    const waUrl = `${waBase}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'mob-menu';
+    overlay.innerHTML = `
+      <div class="mob-menu__bg"></div>
+      <div class="mob-menu__scroll">
+        <header class="mob-menu__top">
+          <a href="#inicio" class="mob-menu__logo">Abraão<span>.dev</span></a>
+          <button class="mob-menu__close" aria-label="Fechar menu">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="2" y1="2" x2="20" y2="20"/><line x1="20" y1="2" x2="2" y2="20"/></svg>
+          </button>
+        </header>
+
+        <section class="mob-menu__hero">
+          <h2 class="mob-menu__title">Vamos transformar<br><span>sua presença digital</span></h2>
+          <p class="mob-menu__sub">Sites, sistemas e automações que geram <strong>resultados reais</strong> para o seu negócio.</p>
+          <div class="mob-menu__ctas">
+            <a href="${waUrl}" class="mob-menu__btn mob-menu__btn--wa" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="#fff"><path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.39.7 4.617 1.91 6.49L4 29l7.69-1.86A11.93 11.93 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm5.6 16.471c-.307-.154-1.815-.896-2.097-.998-.281-.103-.486-.154-.69.154-.205.307-.793.997-.972 1.203-.179.205-.358.23-.665.077-.307-.154-1.295-.477-2.466-1.523-.911-.812-1.527-1.815-1.706-2.122-.179-.307-.019-.473.135-.626.139-.138.307-.358.46-.538.154-.179.205-.307.307-.512.103-.205.051-.384-.026-.538-.077-.154-.69-1.663-.945-2.278-.249-.598-.502-.517-.69-.527l-.588-.01c-.205 0-.538.077-.819.384-.281.307-1.073 1.05-1.073 2.56 0 1.51 1.099 2.97 1.252 3.175.154.205 2.163 3.302 5.24 4.632.732.316 1.303.505 1.748.646.734.234 1.402.2 1.93.121.589-.088 1.815-.742 2.071-1.459.256-.717.256-1.331.179-1.459-.077-.128-.281-.205-.588-.358Z"/></svg>
+              Falar no WhatsApp
+            </a>
+            <a href="#projetos" class="mob-menu__btn mob-menu__btn--outline mob-menu__nav-link">Ver portfólio &gt;</a>
+          </div>
+        </section>
+
+        <nav class="mob-menu__nav">
+          <a href="#inicio" class="mob-menu__item mob-menu__item--active mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+            <span class="mob-menu__label">Início</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+          <a href="#servicos" class="mob-menu__item mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+            <span class="mob-menu__label">Serviços</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+          <a href="#projetos" class="mob-menu__item mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+            <span class="mob-menu__label">Portfólio</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+          <a href="#projetos" class="mob-menu__item mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+            <span class="mob-menu__label">Projetos em destaque</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+          <a href="#sobre" class="mob-menu__item mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span class="mob-menu__label">Sobre mim</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+          <a href="#depoimentos" class="mob-menu__item mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <span class="mob-menu__label">Depoimentos</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+          <a href="#contato" class="mob-menu__item mob-menu__nav-link">
+            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+            <span class="mob-menu__label">Contato</span>
+            <span class="mob-menu__arrow">&gt;</span>
+          </a>
+        </nav>
+
+        <section class="mob-menu__specs">
+          <h3 class="mob-menu__specs-title"><span class="mob-menu__specs-bolt">&#9889;</span> MINHAS <span>ESPECIALIDADES</span></h3>
+          <div class="mob-menu__specs-grid">
+            <div class="mob-menu__spec">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <strong>Sites Profissionais</strong>
+              <span>Design moderno e alta conversão.</span>
+            </div>
+            <div class="mob-menu__spec">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+              <strong>Sistemas Web</strong>
+              <span>Soluções completas e escaláveis.</span>
+            </div>
+            <div class="mob-menu__spec">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <strong>Automações WhatsApp</strong>
+              <span>Atendimento 24/7 e mais vendas.</span>
+            </div>
+            <div class="mob-menu__spec">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+              <strong>Landing Pages</strong>
+              <span>Páginas que vendem e geram leads.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="mob-menu__footer">
+          <div class="mob-menu__footer-left">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <div>
+              <strong>Tecnologia, estratégia e automação</strong>
+              <span>para impulsionar o crescimento do seu negócio.</span>
+            </div>
+          </div>
+          <div class="mob-menu__stats">
+            <div class="mob-menu__stat">
+              <strong>+20</strong><span>Projetos entregues</span>
+            </div>
+            <div class="mob-menu__stat">
+              <strong>+15</strong><span>Clientes satisfeitos</span>
+            </div>
+            <div class="mob-menu__stat">
+              <strong>100%</strong><span>Foco em resultados</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    function openMenu() {
+      overlay.classList.add('active');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeMenu() {
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      header.classList.remove('open');
+    }
+
     toggle.addEventListener('click', () => {
-      header.classList.toggle('open');
+      if (overlay.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    header.querySelectorAll('.nav a').forEach(link => {
-      link.addEventListener('click', () => header.classList.remove('open'));
+    overlay.querySelector('.mob-menu__close').addEventListener('click', closeMenu);
+
+    overlay.querySelectorAll('.mob-menu__nav-link').forEach(link => {
+      link.addEventListener('click', () => closeMenu());
     });
+
+    overlay.querySelector('.mob-menu__logo').addEventListener('click', () => closeMenu());
   }
 } catch (err) {
   console.error('Falha ao configurar o menu mobile:', err);

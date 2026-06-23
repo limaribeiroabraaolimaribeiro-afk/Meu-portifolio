@@ -430,7 +430,9 @@ img {
 .hero-badge {
   min-height: 118px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
   padding: 20px;
   border-radius: 18px;
   background:
@@ -445,22 +447,26 @@ img {
   backdrop-filter: blur(10px);
 }
 
-.hero-badge:nth-child(1)::before,
-.hero-badge:nth-child(2)::before,
-.hero-badge:nth-child(3)::before {
-  position: absolute;
+.hero-badge-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
 }
 
-.hero-badge:nth-child(1)::after {
-  content: "Sites profissionais";
+.hero-badge strong {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: #fff;
+  word-break: normal;
+  white-space: normal;
 }
 
-.hero-badge:nth-child(2)::after {
-  content: "Sistemas web";
-}
-
-.hero-badge:nth-child(3)::after {
-  content: "Automações WhatsApp";
+.hero-badge-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,.58);
+  line-height: 1.45;
 }
 
 .hero-badge:nth-child(n+4) {

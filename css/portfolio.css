@@ -9691,56 +9691,56 @@ img {
 @media (max-width: 720px) {
   .proj-card.featured .proj-actions {
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 7px !important;
+    grid-template-columns: .8fr 1.2fr !important;
+    gap: 6px !important;
     margin-top: 12px !important;
   }
 
   .proj-card.featured .proj-actions .btn {
     width: 100% !important;
     min-width: 0 !important;
-    height: 36px !important;
-    min-height: 36px !important;
-    padding: 0 8px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 6px !important;
     border-radius: 9px !important;
-    font-size: 9.4px !important;
-    font-weight: 900 !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
     line-height: 1 !important;
-    letter-spacing: .1px !important;
+    letter-spacing: 0 !important;
     white-space: nowrap !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    text-transform: none !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 3px !important;
-    text-align: center !important;
   }
 
   .proj-card.featured .proj-actions .btn:first-child {
     background: linear-gradient(180deg, #ff9a3d 0%, #ff7a00 45%, #ff5a00 100%) !important;
     color: #fff !important;
     border: none !important;
-    box-shadow: 0 8px 20px rgba(255,122,0,.28) !important;
+    box-shadow: 0 6px 16px rgba(255,122,0,.25) !important;
   }
 
   .proj-card.featured .proj-actions .btn:last-child {
     background:
-      linear-gradient(135deg, rgba(255,122,0,.12), rgba(255,122,0,.03)),
+      linear-gradient(135deg, rgba(255,122,0,.10), rgba(255,122,0,.02)),
       rgba(8,8,8,.95) !important;
     color: #fff !important;
-    border: 1.5px solid rgba(255,122,0,.65) !important;
-    box-shadow: 0 0 14px rgba(255,122,0,.10), 0 4px 12px rgba(0,0,0,.22) !important;
-    text-transform: uppercase !important;
+    border: 1px solid rgba(255,122,0,.60) !important;
+    box-shadow: 0 0 12px rgba(255,122,0,.08) !important;
+    text-transform: none !important;
   }
 }
 
 @media (max-width: 390px) {
   .proj-card.featured .proj-actions .btn {
-    height: 34px !important;
-    min-height: 34px !important;
-    font-size: 8.6px !important;
-    padding: 0 6px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    font-size: 8.2px !important;
+    padding: 0 5px !important;
   }
 }
 
@@ -9749,18 +9749,18 @@ img {
     min-height: 44px;
     padding: 10px 24px;
     font-size: 14px;
-    font-weight: 900;
-    letter-spacing: .3px;
-    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: none;
     border-radius: 12px;
     background:
-      linear-gradient(135deg, rgba(255,122,0,.12), rgba(255,122,0,.03)),
+      linear-gradient(135deg, rgba(255,122,0,.10), rgba(255,122,0,.02)),
       rgba(8,8,8,.92);
     color: #fff;
-    border: 1.5px solid rgba(255,122,0,.65);
+    border: 1.5px solid rgba(255,122,0,.60);
     box-shadow:
-      0 0 20px rgba(255,122,0,.12),
-      0 6px 18px rgba(0,0,0,.25);
+      0 0 18px rgba(255,122,0,.10),
+      0 6px 16px rgba(0,0,0,.22);
     white-space: nowrap;
     transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
   }
@@ -9768,10 +9768,10 @@ img {
   .proj-card.featured .proj-actions .btn:last-child:hover {
     border-color: var(--orange);
     background:
-      linear-gradient(135deg, rgba(255,122,0,.18), rgba(255,122,0,.05)),
+      linear-gradient(135deg, rgba(255,122,0,.16), rgba(255,122,0,.04)),
       rgba(8,8,8,.95);
     box-shadow:
-      0 0 28px rgba(255,122,0,.22),
-      0 8px 24px rgba(0,0,0,.30);
+      0 0 26px rgba(255,122,0,.20),
+      0 8px 22px rgba(0,0,0,.28);
   }
 }

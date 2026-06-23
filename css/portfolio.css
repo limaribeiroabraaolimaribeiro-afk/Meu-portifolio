@@ -9626,55 +9626,61 @@ img {
 
 .ai-budget-section {
   padding: 0;
-  background: #050505;
-  border-top: 1px solid rgba(255,255,255,.04);
-  border-bottom: 1px solid rgba(255,255,255,.04);
+  background:
+    linear-gradient(90deg, rgba(255,122,0,.06), transparent 20%, transparent 80%, rgba(255,122,0,.06)),
+    #050505;
+  border-top: 1px solid rgba(255,122,0,.18);
+  border-bottom: 1px solid rgba(255,122,0,.18);
   overflow: hidden;
 }
 
 .ai-marquee {
   width: 100%;
   overflow: hidden;
-  padding: 18px 0;
+  padding: 26px 0;
 }
 
 .ai-marquee-track {
   display: inline-flex;
-  gap: 80px;
+  gap: 100px;
   white-space: nowrap;
-  animation: marqueeScroll 18s linear infinite;
+  animation: marqueeScroll 22s linear infinite;
   will-change: transform;
 }
 
 .ai-marquee-track > span {
   display: inline-block;
-  padding-right: 80px;
-  color: rgba(255,255,255,.52);
+  padding-right: 100px;
+  color: rgba(255,255,255,.78);
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: .2px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.2px;
   line-height: 1;
+  text-transform: none;
 }
 
 .ai-marquee-track strong {
   color: var(--orange);
-  font-weight: 800;
+  font-weight: 900;
+  text-shadow: 0 0 28px rgba(255,122,0,.30);
 }
 
 @media (max-width: 720px) {
   .ai-marquee {
-    padding: 14px 0;
+    padding: 20px 0;
   }
 
   .ai-marquee-track > span {
-    font-size: 12.5px;
-    padding-right: 60px;
+    font-size: 15px;
+    font-weight: 800;
+    padding-right: 70px;
+    color: rgba(255,255,255,.74);
   }
 
   .ai-marquee-track {
-    gap: 60px;
-    animation-duration: 14s;
+    gap: 70px;
+    animation-duration: 16s;
   }
 }
 
@@ -9685,47 +9691,75 @@ img {
 @media (max-width: 720px) {
   .proj-card.featured .proj-actions .btn:last-child {
     font-size: 10px !important;
-    padding: 0 12px !important;
+    padding: 0 14px !important;
     min-height: 34px !important;
     height: 34px !important;
-    border-radius: 9px !important;
-    background: rgba(10,10,10,.92) !important;
+    border-radius: 10px !important;
+    background:
+      linear-gradient(135deg, rgba(255,122,0,.14), rgba(255,122,0,.04)),
+      rgba(8,8,8,.95) !important;
     color: #fff !important;
-    border: 1px solid rgba(255,122,0,.65) !important;
-    box-shadow: none !important;
+    border: 1.5px solid rgba(255,122,0,.72) !important;
+    box-shadow: 0 0 16px rgba(255,122,0,.12), 0 6px 16px rgba(0,0,0,.25) !important;
     white-space: nowrap !important;
     overflow: visible !important;
     text-overflow: unset !important;
-    letter-spacing: 0 !important;
+    letter-spacing: .3px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+  }
+
+  .proj-card.featured .proj-actions .btn:first-child {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    font-size: 10px !important;
+    padding: 0 12px !important;
+    letter-spacing: .2px !important;
   }
 }
 
 @media (max-width: 390px) {
   .proj-card.featured .proj-actions .btn:last-child {
-    font-size: 9.2px !important;
-    padding: 0 10px !important;
+    font-size: 9px !important;
+    padding: 0 11px !important;
     min-height: 32px !important;
     height: 32px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn:first-child {
+    font-size: 9px !important;
+    padding: 0 10px !important;
   }
 }
 
 @media (min-width: 721px) {
   .proj-card.featured .proj-actions .btn:last-child {
-    min-height: 44px;
-    padding: 10px 22px;
+    min-height: 46px;
+    padding: 12px 28px;
     font-size: 14px;
-    font-weight: 800;
-    border-radius: 12px;
-    background: rgba(10,10,10,.88);
+    font-weight: 900;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    border-radius: 13px;
+    background:
+      linear-gradient(135deg, rgba(255,122,0,.12), rgba(255,122,0,.03)),
+      rgba(8,8,8,.92);
     color: #fff;
-    border: 1px solid rgba(255,122,0,.60);
-    box-shadow: none;
+    border: 1.5px solid rgba(255,122,0,.68);
+    box-shadow:
+      0 0 22px rgba(255,122,0,.14),
+      0 8px 22px rgba(0,0,0,.28);
     white-space: nowrap;
-    transition: border-color .2s ease, background .2s ease;
+    transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
   }
 
   .proj-card.featured .proj-actions .btn:last-child:hover {
     border-color: var(--orange);
-    background: rgba(255,122,0,.08);
+    background:
+      linear-gradient(135deg, rgba(255,122,0,.20), rgba(255,122,0,.06)),
+      rgba(8,8,8,.95);
+    box-shadow:
+      0 0 32px rgba(255,122,0,.24),
+      0 10px 28px rgba(0,0,0,.32);
   }
 }

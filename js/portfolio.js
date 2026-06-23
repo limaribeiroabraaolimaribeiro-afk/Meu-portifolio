@@ -39,7 +39,7 @@ try {
         : `<span class="btn btn-primary btn-sm btn-disabled">Ver projeto</span>`;
 
       const similarMsg = encodeURIComponent(`Olá! Vi o projeto "${p.nome}" no seu portfólio e quero algo parecido para o meu negócio.`);
-      const similarLabel = p.destaque ? 'Ver detalhes' : 'Falar sobre algo parecido';
+      const similarLabel = p.destaque ? 'Criar orçamento' : 'Falar sobre algo parecido';
       const similarBtn = `<a class="btn btn-outline btn-sm" href="${baseUrl}?text=${similarMsg}" target="_blank" rel="noopener">${similarLabel}</a>`;
 
       const desc = p.destaque ? p.descricao : (p.subtitulo || p.descricao);

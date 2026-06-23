@@ -9732,3 +9732,55 @@ img {
     font-size: 16px;
   }
 }
+
+/* ============================================================
+   BOTÃO "CRIAR ORÇAMENTO" — CARD DAY LANCHES
+   ============================================================ */
+
+@media (max-width: 720px) {
+  .proj-card.featured .proj-actions .btn:last-child {
+    font-size: 10px !important;
+    padding: 0 12px !important;
+    min-height: 34px !important;
+    height: 34px !important;
+    border-radius: 9px !important;
+    background: rgba(10,10,10,.92) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,122,0,.65) !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .proj-card.featured .proj-actions .btn:last-child {
+    font-size: 9.2px !important;
+    padding: 0 10px !important;
+    min-height: 32px !important;
+    height: 32px !important;
+  }
+}
+
+@media (min-width: 721px) {
+  .proj-card.featured .proj-actions .btn:last-child {
+    min-height: 44px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 12px;
+    background: rgba(10,10,10,.88);
+    color: #fff;
+    border: 1px solid rgba(255,122,0,.60);
+    box-shadow: none;
+    white-space: nowrap;
+    transition: border-color .2s ease, background .2s ease;
+  }
+
+  .proj-card.featured .proj-actions .btn:last-child:hover {
+    border-color: var(--orange);
+    background: rgba(255,122,0,.08);
+  }
+}

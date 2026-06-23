@@ -392,13 +392,6 @@ try {
       sendToAI(msg);
     });
 
-    // faixa IA da página também abre o chat
-    document.querySelectorAll('.ai-budget-link').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        openChat();
-      });
-    });
   }
 } catch (err) {
   console.error('Falha ao configurar chat de orçamento:', err);

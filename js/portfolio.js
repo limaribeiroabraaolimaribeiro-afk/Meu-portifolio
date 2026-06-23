@@ -15,6 +15,7 @@ try {
 
   const floatBtn = document.getElementById('whatsappFloat');
   if (floatBtn) floatBtn.href = ctaUrl;
+
 } catch (err) {
   console.error('Falha ao configurar links do WhatsApp:', err);
 }
@@ -132,11 +133,6 @@ try {
           <a href="#projetos" class="mob-menu__item mob-menu__nav-link">
             <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
             <span class="mob-menu__label">Portfólio</span>
-            <span class="mob-menu__arrow">&gt;</span>
-          </a>
-          <a href="#projetos" class="mob-menu__item mob-menu__nav-link">
-            <span class="mob-menu__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-            <span class="mob-menu__label">Projetos em destaque</span>
             <span class="mob-menu__arrow">&gt;</span>
           </a>
           <a href="#sobre" class="mob-menu__item mob-menu__nav-link">
@@ -258,4 +254,152 @@ try {
   }
 } catch (err) {
   console.error('Falha ao configurar animação de entrada:', err);
+}
+
+// ── CHAT IA — ORÇAMENTO ────────────────────────────────────────
+try {
+  const orcBtn = document.getElementById('orcamentoFloat');
+  const orcOverlay = document.getElementById('orcamentoOverlay');
+  const orcClose = document.getElementById('orcamentoClose');
+  const orcChat = document.getElementById('orcamentoChat');
+  const orcForm = document.getElementById('orcamentoForm');
+  const orcInput = document.getElementById('orcamentoInput');
+  const orcSendBtn = document.getElementById('orcamentoSendBtn');
+  const orcStatus = document.getElementById('orcamentoStatus');
+  const orcWaWrap = document.getElementById('orcamentoChatWa');
+  const orcWaBtn = document.getElementById('orcamentoWaBtn');
+
+  if (orcBtn && orcOverlay && orcChat) {
+    let chatHistory = [];
+    let isLoading = false;
+
+    function addMessage(role, text) {
+      const div = document.createElement('div');
+      div.className = `chat-msg chat-msg--${role === 'assistant' ? 'ai' : 'user'}`;
+      div.innerHTML = formatText(text);
+      orcChat.appendChild(div);
+      orcChat.scrollTop = orcChat.scrollHeight;
+
+      if (role === 'assistant' && text.includes('Resumo do orçamento')) {
+        showWaButton(text);
+      }
+    }
+
+    function formatText(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function showTyping() {
+      const el = document.createElement('div');
+      el.className = 'chat-typing';
+      el.id = 'chatTyping';
+      el.innerHTML = '<span></span><span></span><span></span>';
+      orcChat.appendChild(el);
+      orcChat.scrollTop = orcChat.scrollHeight;
+    }
+
+    function removeTyping() {
+      const el = document.getElementById('chatTyping');
+      if (el) el.remove();
+    }
+
+    function showWaButton(aiText) {
+      const plain = aiText
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '');
+
+      const lines = plain.split('\n');
+      const summaryStart = lines.findIndex(l => l.toLowerCase().includes('resumo do orçamento'));
+      const summaryLines = summaryStart >= 0 ? lines.slice(summaryStart) : lines.slice(-10);
+      const summaryText = summaryLines.join('\n').trim();
+
+      const waMsg = `Olá Abraão, fiz meu orçamento com a IA:\n\n${summaryText}\n\nQuero conversar sobre esse projeto.`;
+      orcWaBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMsg)}`;
+      orcWaWrap.style.display = 'block';
+    }
+
+    async function sendToAI(userMessage) {
+      chatHistory.push({ role: 'user', content: userMessage });
+      addMessage('user', userMessage);
+      orcInput.value = '';
+
+      isLoading = true;
+      orcSendBtn.disabled = true;
+      orcStatus.textContent = 'Digitando...';
+      showTyping();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: chatHistory }),
+        });
+
+        removeTyping();
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || 'Erro na API');
+        }
+
+        const data = await res.json();
+        const reply = data.reply;
+
+        chatHistory.push({ role: 'assistant', content: reply });
+        addMessage('assistant', reply);
+      } catch (err) {
+        removeTyping();
+        addMessage('assistant', 'Desculpe, tive um problema ao processar sua mensagem. Tente novamente ou fale diretamente no WhatsApp.');
+        console.error('Chat AI error:', err);
+      } finally {
+        isLoading = false;
+        orcSendBtn.disabled = false;
+        orcStatus.textContent = 'Online';
+        orcInput.focus();
+      }
+    }
+
+    function openChat() {
+      orcOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      if (chatHistory.length === 0) {
+        const greeting = 'Olá! 👋 Sou a assistente do Abraão.dev. Vou te ajudar a montar seu orçamento sem compromisso.\n\nMe conta: você precisa de um site, sistema, automação ou cardápio digital?';
+        chatHistory.push({ role: 'assistant', content: greeting });
+        addMessage('assistant', greeting);
+      }
+
+      setTimeout(() => orcInput.focus(), 300);
+    }
+
+    function closeChat() {
+      orcOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    orcBtn.addEventListener('click', openChat);
+    orcClose.addEventListener('click', closeChat);
+    orcOverlay.addEventListener('click', (e) => {
+      if (e.target === orcOverlay) closeChat();
+    });
+
+    orcForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = orcInput.value.trim();
+      if (!msg || isLoading) return;
+      sendToAI(msg);
+    });
+
+    // faixa IA da página também abre o chat
+    document.querySelectorAll('.ai-budget-link').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openChat();
+      });
+    });
+  }
+} catch (err) {
+  console.error('Falha ao configurar chat de orçamento:', err);
 }

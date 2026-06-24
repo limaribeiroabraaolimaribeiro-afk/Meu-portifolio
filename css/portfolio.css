@@ -9780,3 +9780,101 @@ img {
       0 8px 22px rgba(0,0,0,.28);
   }
 }
+
+/* ============================================================
+   CORREÇÃO DEFINITIVA — BOTÕES FEATURED CARD (Ver projeto / Orçamento)
+   ============================================================ */
+
+@media (min-width: 721px) {
+  .proj-card.featured .proj-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    min-height: 44px;
+    padding: 0 22px;
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 12px;
+    white-space: nowrap;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    line-height: 1;
+  }
+
+  .proj-card.featured .proj-actions .btn:first-child {
+    background: linear-gradient(135deg, var(--orange), var(--orange-2));
+    color: #fff;
+    border: none;
+    box-shadow: 0 12px 28px rgba(255,106,0,.35);
+  }
+
+  .proj-card.featured .proj-actions .btn:first-child:hover {
+    box-shadow: 0 16px 40px rgba(255,106,0,.48);
+  }
+}
+
+@media (max-width: 720px) {
+  .proj-card.featured .proj-actions {
+    display: grid !important;
+    grid-template-columns: 1.15fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 12px !important;
+    width: 100% !important;
+  }
+
+  .proj-card.featured .proj-actions .btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 10px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    border-radius: 10px !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    line-height: 1 !important;
+  }
+
+  .proj-card.featured .proj-actions .btn:first-child {
+    background: linear-gradient(180deg, #ff9a3d 0%, #ff7a00 45%, #ff5a00 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 8px 20px rgba(255,122,0,.30) !important;
+  }
+
+  .proj-card.featured .proj-actions .btn:last-child {
+    background: rgba(10,10,10,.92) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,122,0,.60) !important;
+    box-shadow: none !important;
+  }
+
+  .proj-card.featured .proj-actions .btn .btn-arrow {
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    margin-left: 2px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .proj-card.featured .proj-actions .btn {
+    height: 36px !important;
+    min-height: 36px !important;
+    font-size: 10px !important;
+    padding: 0 8px !important;
+  }
+}

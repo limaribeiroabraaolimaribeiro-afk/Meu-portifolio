@@ -9822,59 +9822,67 @@ img {
 
 @media (max-width: 720px) {
   .proj-card.featured .proj-actions {
-    display: grid !important;
-    grid-template-columns: 1.15fr 1fr !important;
-    gap: 8px !important;
-    margin-top: 12px !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    margin-top: 10px !important;
     width: 100% !important;
   }
 
   .proj-card.featured .proj-actions .btn {
-    width: 100% !important;
+    flex: 1 1 0 !important;
     min-width: 0 !important;
-    height: 40px !important;
-    min-height: 40px !important;
-    padding: 0 10px !important;
-    font-size: 11px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 6px !important;
+    font-size: 10px !important;
     font-weight: 800 !important;
-    border-radius: 10px !important;
+    border-radius: 9px !important;
     white-space: nowrap !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 4px !important;
+    gap: 3px !important;
     line-height: 1 !important;
+    letter-spacing: -.2px !important;
   }
 
   .proj-card.featured .proj-actions .btn:first-child {
+    flex: 1.15 1 0 !important;
     background: linear-gradient(180deg, #ff9a3d 0%, #ff7a00 45%, #ff5a00 100%) !important;
     color: #fff !important;
     border: none !important;
-    box-shadow: 0 8px 20px rgba(255,122,0,.30) !important;
+    box-shadow: 0 6px 16px rgba(255,122,0,.28) !important;
   }
 
   .proj-card.featured .proj-actions .btn:last-child {
+    flex: 1 1 0 !important;
     background: rgba(10,10,10,.92) !important;
     color: #fff !important;
-    border: 1px solid rgba(255,122,0,.60) !important;
+    border: 1px solid rgba(255,122,0,.55) !important;
     box-shadow: none !important;
   }
 
   .proj-card.featured .proj-actions .btn .btn-arrow {
-    font-size: 12px !important;
+    font-size: 10px !important;
     font-weight: 900 !important;
     line-height: 1 !important;
-    margin-left: 2px !important;
+    margin-left: 1px !important;
   }
 }
 
 @media (max-width: 390px) {
   .proj-card.featured .proj-actions .btn {
-    height: 36px !important;
-    min-height: 36px !important;
-    font-size: 10px !important;
-    padding: 0 8px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    font-size: 9px !important;
+    padding: 0 5px !important;
+    letter-spacing: -.3px !important;
+  }
+
+  .proj-card.featured .proj-actions .btn .btn-arrow {
+    font-size: 9px !important;
   }
 }

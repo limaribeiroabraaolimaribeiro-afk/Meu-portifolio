@@ -8756,7 +8756,7 @@ img {
 @media (max-width: 720px) {
   .orcamento-float {
     left: 14px;
-    bottom: 14px;
+    bottom: 26px;
     height: 48px;
     padding: 0 18px;
     border-radius: 12px;
@@ -8824,7 +8824,7 @@ img {
 @media (max-width: 430px) {
   .orcamento-float {
     left: 12px;
-    bottom: 12px;
+    bottom: 24px;
     height: 44px;
     padding: 0 14px;
     font-size: 11px;

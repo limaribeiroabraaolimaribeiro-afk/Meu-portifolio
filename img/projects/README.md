@@ -9,7 +9,6 @@ já referenciados em `js/projects-config.js` (campo `imagem`):
 - `js-autocar.png`
 - `controle-gastos-pro.png`
 - `agrisolo-apontamentos.png`
-- `vitrinefy.png`
 - `trufaspay.png`
 
 Tamanho recomendado: 1280x720px (proporção 16:9), formato PNG ou JPG.

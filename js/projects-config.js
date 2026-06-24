@@ -101,20 +101,6 @@ const PROJECTS = [
     destaque: false
   },
   {
-    id: "vitrinefy",
-    nome: "Vitrinefy",
-    icone: "🏬",
-    subtitulo: "Vitrine digital",
-    imagem: null,
-    descricao: "Vitrine digital multi-loja para apresentar produtos com visual atrativo e facilitar o contato direto com o cliente pelo WhatsApp.",
-    problema: "Indicado para quem precisa expor o catálogo online rapidamente, sem o custo de uma loja virtual completa.",
-    tags: ["HTML", "CSS", "JavaScript", "Vitrine Online"],
-    // TODO: SUBSTITUIR_URL_DO_PROJETO_AQUI
-    urlProd: null,
-    urlGithub: null,
-    destaque: false
-  },
-  {
     id: "trufaspay",
     nome: "TrufasPay",
     icone: "🍫",

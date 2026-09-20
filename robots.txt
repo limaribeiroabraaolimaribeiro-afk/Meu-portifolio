@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devabraao.com.br/sitemap.xml

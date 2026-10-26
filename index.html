@@ -1,450 +1,577 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Abraão Dev | Sites, Sistemas e Automações para Negócios</title>
-  <meta name="description" content="Sites, sistemas web, cardápios digitais e automações no WhatsApp para pequenos negócios venderem mais e organizarem melhor o atendimento.">
-  <link rel="canonical" href="https://devabraao.com.br/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Abraão Dev">
-  <meta property="og:title" content="Abraão Dev | Sites, Sistemas e Automações para Negócios">
-  <meta property="og:description" content="Sites, sistemas web, cardápios digitais e automações no WhatsApp para pequenos negócios venderem mais e organizarem melhor o atendimento.">
-  <meta property="og:url" content="https://devabraao.com.br/">
-  <meta property="og:image" content="https://devabraao.com.br/img/foto-hero.jpg">
-  <meta property="og:locale" content="pt_BR">
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Abraão Dev | Sites, Sistemas e Automações para Negócios">
-  <meta name="twitter:description" content="Sites, sistemas web, cardápios digitais e automações no WhatsApp para pequenos negócios venderem mais e organizarem melhor o atendimento.">
-  <meta name="twitter:image" content="https://devabraao.com.br/img/foto-hero.jpg">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Abraão Lima Ribeiro",
-    "alternateName": "Abraão Dev",
-    "url": "https://devabraao.com.br/",
-    "jobTitle": "Desenvolvedor Web & Automações com IA",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Luiz Alves",
-      "addressRegion": "SC"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320",
-      "https://github.com/limaribeiroabraaolimaribeiro-afk"
-    ]
-  }
-  </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/portfolio.css">
-</head>
-<body>
-
-  <!-- ============================================================
-       HEADER / NAVEGAÇÃO
-       ============================================================ -->
-  <header class="header" id="header">
-    <div class="container header-inner">
-      <a href="#inicio" class="logo">Abraão<span>.dev</span></a>
-
-      <nav class="nav" id="nav">
-        <a href="#servicos">Serviços</a>
-        <a href="#projetos">Projetos</a>
-        <a href="#processo">Processo</a>
-        <a href="#contato">Contato</a>
+<!doctype html>
+<html lang="pt-BR" class="reduced-motion">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <title>Abraão Dev — Ideias que ganham uma nova dimensão</title>
+    <meta
+      name="description"
+      content="Sites, sistemas e automações para transformar problemas reais em experiências digitais. Conheça o trabalho de Abraão Lima Ribeiro."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://devabraao.com.br/" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:url" content="https://devabraao.com.br/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Abraão Dev" />
+    <meta
+      property="og:title"
+      content="Abraão Dev — Ideias que ganham uma nova dimensão"
+    />
+    <meta
+      property="og:description"
+      content="Design que chama atenção. Tecnologia que resolve. Sites, sistemas e automações feitos para o seu negócio."
+    />
+    <meta
+      property="og:image"
+      content="https://devabraao.com.br/img/foto-hero.jpg"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <link
+      rel="preload"
+      href="fonts/space-grotesk-bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/portfolio.css" />
+    <script src="js/projects-config.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/scene.bundle.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Abraão Lima Ribeiro",
+        "alternateName": "Abraão Dev",
+        "url": "https://devabraao.com.br/",
+        "jobTitle": "Desenvolvedor Web e Automações com IA",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Luiz Alves",
+          "addressRegion": "SC"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320",
+          "https://github.com/limaribeiroabraaolimaribeiro-afk"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <div class="scroll-meter" aria-hidden="true"><span></span></div>
+    <header class="header" id="header">
+      <a href="#inicio" class="logo" aria-label="Abraão Dev, início"
+        ><span class="logo-mark" aria-hidden="true">a<span>↗</span></span
+        ><span>Abraão<span class="logo-dev">.dev</span></span></a
+      >
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <a href="#servicos">Soluções</a><a href="#projetos">Projetos</a
+        ><a href="#sobre">Sobre mim</a>
       </nav>
-
-      <a href="#" class="btn btn-primary btn-sm nav-cta whatsapp-link" target="_blank" rel="noopener">
-        Falar no WhatsApp
-      </a>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-
-  <!-- ============================================================
-       HERO
-       ============================================================ -->
-  <section class="hero" id="inicio">
-    <div class="hero-glow glow-1"></div>
-    <div class="hero-glow glow-2"></div>
-
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <p class="eyebrow reveal">Desenvolvimento Web &amp; <span class="texto-laranja">automações</span></p>
-
-        <h1 class="hero-title reveal">
-         <span class="linha-title">Sites, sistemas e</span>
-         <span class="linha-title">automações para</span>
-         <span class="linha-title linha-nowrap">transformar <span class="grad-text">negócios</span></span>
-         <span class="linha-title">em <span class="grad-text">vendas</span></span>
-       </h1>
-
-        <p class="hero-sub reveal">
-          Ajudo empresas a vender mais com sites, sistemas e automações simples, bonitas e fáceis de usar.
-        </p>
-
-      <div class="hero-actions reveal">
-  <a href="#" class="btn btn-whatsapp btn-lg whatsapp-link" target="_blank" rel="noopener">
-    <img 
-      class="wa-icon" 
-      src="https://img.icons8.com/?size=100&id=964RahB4l606&format=png&color=FFFFFF" 
-      alt="WhatsApp"
-    >
-    Falar no WhatsApp
-  </a>
-
-  <a href="#projetos" class="btn btn-outline btn-lg">
-    Ver projetos <span class="cor">&gt;</span>
-  </a>
-</div>
-
-        <div class="hero-badges reveal" aria-label="Principais serviços">
-          <div class="hero-badge">
-            <img class="hero-badge-icon" src="https://img.icons8.com/?size=100&id=24517&format=png&color=FD7E14" alt="Sites" width="100" height="100">
-            <strong>Sites profissionais</strong>
-            <span class="hero-badge-desc">Design moderno e alta conversão</span>
-          </div>
-          <div class="hero-badge">
-            <img class="hero-badge-icon" src="https://img.icons8.com/?size=100&id=XZzsxYpJLV3S&format=png&color=FD7E14" alt="Sistemas" width="100" height="100">
-            <strong>Sistemas web</strong>
-            <span class="hero-badge-desc">Soluções completas e escaláveis</span>
-          </div>
-          <div class="hero-badge">
-            <img class="hero-badge-icon" src="https://img.icons8.com/?size=100&id=Vnz4A9DdDXEL&format=png&color=FD7E14" alt="WhatsApp" width="100" height="100">
-            <strong>Automações WhatsApp</strong>
-            <span class="hero-badge-desc">Atendimento 24/7 e mais vendas</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-photo reveal">
-        <div class="hero-photo-frame">
-          <img src="img/foto-hero.jpg" alt="Abraão Lima Ribeiro, desenvolvedor web" width="480" height="600" loading="eager">
-        </div>
-        <div class="hero-photo-badge">
-          <strong>Abraão Lima Ribeiro</strong>
-          <span>Desenvolvedor Web &amp; Automações com IA</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SERVIÇOS
-       ============================================================ -->
-  <section class="section" id="servicos">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">O que eu faço</p>
-        <h2 class="section-title">O que eu posso criar para o <span class="grad-text">seu negócio</span></h2>
-        <p class="section-lead">Tecnologia aplicada para resolver problemas reais e gerar resultado.</p>
-      </div>
-
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon">🌐</div>
-          <h3>Sites profissionais</h3>
-          <p>Páginas modernas, rápidas e responsivas para apresentar sua empresa e gerar contatos.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">📱</div>
-          <h3>Cardápios digitais</h3>
-          <p>Cardápios online com visual profissional, pedidos via WhatsApp e opção de painel administrativo.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">⚙️</div>
-          <h3>Sistemas web</h3>
-          <p>Sistemas personalizados para controle interno, gestão, vendas, pedidos e processos.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🤖</div>
-          <h3>Automações WhatsApp</h3>
-          <p>Automatize atendimentos, respostas, pedidos e captação de clientes com fluxos inteligentes.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">📊</div>
-          <h3>Painéis administrativos</h3>
-          <p>Áreas internas para gerenciar produtos, pedidos, clientes, vendas e relatórios.</p>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">💳</div>
-          <h3>Integrações com pagamentos</h3>
-          <p>Checkout, Pix, Mercado Pago, InfinitePay e automações de confirmação quando aplicável.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       PROJETOS
-       ============================================================ -->
-  <section class="section section-alt" id="projetos">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Projetos</p>
-        <h2 class="section-title">Projetos <span class="grad-text">desenvolvidos</span></h2>
-        <p class="section-lead">Soluções reais criadas para resolver problemas, melhorar atendimento e aumentar vendas.</p>
-      </div>
-
-      <div class="projects-grid" id="projectsGrid">
-        <!-- Cards gerados dinamicamente via js/portfolio.js a partir de js/projects-config.js -->
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       PROCESSO
-       ============================================================ -->
-  <section class="section" id="processo">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Como funciona</p>
-        <h2 class="section-title">Do primeiro contato à <span class="grad-text">entrega final</span></h2>
-      </div>
-
-      <div class="process-grid">
-        <div class="process-card reveal">
-          <span class="process-num">01</span>
-          <h3>Conversa inicial</h3>
-          <p>Entendo sua ideia, objetivo e o que seu negócio precisa.</p>
-        </div>
-        <div class="process-card reveal">
-          <span class="process-num">02</span>
-          <h3>Planejamento</h3>
-          <p>Organizo as telas, funcionalidades e estrutura do projeto.</p>
-        </div>
-        <div class="process-card reveal">
-          <span class="process-num">03</span>
-          <h3>Desenvolvimento</h3>
-          <p>Crio o site, sistema ou automação com foco em qualidade e responsividade.</p>
-        </div>
-        <div class="process-card reveal">
-          <span class="process-num">04</span>
-          <h3>Entrega e ajustes</h3>
-          <p>Faço os ajustes finais e deixo tudo pronto para uso.</p>
-        </div>
-        <div class="process-card reveal">
-          <span class="process-num">05</span>
-          <h3>Suporte e evolução</h3>
-          <p>Depois da entrega, o projeto pode continuar evoluindo com novas funcionalidades.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SOBRE MIM
-       ============================================================ -->
-  <section id="sobre" class="section about-section">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Sobre mim</p>
-        <h2 class="section-title">Quem está por trás dos <span class="grad-text">projetos</span></h2>
-      </div>
-
-      <div class="about-content reveal">
-        <div class="about-text">
-          <p>Sou Abraão, desenvolvedor focado em criar sites, sistemas e automações que ajudam empresas a vender mais, organizar processos e ter uma presença profissional na internet.</p>
-          <p>Cada projeto é pensado para resolver problemas reais, com código limpo, design moderno e foco total em resultado para o cliente.</p>
-        </div>
-        <div class="about-cards">
-          <div class="about-card">
-            <span class="about-card-icon">🌐</span>
-            <strong>Sites profissionais</strong>
-          </div>
-          <div class="about-card">
-            <span class="about-card-icon">⚙️</span>
-            <strong>Sistemas web</strong>
-          </div>
-          <div class="about-card">
-            <span class="about-card-icon">🤖</span>
-            <strong>Automações WhatsApp</strong>
-          </div>
-          <div class="about-card">
-            <span class="about-card-icon">🎯</span>
-            <strong>Soluções sob medida</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       DEPOIMENTOS
-       ============================================================ -->
-  <section id="depoimentos" class="section testimonials-section">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Depoimentos</p>
-        <h2 class="section-title">O que os clientes <span class="grad-text">dizem</span></h2>
-        <p class="section-lead">Feedbacks de clientes que confiaram no meu trabalho.</p>
-      </div>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="testimonial-text">"O cardápio ficou bonito, rápido e facilitou muito os pedidos pelo celular."</p>
-          <div class="testimonial-author">
-            <img class="testimonial-avatar-img" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto de cliente Day Lanches">
-            <div>
-              <strong class="testimonial-name">Day Lanches</strong>
-              <span class="testimonial-role">Cardápio digital</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="testimonial-text">"A automação deixou o atendimento mais organizado e ajudou a responder os clientes mais rápido."</p>
-          <div class="testimonial-author">
-            <img class="testimonial-avatar-img" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de cliente de automação">
-            <div>
-              <strong class="testimonial-name">Cliente de automação</strong>
-              <span class="testimonial-role">Atendimento via WhatsApp</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="testimonial-text">"O sistema ficou prático, visualmente profissional e fácil de usar no dia a dia."</p>
-          <div class="testimonial-author">
-            <img class="testimonial-avatar-img" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Foto de cliente de sistema web">
-            <div>
-              <strong class="testimonial-name">Projeto personalizado</strong>
-              <span class="testimonial-role">Sistema web</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       CHAMADA IA — ORÇAMENTO SEM COMPROMISSO
-       ============================================================ -->
-  <section class="ai-budget-section">
-    <div class="ai-marquee">
-      <span class="ai-marquee-track">
-        <span>✨ Crie seu <strong>orçamento</strong> sem compromisso falando com a <strong>IA</strong></span>
-        <span>✨ Crie seu <strong>orçamento</strong> sem compromisso falando com a <strong>IA</strong></span>
-      </span>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       CHAMADA PARA AÇÃO
-       ============================================================ -->
-  <section class="section contact" id="contato">
-    <div class="hero-glow glow-2"></div>
-    <div class="container contact-inner reveal">
-      <h2 class="contact-title">Quer um projeto parecido para o seu negócio?</h2>
-      <p class="contact-sub">
-        Me chame no WhatsApp e vamos conversar sobre uma solução digital para sua
-        empresa vender mais, atender melhor ou automatizar processos.
-      </p>
-      <a href="#" class="btn btn-whatsapp btn-xl whatsapp-link" target="_blank" rel="noopener">
-        Falar comigo no WhatsApp
-      </a>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <span class="footer-name">Abraão Lima Ribeiro</span>
-        <span class="footer-role">Desenvolvedor Web &amp; Automações com IA · Luiz Alves, SC</span>
-      </div>
-      <div class="footer-links">
-        <a href="mailto:contato.abraaolima@gmail.com">E-mail</a>
-        <a href="https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/limaribeiroabraaolimaribeiro-afk" target="_blank" rel="noopener">GitHub</a>
-        <a href="#" class="whatsapp-link" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
-
-
-  <!-- ============================================================
-       BOTÃO FLUTUANTE WHATSAPP
-       ============================================================ -->
-  <a href="#" class="whatsapp-float whatsapp-link" id="whatsappFloat" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true">
-      <path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.39.7 4.617 1.91 6.49L4 29l7.69-1.86A11.93 11.93 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.818a9.78 9.78 0 0 1-4.99-1.37l-.358-.213-4.566 1.104 1.124-4.448-.234-.366A9.78 9.78 0 0 1 5.273 15c0-5.91 4.82-10.727 10.731-10.727S26.727 9.09 26.727 15 21.915 24.818 16.004 24.818Zm5.6-7.347c-.307-.154-1.815-.896-2.097-.998-.281-.103-.486-.154-.69.154-.205.307-.793.997-.972 1.203-.179.205-.358.23-.665.077-.307-.154-1.295-.477-2.466-1.523-.911-.812-1.527-1.815-1.706-2.122-.179-.307-.019-.473.135-.626.139-.138.307-.358.46-.538.154-.179.205-.307.307-.512.103-.205.051-.384-.026-.538-.077-.154-.69-1.663-.945-2.278-.249-.598-.502-.517-.69-.527l-.588-.01c-.205 0-.538.077-.819.384-.281.307-1.073 1.05-1.073 2.56 0 1.51 1.099 2.97 1.252 3.175.154.205 2.163 3.302 5.24 4.632.732.316 1.303.505 1.748.646.734.234 1.402.2 1.93.121.589-.088 1.815-.742 2.071-1.459.256-.717.256-1.331.179-1.459-.077-.128-.281-.205-.588-.358Z"/>
-    </svg>
-    <span class="whatsapp-float-text">WhatsApp</span>
-  </a>
-
-  <!-- ============================================================
-       BOTÃO FLUTUANTE ORÇAMENTO + MODAL
-       ============================================================ -->
-  <button class="orcamento-float" id="orcamentoFloat" aria-label="Criar orçamento com IA">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-    <span>Orçamento rápido</span>
-  </button>
-
-  <div class="orcamento-overlay" id="orcamentoOverlay">
-    <div class="orcamento-modal orcamento-chat-modal">
-      <header class="orcamento-header">
-        <div class="orcamento-header-info">
-          <div class="orcamento-avatar">🤖</div>
-          <div>
-            <h2>Orçamento com IA</h2>
-            <span class="orcamento-status" id="orcamentoStatus">Online</span>
-          </div>
-        </div>
-        <button class="orcamento-close" id="orcamentoClose" aria-label="Fechar">
-          <svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="2" y1="2" x2="20" y2="20"/><line x1="20" y1="2" x2="2" y2="20"/></svg>
+      <div class="header-actions">
+        <a
+          class="header-cta whatsapp-link"
+          href="https://wa.me/5547992101675"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Vamos conversar <span>↗</span></a
+        ><button
+          class="menu-toggle"
+          id="navToggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="nav"
+        >
+          <span></span><span></span>
         </button>
-      </header>
-
-      <div class="orcamento-chat" id="orcamentoChat">
-        <!-- mensagens geradas via JS -->
       </div>
-
-      <div class="orcamento-chat-wa" id="orcamentoChatWa" style="display:none;">
-        <a id="orcamentoWaBtn" href="#" target="_blank" rel="noopener" class="orcamento-send">
-          <svg width="20" height="20" viewBox="0 0 32 32" fill="#fff"><path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.39.7 4.617 1.91 6.49L4 29l7.69-1.86A11.93 11.93 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm5.6 16.471c-.307-.154-1.815-.896-2.097-.998-.281-.103-.486-.154-.69.154-.205.307-.793.997-.972 1.203-.179.205-.358.23-.665.077-.307-.154-1.295-.477-2.466-1.523-.911-.812-1.527-1.815-1.706-2.122-.179-.307-.019-.473.135-.626.139-.138.307-.358.46-.538.154-.179.205-.307.307-.512.103-.205.051-.384-.026-.538-.077-.154-.69-1.663-.945-2.278-.249-.598-.502-.517-.69-.527l-.588-.01c-.205 0-.538.077-.819.384-.281.307-1.073 1.05-1.073 2.56 0 1.51 1.099 2.97 1.252 3.175.154.205 2.163 3.302 5.24 4.632.732.316 1.303.505 1.748.646.734.234 1.402.2 1.93.121.589-.088 1.815-.742 2.071-1.459.256-.717.256-1.331.179-1.459-.077-.128-.281-.205-.588-.358Z"/></svg>
-          Enviar resumo para Abraão no WhatsApp
-        </a>
+    </header>
+    <main id="conteudo">
+      <div class="experience" id="experience">
+        <div class="scene-stage" id="sceneStage" aria-hidden="true">
+          <canvas id="sceneCanvas"></canvas>
+          <div class="scene-fallback"><i></i><i></i><i></i></div>
+          <div class="scene-vignette"></div>
+        </div>
+        <section
+          class="hero section-shell"
+          id="inicio"
+          aria-labelledby="hero-title"
+        >
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="tiny-cross">✳</span> DESIGN, CÓDIGO & POSSIBILIDADES
+            </div>
+            <h1 id="hero-title">
+              Sua ideia.<br />Uma nova<br /><span class="orange"
+                >dimensão.</span
+              >
+            </h1>
+            <p class="hero-description">
+              Transformo problemas reais em sites, sistemas e automações que
+              fazem seu negócio avançar.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-orange" href="#projetos"
+                >Explore os projetos <span class="button-arrow">↗</span></a
+              ><a
+                class="text-link whatsapp-link"
+                href="https://wa.me/5547992101675"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Conte sua ideia <span>↗</span></a
+              >
+            </div>
+            <div class="hero-signature">
+              <img src="img/portrait.webp" width="38" height="38" alt="" /><span
+                >Abraão Lima Ribeiro<br /><small
+                  >Desenvolvedor & criador de soluções</small
+                ></span
+              >
+            </div>
+          </div>
+          <div class="object-caption" aria-hidden="true">
+            <span class="caption-dot"></span> IDEIAS EM MOVIMENTO
+            <span class="caption-index">[ 01 — 03 ]</span>
+          </div>
+          <div class="object-note" aria-hidden="true">
+            <span>DESIGN QUE ATRAI.</span
+            ><strong>Tecnologia<br />que resolve.</strong
+            ><span class="note-line"></span>
+          </div>
+          <div class="hero-bottom">
+            <a href="#servicos" class="scroll-cue"
+              ><span class="scroll-icon">↓</span
+              ><span>DESLIZE.<br />DESCUBRA O QUE É POSSÍVEL.</span></a
+            ><span class="hero-location"
+              >DE LUIZ ALVES, SC<br />PARA O SEU NEGÓCIO.</span
+            ><span class="edition">PORTFÓLIO / 2026</span>
+          </div>
+        </section>
+        <section class="story" id="servicos" aria-label="Soluções digitais">
+          <div class="story-pin">
+            <div class="story-top section-shell">
+              <span class="eyebrow">O QUE POSSO CRIAR PARA VOCÊ</span
+              ><span class="story-counter" aria-hidden="true">01 / 03</span>
+            </div>
+            <div class="story-copy-wrap">
+              <article class="story-step is-active" data-step="0">
+                <span class="story-kicker">01 / PRESENÇA DIGITAL</span>
+                <h2>
+                  Seu negócio.<br />Impossível<br /><span class="orange"
+                    >de ignorar.</span
+                  >
+                </h2>
+                <p>
+                  Um site que apresenta sua marca com personalidade e transforma
+                  interesse em conversa. Bonito em qualquer tela. Simples de
+                  usar.
+                </p>
+                <div class="inline-tags">
+                  <span>Sites profissionais</span><span>Lojas & cardápios</span>
+                </div>
+                <a href="#projetos" class="text-link"
+                  >Veja na prática <span>↗</span></a
+                >
+              </article>
+              <article class="story-step" data-step="1">
+                <span class="story-kicker">02 / SISTEMAS SOB MEDIDA</span>
+                <h2>
+                  Menos planilhas.<br />Mais
+                  <span class="orange">controle.</span>
+                </h2>
+                <p>
+                  Pedidos, clientes, pagamentos e relatórios em um sistema
+                  pensado para a sua rotina. Sua operação ganha clareza e você
+                  ganha tempo.
+                </p>
+                <div class="inline-tags">
+                  <span>Painéis de gestão</span
+                  ><span>Integrações & pagamentos</span>
+                </div>
+                <a href="#projetos" class="text-link"
+                  >Conheça os sistemas <span>↗</span></a
+                >
+              </article>
+              <article class="story-step" data-step="2">
+                <span class="story-kicker">03 / AUTOMAÇÃO INTELIGENTE</span>
+                <h2>
+                  O trabalho flui.<br />Você
+                  <span class="orange">vai além.</span>
+                </h2>
+                <p>
+                  Conecte atendimento, pedidos e cobranças. Automatize tarefas
+                  repetitivas e deixe mais espaço no seu dia para cuidar do seu
+                  negócio.
+                </p>
+                <div class="inline-tags">
+                  <span>WhatsApp & IA</span><span>Fluxos conectados</span>
+                </div>
+                <a href="#contato" class="text-link"
+                  >Vamos pensar uma solução <span>↗</span></a
+                >
+              </article>
+            </div>
+            <div class="story-bottom section-shell">
+              <div class="story-dots" aria-hidden="true">
+                <i class="active"></i><i></i><i></i>
+              </div>
+              <span class="diagram-label" aria-hidden="true"
+                >EXPLORAÇÃO VISUAL · CONTINUE ROLANDO ↓</span
+              >
+            </div>
+          </div>
+        </section>
       </div>
-
-      <form class="orcamento-input-bar" id="orcamentoForm">
-        <input type="text" id="orcamentoInput" placeholder="Digite sua mensagem..." autocomplete="off">
-        <button type="submit" id="orcamentoSendBtn" aria-label="Enviar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <div class="statement-strip" aria-hidden="true">
+        <span>IDEIAS REAIS.</span><span class="strip-star">✳</span
+        ><span class="outline-text">SOLUÇÕES DIGITAIS.</span
+        ><span class="strip-star">✳</span>
+      </div>
+      <section
+        class="projects section-shell section-space"
+        id="projetos"
+        aria-labelledby="projects-title"
+      >
+        <div class="section-heading reveal">
+          <div>
+            <div class="eyebrow">DO PROBLEMA À SOLUÇÃO</div>
+            <h2 id="projects-title">
+              Não é só visual.<br />É <span class="serif-word">funcional.</span>
+            </h2>
+          </div>
+          <p>Projetos que saíram da ideia<br />e foram para a vida real.</p>
+        </div>
+        <div class="project-filters" role="group" aria-label="Filtrar projetos">
+          <button class="active" data-filter="all" aria-pressed="true">
+            Todos os projetos <span>07</span></button
+          ><button data-filter="sites" aria-pressed="false">
+            Sites & lojas</button
+          ><button data-filter="sistemas" aria-pressed="false">Sistemas</button
+          ><button data-filter="automacao" aria-pressed="false">
+            Automações
+          </button>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+        <noscript
+          ><p>
+            Conheça os projetos:
+            <a href="https://www.daylanches.com.br">Day Lanches</a>,
+            <a href="https://www.nexastory.com.br">Nexa Story</a> e
+            <a
+              href="https://limaribeiroabraaolimaribeiro-afk.github.io/agrisolo/"
+              >Agrisolo Apontamentos</a
+            >.
+          </p></noscript
+        >
+        <div class="projects-footer reveal">
+          <span>Seu desafio pode ser o próximo projeto.</span
+          ><a href="#contato" class="text-link"
+            >Vamos criar juntos <span>↗</span></a
+          >
+        </div>
+      </section>
+      <section
+        class="about section-space"
+        id="sobre"
+        aria-labelledby="about-title"
+      >
+        <div class="section-shell about-grid">
+          <div class="about-portrait reveal">
+            <div class="portrait-frame">
+              <img
+                src="img/portrait.webp"
+                alt="Abraão Lima Ribeiro, desenvolvedor em Luiz Alves, Santa Catarina"
+                width="560"
+                height="700"
+                loading="lazy"
+              />
+              <div class="portrait-caption">
+                <span>POR TRÁS DO CÓDIGO</span
+                ><strong>Abraão Lima Ribeiro<span>↗</span></strong>
+              </div>
+            </div>
+            <span class="portrait-orbit" aria-hidden="true"></span>
+          </div>
+          <div class="about-copy reveal">
+            <div class="eyebrow">PRAZER, ABRAÃO.</div>
+            <h2 id="about-title">
+              Tecnologia boa<br />é aquela que<br /><span class="orange"
+                >faz sentido.</span
+              >
+            </h2>
+            <p>
+              Sou desenvolvedor de sites, sistemas e automações em Luiz Alves,
+              Santa Catarina. Meu trabalho começa ouvindo o que trava a rotina
+              do seu negócio.
+            </p>
+            <p>
+              Depois, conecto design e tecnologia para construir uma solução que
+              você consiga usar de verdade. Do primeiro rascunho aos próximos
+              passos, você fala direto comigo.
+            </p>
+            <div class="about-note">
+              <span>✳</span>
+              <p>
+                Não começo pelo código.<br /><strong
+                  >Começo pelo seu problema.</strong
+                >
+              </p>
+            </div>
+            <a
+              class="text-link"
+              href="https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Me encontre no LinkedIn <span>↗</span></a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        class="process section-shell section-space"
+        id="processo"
+        aria-labelledby="process-title"
+      >
+        <div class="process-intro reveal">
+          <div class="eyebrow">SEM COMPLICAR</div>
+          <h2 id="process-title">
+            Da conversa<br />ao <span class="serif-word">próximo nível.</span>
+          </h2>
+          <p>
+            Você participa. Eu traduzo a ideia<br />em uma experiência que
+            funciona.
+          </p>
+          <span class="process-asterisk" aria-hidden="true">✳</span>
+        </div>
+        <div class="process-list">
+          <article class="process-row reveal">
+            <span>01</span>
+            <div>
+              <h3>Primeiro, eu escuto.</h3>
+              <p>
+                Entendo seu negócio, seu objetivo e o que precisa mudar na sua
+                rotina.
+              </p>
+            </div>
+            <span class="process-plus" aria-hidden="true">↗</span>
+          </article>
+          <article class="process-row reveal">
+            <span>02</span>
+            <div>
+              <h3>A ideia ganha forma.</h3>
+              <p>
+                Definimos a estrutura, as funcionalidades, o escopo e as etapas
+                do projeto.
+              </p>
+            </div>
+            <span class="process-plus" aria-hidden="true">↗</span>
+          </article>
+          <article class="process-row reveal">
+            <span>03</span>
+            <div>
+              <h3>Você vê acontecer.</h3>
+              <p>
+                Desenvolvo e compartilho o andamento para você acompanhar e
+                avaliar.
+              </p>
+            </div>
+            <span class="process-plus" aria-hidden="true">↗</span>
+          </article>
+          <article class="process-row reveal">
+            <span>04</span>
+            <div>
+              <h3>Pronto para o mundo.</h3>
+              <p>
+                Validamos as telas, fazemos os ajustes e colocamos sua solução
+                em uso.
+              </p>
+            </div>
+            <span class="process-plus" aria-hidden="true">↗</span>
+          </article>
+          <article class="process-row reveal">
+            <span>05</span>
+            <div>
+              <h3>E a evolução continua.</h3>
+              <p>
+                Suporte e novas funcionalidades podem acompanhar o crescimento
+                do seu negócio.
+              </p>
+            </div>
+            <span class="process-plus" aria-hidden="true">↗</span>
+          </article>
+        </div>
+      </section>
+      <section class="faq section-shell" aria-labelledby="faq-title">
+        <div>
+          <div class="eyebrow">ANTES DE COMEÇAR</div>
+          <h2 id="faq-title">Vamos esclarecer?</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Qual solução meu negócio precisa?<span>+</span></summary>
+            <p>
+              Depende do que você quer resolver: apresentar sua empresa, vender
+              online, organizar a operação ou automatizar tarefas. A conversa
+              inicial ajuda a definir o caminho.
+            </p>
+          </details>
+          <details>
+            <summary>O projeto funciona no celular?<span>+</span></summary>
+            <p>
+              As telas são pensadas para se adaptar a celulares, tablets e
+              computadores. Os recursos necessários são definidos conforme o seu
+              projeto.
+            </p>
+          </details>
+          <details>
+            <summary>Quanto custa e quanto tempo leva?<span>+</span></summary>
+            <p>
+              O valor e o prazo dependem do escopo, das integrações e da
+              complexidade. Depois de entender a sua necessidade, preparo uma
+              proposta com as etapas e os valores.
+            </p>
+          </details>
+          <details>
+            <summary>Posso melhorar algo que já existe?<span>+</span></summary>
+            <p>
+              Sim. Posso avaliar um site ou sistema existente e propor melhorias
+              de visual, navegação, funcionalidades ou automação.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section class="contact" id="contato" aria-labelledby="contact-title">
+        <div class="section-shell contact-inner">
+          <div class="eyebrow">O PRÓXIMO PASSO COMEÇA COM UMA CONVERSA.</div>
+          <h2 id="contact-title">
+            Tem uma ideia?<br />Vamos dar <span>vida.</span
+            ><svg
+              class="contact-spark"
+              viewBox="0 0 120 120"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M60 5v110M5 60h110M21 21l78 78M21 99l78-78"
+                stroke="currentColor"
+                stroke-width="19"
+              />
+            </svg>
+          </h2>
+          <div class="contact-bottom">
+            <a
+              class="button button-dark whatsapp-link"
+              href="https://wa.me/5547992101675"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Vamos tirar do papel <span class="button-arrow">↗</span></a
+            ><button class="contact-brief" data-open-chat>
+              Ou comece pelo assistente de projetos <span>↗</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer section-shell">
+      <div class="footer-top">
+        <a href="#inicio" class="logo"
+          ><span class="logo-mark" aria-hidden="true">a<span>↗</span></span
+          ><span>Abraão<span class="logo-dev">.dev</span></span></a
+        ><span>Design com intenção.<br />Código com propósito.</span>
+        <div class="footer-social">
+          <a href="mailto:contato.abraaolima@gmail.com">E-mail ↗</a
+          ><a
+            href="https://github.com/limaribeiroabraaolimaribeiro-afk"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub ↗</a
+          ><a
+            href="https://www.linkedin.com/in/abra%C3%A3o-lima-ribeiro-601987320"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn ↗</a
+          >
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Abraão Lima Ribeiro</span
+        ><button class="motion-toggle" id="motionToggle" aria-pressed="false">
+          ◉ <span>Reduzir movimento</span></button
+        ><a href="#inicio">Voltar ao topo ↑</a>
+      </div>
+    </footer>
+    <button
+      class="chat-float"
+      id="orcamentoFloat"
+      aria-label="Abrir assistente de projetos"
+      data-open-chat
+    >
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"
+      >
+        <path d="M4 4h16v13H9l-5 4V4Z" />
+        <path d="M8 9h8M8 12h5" /></svg
+      ><span>Vamos criar?</span>
+    </button>
+    <dialog class="chat-dialog" id="chatDialog" aria-labelledby="chatTitle">
+      <div class="chat-header">
+        <div class="chat-avatar" aria-hidden="true">✳</div>
+        <div>
+          <h2 id="chatTitle">Sua ideia começa aqui.</h2>
+          <span id="orcamentoStatus">Assistente de projetos com IA</span>
+        </div>
+        <button
+          id="orcamentoClose"
+          class="icon-button"
+          aria-label="Fechar assistente"
+        >
+          ×
+        </button>
+      </div>
+      <div
+        class="chat-messages"
+        id="orcamentoChat"
+        aria-live="polite"
+        aria-relevant="additions"
+      ></div>
+      <a
+        class="chat-whatsapp whatsapp-link"
+        id="orcamentoWaBtn"
+        href="https://wa.me/5547992101675"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Prefere falar direto com Abraão? ↗</a
+      >
+      <form class="chat-form" id="orcamentoForm">
+        <label class="sr-only" for="orcamentoInput">Sua mensagem</label
+        ><input
+          id="orcamentoInput"
+          placeholder="Conte um pouco da sua ideia…"
+          maxlength="2000"
+          autocomplete="off"
+          required
+        /><button
+          type="submit"
+          id="orcamentoSendBtn"
+          aria-label="Enviar mensagem"
+        >
+          ↑
         </button>
       </form>
-    </div>
-  </div>
-
-  <script src="js/projects-config.js" defer></script>
-  <script src="js/portfolio.js" defer></script>
-</body>
+      <p class="chat-disclaimer">
+        O valor final é definido por Abraão após analisar seu projeto.
+      </p>
+    </dialog>
+  </body>
 </html>

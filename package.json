@@ -2,5 +2,14 @@
   "private": true,
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "three": "^0.170.0"
+  },
+  "scripts": {
+    "build:scene": "esbuild js/scene.js --bundle --minify --format=iife --target=es2020 --outfile=js/scene.bundle.js",
+    "preview:bundle": "python3 scripts/make-preview.py",
+    "preview:prepare": "python3 scripts/prepare-local-preview.py"
   }
 }

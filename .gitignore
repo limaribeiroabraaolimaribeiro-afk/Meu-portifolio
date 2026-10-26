@@ -4,3 +4,7 @@ node_modules/
 .env.production.local
 .env.development.local
 .vercel
+
+# Local browser QA (no Sites deployment)
+dist/
+.openai/

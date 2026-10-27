@@ -15,6 +15,7 @@ for source in ['js/projects-config.js','js/app.bundle.js','js/scene.bundle.js']:
     script=re.sub(r'''(["'])(img/[^"'\n]+\.webp)\1''',lambda m:'"'+data_uri(m[2])+'"',script)
     html=re.sub(r'<script\b[^>]*src="'+re.escape(source)+r'"[^>]*>\s*</script>','',html)
     html=html.replace('</body>','<script>'+script.replace('</script','<\\/script')+'</script></body>')
-for path in ['img/portrait.webp','favicon.svg']+[str(p.relative_to(ROOT)) for p in (ROOT/'img/cases').glob('*.webp')]:html=html.replace('"'+path+'"','"'+data_uri(path)+'"')
+html=re.sub(r'(<(?:img|source)\b[^>]*(?:src|srcset)=")(img/[^"\n]+\.webp)(")',lambda m:m[1]+data_uri(m[2])+m[3],html)
+html=html.replace('"favicon.svg"','"'+data_uri('favicon.svg')+'"')
 output=ROOT/'preview/portfolio-3d.html';output.parent.mkdir(exist_ok=True);output.write_text(html)
 print(f'Prévia portátil: {output.stat().st_size} bytes')

@@ -40,7 +40,10 @@
     "evidence": [
       "index.html: cardápio, carrinho, endereço e localização",
       "Código do checkout e integração de pagamento; não foi feita transação"
-    ]
+    ],
+    "cover": "img/v2/day-cover.webp",
+    "coverKind": "artwork",
+    "coverLabel": "Apresentação visual do projeto"
   },
   {
     "id": "smart",
@@ -83,43 +86,10 @@
       "index.html e recibos.html: telas de gestão",
       "assets/js/cobranca-publica.js: estados e checkout",
       "assets/js/receipt-pdf.js: geração de PDF"
-    ]
-  },
-  {
-    "id": "nexa",
-    "name": "Nexa Story",
-    "category": "EXPERIÊNCIA DE COMPRA",
-    "screen": "img/cases/nexa.webp",
-    "url": "https://www.nexastory.com.br",
-    "source": null,
-    "note": "Apresentação do acervo do projeto. A loja atual solicita cadastro; nenhuma compra foi realizada.",
-    "flow": ["Produto", "Carrinho", "Checkout", "Pagamento", "Acompanhamento"],
-    "phases": [
-      {
-        "label": "PROBLEMA",
-        "title": "ESCOLHER É SÓ<br>O COMEÇO.",
-        "body": "Uma experiência de compra precisa continuar depois da vitrine."
-      },
-      {
-        "label": "IDEIA",
-        "title": "CONECTAR<br>CADA DECISÃO.",
-        "body": "Dar continuidade ao caminho entre produto, carrinho e finalização."
-      },
-      {
-        "label": "SOLUÇÃO",
-        "title": "DA VITRINE<br>AO PEDIDO.",
-        "body": "Catálogo, carrinho, checkout, pagamento e consulta de pedidos no mesmo percurso."
-      },
-      {
-        "label": "EXPERIÊNCIA",
-        "title": "A COMPRA<br>COM CONTINUIDADE.",
-        "body": "Conheça a loja e explore o caminho da compra. O acesso atual solicita cadastro."
-      }
     ],
-    "evidence": [
-      "Loja pública: catálogo e carrinho",
-      "comandosjs.js?v=20260529e: processarPagamentoDesktopIntegrado, consultarStatusPix, carregarMeusPedidos"
-    ]
+    "cover": "img/cases/smart.webp",
+    "coverKind": "interface",
+    "coverLabel": "Interface real · demonstração sem dados de clientes"
   },
   {
     "id": "anarosa",
@@ -155,6 +125,49 @@
     "evidence": [
       "README.md: escopo e limites de homologação",
       "js/services/catalog-service.js e cart-service.js: catálogo e carrinho"
-    ]
+    ],
+    "cover": "img/v2/anarosa-cover.webp",
+    "coverKind": "artwork",
+    "coverLabel": "Apresentação visual do projeto"
+  },
+  {
+    "id": "nexa",
+    "name": "Nexa Store",
+    "category": "EXPERIÊNCIA DE COMPRA",
+    "screen": "img/cases/nexa.webp",
+    "url": "https://www.nexastory.com.br",
+    "source": null,
+    "note": "Apresentação fornecida para a V2. O link preserva a experiência Nexa Story do acervo.",
+    "flow": ["Produto", "Carrinho", "Checkout", "Pagamento", "Acompanhamento"],
+    "phases": [
+      {
+        "label": "PROBLEMA",
+        "title": "ESCOLHER É SÓ<br>O COMEÇO.",
+        "body": "Uma experiência de compra precisa continuar depois da vitrine."
+      },
+      {
+        "label": "IDEIA",
+        "title": "CONECTAR<br>CADA DECISÃO.",
+        "body": "Dar continuidade ao caminho entre produto, carrinho e finalização."
+      },
+      {
+        "label": "SOLUÇÃO",
+        "title": "DA VITRINE<br>AO PEDIDO.",
+        "body": "Catálogo, carrinho, checkout, pagamento e consulta de pedidos no mesmo percurso."
+      },
+      {
+        "label": "EXPERIÊNCIA",
+        "title": "A COMPRA<br>COM CONTINUIDADE.",
+        "body": "Conheça a loja e explore o caminho da compra. O acesso atual solicita cadastro."
+      }
+    ],
+    "evidence": [
+      "Loja pública: catálogo e carrinho",
+      "comandosjs.js?v=20260529e: processarPagamentoDesktopIntegrado, consultarStatusPix, carregarMeusPedidos"
+    ],
+    "cover": "img/v2/nexa-cover.webp",
+    "coverKind": "artwork",
+    "coverLabel": "Apresentação visual fornecida",
+    "archiveName": "Nexa Story"
   }
 ]

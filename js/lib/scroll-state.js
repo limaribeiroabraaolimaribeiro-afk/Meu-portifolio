@@ -8,23 +8,22 @@ export function createScrollState() {
       id: el.dataset.chapter,
       top: el.getBoundingClientRect().top + scrollY,
       height: el.offsetHeight,
+      sticky: !!el.querySelector(".section-pin"),
     }));
   }
   measure();
   function at(y = scrollY) {
-    const probe = y + innerHeight * 0.2;
+    const probe = y + innerHeight * 0.18;
     let index = 0;
     for (let i = 0; i < markers.length; i++) {
       if (probe >= markers[i].top) index = i;
       else break;
     }
     const marker = markers[index];
-    return {
-      index,
-      marker,
-      progress: clamp((probe - marker.top) / Math.max(1, marker.height)),
-      time: index + clamp((probe - marker.top) / Math.max(1, marker.height)),
-    };
+    const progress = marker.sticky
+      ? clamp((y - marker.top) / Math.max(1, marker.height - innerHeight))
+      : clamp((probe - marker.top) / Math.max(1, marker.height));
+    return { index, marker, progress, time: index + progress };
   }
   return {
     sections,

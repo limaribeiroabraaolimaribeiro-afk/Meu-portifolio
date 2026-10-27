@@ -1,20 +1,24 @@
-# dev.abraao — prévia cinematográfica
+# dev.abraao — V2 clara em preview
 
-Nova versão na branch `feat/portfolio-3d-preview`, em rascunho para aprovação. **Não integrar com `master` nem publicar no domínio principal antes da aprovação de Abraão.**
+Nova experiência na branch `feat/portfolio-3d-preview`, aguardando revisão de Abraão. **Não integrar com `master` nem publicar no domínio principal antes da aprovação.**
 
 ## Abrir a experiência
 
-`preview/portfolio-3d.html` é uma versão portátil, com fontes, scripts e imagens incorporados. Abra em um navegador e role normalmente. O arquivo não depende de servidor nem de CDN. Os links externos continuam apontando para os projetos e para o contato existente. O assistente informa que a IA não está disponível nessa prévia e oferece a continuação pelo WhatsApp; nenhuma mensagem é enviada automaticamente.
+`preview/portfolio-3d.html` contém fontes, scripts e imagens incorporados. Abra em um navegador e role normalmente; não depende de servidor nem de CDN. Links externos levam aos projetos e contatos existentes. Neste arquivo portátil, o assistente explica que a IA depende do ambiente Vercel e prepara a continuação pelo WhatsApp, sem enviar mensagens automaticamente.
 
-A prévia da branch no Vercel pode exigir acesso à conta do proprietário. Não foi alterada a proteção de acesso, o domínio, o deploy de produção ou a configuração da API.
+O preview da branch no Vercel pode exigir acesso à conta do proprietário. A proteção de acesso, o domínio e a configuração da API foram preservados.
 
-## O que mudou
+## Direção da V2
 
-O cubo laranja conduz uma história contínua: bloqueio → diagnóstico → conexão → experiências reais → estruturas alinhadas. A rolagem nativa controla câmera, posição, organização dos blocos, abertura do caminho, luz e formação da interface. Não há sequestro do gesto de toque.
+Creme e branco predominantes, preto para contraste, laranja original `#ff7a00`. O personagem é um cubo com expressão discreta e membros mecânicos: acompanha a rolagem, investiga o caos, se divide em microcubos, forma esfera e ponte, se recompõe e segue até uma saída iluminada. Não é o logotipo.
 
-Os quatro cases seguem problema, ideia, solução e experiência: Day Lanches, Smart Billingg, Nexa Story e Anarosa. As telas de Day Lanches e Anarosa são capturas dos sites; Smart usa componentes reais em demonstração local sem dados de clientes. Nexa usa a apresentação já existente no repositório, identificada como acervo, pois a versão atual solicita cadastro. Recursos foram conferidos no código disponível. Nenhuma métrica de negócio foi inventada.
+Onze capítulos conectam problema, diagnóstico, transformação, soluções, projetos, processo, IA, pessoa, resultado e contato. A abertura apresenta os dois CTAs. O diagnóstico inclui grade e wireframe. A transformação tem cinco fases controladas por scroll e botões acessíveis. Seis soluções usam cards claros; no celular há rolagem lateral nativa. Quatro cases têm abas de problema, solução e experiência. A timeline do processo passa de horizontal para vertical no celular, com o personagem acompanhando as etapas. A foto fornecida de Abraão é utilizada sem alterar sua aparência.
 
-Os sete projetos da configuração original continuam no arquivo de projetos, com filtros e links. WhatsApp, e-mail, redes, FAQ e assistente foram preservados. O prompt comercial do assistente passou a começar pelo problema, mantendo a rota, o contrato e o provedor da API existente.
+Day Lanches, Smart Billingg, Anarosa e Nexa Store usam conteúdo conferido. As apresentações fornecidas estão identificadas como apresentações visuais; capturas reais ou de acervo ficam disponíveis na aba Experiência. O Smart usa componentes reais em demonstração sem dados de clientes; a imagem fornecida com números comerciais não foi usada. Nenhuma métrica de negócio foi inventada.
+
+Nexa Store é o nome solicitado no novo briefing. O arquivo original Nexa Story e seu endereço existente foram preservados; não se afirma que a loja publicada foi renomeada. Os sete projetos originais continuam no arquivo filtrável.
+
+WhatsApp, e-mail, redes, FAQ e assistente permanecem disponíveis. Esta revisão não modifica `api/chat.js`, `js/projects-config.js`, `vercel.json`, CNAME, robots ou sitemap.
 
 ## Desenvolvimento
 
@@ -26,29 +30,32 @@ npm run preview:bundle
 npm run preview:prepare
 ```
 
-O projeto original é estático; foi mantido assim. Three.js e GSAP operam sem introduzir um framework ou bibliotecas de animação duplicadas. Os bundles são versionados para a hospedagem atual. Não foi criado um script `build` padrão que altere o comportamento do Vercel.
+A arquitetura estática original foi mantida. Three.js e GSAP já estavam na branch; não foram adicionados React, Lenis ou bibliotecas duplicadas. Os bundles são versionados para a hospedagem atual. Não foi criado um script `build` padrão que altere o comportamento do Vercel.
 
-- `scripts/render-page.py`: gera HTML semântico completo, incluindo os cases e os sete projetos.
-- `data/cases.json`: conteúdo e evidências dos cases.
-- `js/animations/director.js`: relógio GSAP, estados e interpolação determinística nos dois sentidos.
-- `js/scene.js`: mundo Three.js, câmera, materiais e carregamento progressivo das telas.
-- `js/software-renderer.js`: projeção Canvas para ambientes sem WebGL.
-- `js/lib/`: rolagem, qualidade e métricas locais.
-- `js/portfolio.js`: navegação, preferências, filtros, contato e assistente.
-- `scripts/templates/dialog.html`: estrutura do diálogo existente.
+- `scripts/render-page.py` e `scripts/templates/`: HTML semântico, metadados e diálogo.
+- `data/cases.json`: conteúdo, imagens e evidências dos cases.
+- `js/animations/director.js`: relógio GSAP e direção reversível da cena.
+- `js/animations/scroll-ui.js`: capítulos, fases e coordenadas da timeline responsiva.
+- `js/three/morph-targets.js`: formações determinísticas compartilhadas pelo WebGL e Canvas.
+- `js/scene.js`: personagem, instâncias, câmera, caminho, wireframe, rede e saída.
+- `js/software-renderer.js`: alternativa Canvas, inclusive InstancedMesh.
+- `js/lib/`: qualidade, métricas, abas e microinterações.
+- `js/portfolio.js`: navegação, preferências, contato e assistente.
 
 ## Acesso e performance
 
-O conteúdo principal está no DOM; existe um H1 e hierarquia de títulos. Canonical, sitemap, robots, Open Graph, Twitter e Person schema estão presentes. Fontes são locais e imagens estão em WebP. Nenhum modelo 3D pesado ou áudio é carregado.
+Todo o conteúdo principal está no DOM, com H1 único e hierarquia de títulos. Canonical, Open Graph, Twitter, Person schema, sitemap, robots e alt texts foram preservados/verificados. Fontes locais e WebP; nenhum modelo externo, HDR, pós-processamento ou áudio.
 
-Há qualidade automática e modos alta/média/leve, com limite de DPR e redução de geometria. A renderização pausa com a aba oculta e fora da experiência. A meta de WebGL é 60 FPS em alta/média e 30 FPS no modo leve; a alternativa Canvas limita a 30 FPS. **Esses limites são metas, não resultados comprovados em celular físico.**
+Qualidade alta/média/leve limita DPR a 1,6/1,25/1 e instâncias a 125/64/27. O fallback Canvas usa 27 instâncias e no máximo oito blocos de contexto. A renderização pausa fora do filme e em aba oculta. A meta é 60 FPS no WebGL alta/média; modo leve e Canvas limitam a 30 FPS. Esses limites não são resultados comprovados em celular físico.
 
-O sistema respeita `prefers-reduced-motion`; também há um modo de leitura escolhido pelo visitante. Sem animação, os quatro cases mostram imagens e conteúdo integral. A navegação funciona por teclado, com foco visível, link de salto e diálogo nativo. Se a renderização não estiver disponível, o conteúdo continua em HTML.
+`prefers-reduced-motion` define o modo inicial; o visitante também pode escolher o modo de leitura. Sem renderização, texto, cards, retrato, imagens e contato continuam disponíveis. Menu com foco controlado e Escape, diálogo nativo com foco restaurado, tabs por teclado e alvos de pelo menos 44 px.
 
 ## Validação e limites
 
-As oito larguras pedidas foram verificadas: 360, 390, 412, 430, 768, 1366, 1440 e 1920 px. Não houve estouro horizontal na matriz. Menu, teclado/Escape, filtros, FAQ, qualidade, movimento reduzido, contato e o comportamento offline do assistente foram revisados. A timeline tem uma verificação de ida, volta e salto direto.
+360, 390, 412, 430, 768, 1366, 1440 e 1920 px: nenhum overflow horizontal, quatro cases, seis soluções e sete projetos preservados. Build, sintaxe, estados do morph, retorno e saltos diretos passaram. Menu/Escape, abas por teclado, passagem entre cases, filtros, FAQ, movimento reduzido e fallback offline do assistente foram conferidos.
 
-O navegador de revisão não oferece WebGL; portanto as capturas mostram a alternativa Canvas. Os dados de LCP/CLS e tempos de quadro em `docs/` são amostras de laboratório local, sem simular rede móvel. A amostragem de FPS nesta sessão foi irregular e não comprova fluidez em aparelho real. A aparência por GPU, os Core Web Vitals de campo e o teste em celular físico permanecem pendentes antes da produção. A API real de IA não foi chamada e nenhuma compra ou mensagem foi enviada.
+O navegador remoto tem WebGL desativado: as capturas são da alternativa Canvas. O HTML portátil registrou LCP local de 212 ms e CLS de 0,002, sem rede móvel simulada. O compositor remoto operou perto de 1 FPS e registrou INP de 6.608 ms, com 2 ms de atraso de entrada e 0 ms de processamento; essa amostra não comprova desempenho em aparelho real. Os valores brutos estão em `docs/interaction-results.json`.
 
-O relatório técnico está em `docs/IMPLEMENTACAO-3D.md`.
+Ainda precisam de homologação antes da produção: WebGL/GPU, celular físico, FPS sustentado, Core Web Vitals em rede móvel e chamada real à API autenticada do preview. Não houve merge, troca de domínio, envio de mensagem, transação ou publicação em produção.
+
+Relatório: `docs/IMPLEMENTACAO-3D.md`. Capturas atuais: `preview/portfolio-desktop.jpg`, `portfolio-mobile.jpg`, `portfolio-morph.jpg`, `portfolio-case.jpg`, `portfolio-sobre.jpg` e `portfolio-contato.jpg`.

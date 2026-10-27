@@ -1,25 +1,23 @@
 {
-  "environment": "Local portable HTML in cloud Chrome; native dialog opening plus offline submit; no external API request.",
+  "environment": "Local portable HTML; cloud Chrome; WebGL disabled; native dialog open and close; offline submit; no external API request.",
+  "limitations": [
+    "Remote compositor running near 1 FPS; INP includes ~6.6s presentation delay with 2ms input delay and 0ms processing. Not representative of device performance.",
+    "GPU/WebGL and physical mobile frame rate remain unverified."
+  ],
   "measurements": {
     "cls": 0.002,
-    "fpsObserved": "1.1",
-    "frameCpuMs": 0.5,
-    "inpMs": 128,
+    "fpsObserved": 1,
+    "frameCpuMs": 1.6,
+    "inpMs": 7712,
     "inpTiming": [
       {
-        "duration": 128,
+        "duration": 7712,
         "event": "pointerdown",
-        "inputDelay": 1,
-        "processing": 0
-      },
-      {
-        "duration": 128,
-        "event": "pointerdown",
-        "inputDelay": 1,
+        "inputDelay": 12,
         "processing": 0
       }
     ],
-    "lcpMs": 564,
+    "lcpMs": 212,
     "quality": "medium",
     "renderer": "canvas"
   }

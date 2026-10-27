@@ -1,5 +1,7 @@
 import { observeMetrics } from "./lib/metrics.js";
-import { createScrollState, clamp } from "./lib/scroll-state.js";
+import { initScrollUI } from "./animations/scroll-ui.js";
+import { initCases } from "./lib/cases-ui.js";
+import { initMicrointeractions } from "./lib/microinteractions.js";
 import { chooseQuality } from "./lib/quality.js";
 /* Native document scrolling is the only input. All content is present in HTML. */
 (() => {
@@ -95,157 +97,32 @@ import { chooseQuality } from "./lib/quality.js";
   matchMedia("(min-width:701px)").addEventListener("change", (e) => {
     if (e.matches) closeMenu();
   });
-  const scroll = createScrollState();
-  const labels = [
-    "O PONTO DE PARTIDA",
-    "O PONTO DE PARTIDA",
-    "O QUE ESTÁ TRAVANDO",
-    "ANTES DE CONSTRUIR",
-    "OLHAR MAIS DE PERTO",
-    "CONECTAR O QUE IMPORTA",
-    "TRABALHOS SELECIONADOS",
-  ];
-  const meter = document.querySelector(".scroll-meter span"),
-    header = document.getElementById("header"),
-    caption = document.querySelector(".chapter-label"),
-    counter = document.querySelector(".scene-number");
-  let queued = false;
-  function update() {
-    queued = false;
-    const { index, marker, progress } = scroll.at();
-    root.dataset.chapter = marker.id;
-    meter.style.transform = `scaleX(${clamp(scrollY / Math.max(1, root.scrollHeight - innerHeight))})`;
-    header.classList.toggle("is-scrolled", scrollY > 30);
-    const caseIndex = Number(marker.el.dataset.caseIndex);
-    caption.textContent = Number.isFinite(caseIndex)
-      ? `CASE / ${["DAY LANCHES", "SMART BILLINGG", "NEXA STORY", "ANAROSA"][caseIndex]}`
-      : labels[index] ||
-        {
-          inteligencia: "INTELIGÊNCIA COM PROPÓSITO",
-          sobre: "QUEM PENSA A SOLUÇÃO",
-          resolvido: "TUDO NO SEU LUGAR",
-          evoluindo: "O PRÓXIMO PASSO",
-          contato: "A PRÓXIMA SOLUÇÃO",
-        }[marker.id] ||
-        "";
-    counter.textContent =
-      index <= 6
-        ? `${String(Math.min(5, index + 1)).padStart(2, "0")} / 08`
-        : marker.id.startsWith("case")
-          ? "05 / 08"
-          : marker.id === "inteligencia"
-            ? "06 / 08"
-            : marker.id === "sobre"
-              ? "07 / 08"
-              : "08 / 08";
-    if (!reduced) {
-      for (const el of scroll.sections) {
-        const r = el.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < innerHeight * 1.2) {
-          const entry = clamp(
-            (innerHeight * 0.95 - r.top) / (innerHeight * 0.3),
-          );
-          el.style.setProperty("--reveal", String(entry));
-        }
-      }
-      document
-        .querySelectorAll(".solution-words li")
-        .forEach((el, i) =>
-          el.classList.toggle(
-            "is-current",
-            i === Math.min(5, Math.floor(progress * 6)) &&
-              marker.id === "transformacao",
-          ),
-        );
-    }
-    root.dataset.sceneTime = String(scroll.at().time);
-  }
-  function request() {
-    if (!queued) {
-      queued = true;
-      requestAnimationFrame(update);
-    }
-  }
-  addEventListener("scroll", request, { passive: true });
-  addEventListener(
-    "resize",
-    () => {
-      scroll.measure();
-      request();
-    },
-    { passive: true },
+  const narrative = initScrollUI(root, () => reduced);
+  initCases(
+    () => reduced,
+    () => narrative.measure(),
   );
-  document.fonts.ready.then(() => {
-    scroll.measure();
-    request();
-  });
-  update();
-  document.querySelectorAll("[data-filter]").forEach((button) =>
-    button.addEventListener("click", () => {
-      document.querySelectorAll("[data-filter]").forEach((el) => {
-        el.classList.toggle("active", el === button);
-        el.setAttribute("aria-pressed", String(el === button));
-      });
-      document
-        .querySelectorAll(".archive-row")
-        .forEach(
-          (el) =>
-            (el.hidden =
-              button.dataset.filter !== "all" &&
-              button.dataset.filter !== el.dataset.category),
-        );
-      scroll.measure();
-    }),
-  );
-  document.getElementById("arquivo").addEventListener("toggle", () => {
-    scroll.measure();
-    request();
-  });
+  initMicrointeractions(() => reduced);
   if (!reduced && !root.dataset.standalone) {
     const inject = () => {
-      const s = document.createElement("script");
-      s.src = "js/scene.bundle.js";
-      s.async = true;
-      document.body.append(s);
+      const script = document.createElement("script");
+      script.src = "js/scene.bundle.js";
+      script.async = true;
+      document.body.append(script);
     };
     if ("requestIdleCallback" in window)
-      requestIdleCallback(inject, { timeout: 1000 });
+      requestIdleCallback(inject, { timeout: 900 });
     else setTimeout(inject, 60);
   }
   addEventListener("portfolio:graphics-fallback", () => {
     reduced = true;
     root.className = "reduced-motion";
+    root.dataset.renderer = "static";
     motionButton.setAttribute("aria-pressed", "true");
     motionButton.querySelector("span").textContent = "Ativar animações";
-    root.dataset.renderer = "css";
     document.getElementById("sceneStage").classList.remove("is-ready");
+    narrative.measure();
   });
-  if (matchMedia("(hover:hover) and (pointer:fine)").matches && !reduced) {
-    const cursor = document.querySelector(".context-cursor");
-    document.querySelectorAll("[data-cursor]").forEach((el) => {
-      el.addEventListener("pointerenter", () => {
-        cursor.textContent = el.dataset.cursor;
-        cursor.classList.add("is-visible");
-      });
-      el.addEventListener("pointerleave", () =>
-        cursor.classList.remove("is-visible"),
-      );
-    });
-    addEventListener(
-      "pointermove",
-      (e) => {
-        cursor.style.transform = `translate(${e.clientX + 18}px,${e.clientY + 18}px)`;
-      },
-      { passive: true },
-    );
-    document.querySelectorAll(".magnetic").forEach((el) => {
-      el.addEventListener("pointermove", (e) => {
-        const r = el.getBoundingClientRect();
-        el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.045}px,${(e.clientY - r.top - r.height / 2) * 0.08}px)`;
-      });
-      el.addEventListener("pointerleave", () => (el.style.transform = ""));
-    });
-  }
   observeMetrics();
   const dialog = document.getElementById("chatDialog");
   const messages = document.getElementById("orcamentoChat");

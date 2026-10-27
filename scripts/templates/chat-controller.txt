@@ -1,0 +1,108 @@
+  const dialog = document.getElementById("chatDialog");
+  const messages = document.getElementById("orcamentoChat");
+  const input = document.getElementById("orcamentoInput");
+  const sendButton = document.getElementById("orcamentoSendBtn");
+  const status = document.getElementById("orcamentoStatus");
+  const wa = document.getElementById("orcamentoWaBtn");
+  const history = [];
+  let loading = false;
+  let opener = null;
+  function addMessage(role, content) {
+    const item = document.createElement("div");
+    item.className = `chat-msg ${role}`;
+    // Treat both model output and user input as plain text.
+    item.textContent = content.replace(/\*\*/g, "");
+    messages.append(item);
+    messages.scrollTop = messages.scrollHeight;
+    return item;
+  }
+  document.querySelectorAll("[data-open-chat]").forEach((button) =>
+    button.addEventListener("click", () => {
+      opener = button;
+      dialog.showModal();
+      document.body.style.overflow = "hidden";
+      if (!history.length) {
+        const greeting =
+          "Olá! Sou a assistente do Abraão.\n\nO que está travando a rotina do seu negócio hoje?";
+        history.push({ role: "assistant", content: greeting });
+        addMessage("assistant", greeting);
+      }
+      input.focus({ preventScroll: true });
+    }),
+  );
+  document
+    .getElementById("orcamentoClose")
+    .addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) {
+      const r = dialog.getBoundingClientRect();
+      if (
+        e.clientX < r.left ||
+        e.clientX > r.right ||
+        e.clientY < r.top ||
+        e.clientY > r.bottom
+      )
+        dialog.close();
+    }
+  });
+  dialog.addEventListener("close", () => {
+    document.body.style.overflow = "";
+    opener?.focus({ preventScroll: true });
+  });
+  document
+    .getElementById("orcamentoForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const content = input.value.trim();
+      if (!content || loading) return;
+      addMessage("user", content);
+      input.value = "";
+      loading = true;
+      sendButton.disabled = true;
+      history.push({ role: "user", content });
+      status.textContent = "Entendendo o problema…";
+      const typing = addMessage("typing", "Preparando uma resposta…");
+      const abort = new AbortController();
+      const timeout = setTimeout(() => abort.abort(), 30000);
+      try {
+        if (
+          location.protocol === "file:" ||
+          document.documentElement.dataset.standalone === "true"
+        )
+          throw new Error("offline-preview");
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history.slice(-24) }),
+          signal: abort.signal,
+        });
+        if (!res.ok) throw new Error("unavailable");
+        const data = await res.json();
+        if (typeof data.reply !== "string") throw new Error("invalid-response");
+        typing.remove();
+        history.push({ role: "assistant", content: data.reply });
+        addMessage("assistant", data.reply);
+        if (/resumo do orçamento/i.test(data.reply)) {
+          wa.textContent = "Enviar o resumo para Abraão no WhatsApp ↗";
+          wa.href = `${waBase}?text=${encodeURIComponent("Olá, Abraão! Montei este resumo do meu projeto:\n\n" + data.reply.replace(/\*\*/g, ""))}`;
+        }
+      } catch {
+        typing.remove();
+        history.pop();
+        addMessage(
+          "assistant",
+          document.documentElement.dataset.standalone === "true" ||
+            location.protocol === "file:"
+            ? "A conversa com IA não está disponível nesta prévia. Você pode contar o problema diretamente para Abraão pelo WhatsApp."
+            : "O assistente não conseguiu responder agora. Você pode continuar sua conversa diretamente com Abraão pelo WhatsApp.",
+        );
+        wa.href = `${waBase}?text=${encodeURIComponent("Olá, Abraão! O que preciso resolver é: " + content)}`;
+        wa.textContent = "Continuar esta conversa no WhatsApp ↗";
+      } finally {
+        clearTimeout(timeout);
+        loading = false;
+        sendButton.disabled = false;
+        status.textContent = "Assistente de projetos com IA";
+        if (dialog.open) input.focus();
+      }
+    });

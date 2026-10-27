@@ -11,16 +11,14 @@ export function observeMetrics() {
         root.dataset[name] = String(Math.round(metric.value * 1000) / 1000);
         if (name === "inp")
           root.dataset.inpTiming = JSON.stringify(
-            metric.entries
-              .slice(-3)
-              .map((entry) => ({
-                event: entry.name,
-                duration: entry.duration,
-                inputDelay: Math.round(entry.processingStart - entry.startTime),
-                processing: Math.round(
-                  entry.processingEnd - entry.processingStart,
-                ),
-              })),
+            metric.entries.slice(-3).map((entry) => ({
+              event: entry.name,
+              duration: entry.duration,
+              inputDelay: Math.round(entry.processingStart - entry.startTime),
+              processing: Math.round(
+                entry.processingEnd - entry.processingStart,
+              ),
+            })),
           );
       },
       { reportAllChanges: true },

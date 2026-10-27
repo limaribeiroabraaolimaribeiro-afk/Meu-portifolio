@@ -1,7 +1,7 @@
 export const QUALITY = {
-  high: { dpr: 1.6, blocks: 34, bevel: 3, fps: 60 },
-  medium: { dpr: 1.25, blocks: 24, bevel: 2, fps: 60 },
-  low: { dpr: 1, blocks: 16, bevel: 1, fps: 30 },
+  high: { dpr: 1.6, blocks: 18, grid: 5, bevel: 3, fps: 60 },
+  medium: { dpr: 1.25, blocks: 12, grid: 4, bevel: 2, fps: 60 },
+  low: { dpr: 1, blocks: 8, grid: 3, bevel: 1, fps: 30 },
 };
 export function chooseQuality() {
   let stored = "auto";
@@ -11,7 +11,7 @@ export function chooseQuality() {
   if (QUALITY[stored]) return stored;
   const cores = navigator.hardwareConcurrency || 4,
     memory = navigator.deviceMemory || 4;
-  return memory <= 2 || cores <= 2
+  return cores <= 2 || memory <= 2
     ? "low"
     : innerWidth < 900 || memory <= 4
       ? "medium"

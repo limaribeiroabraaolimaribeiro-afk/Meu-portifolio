@@ -39,7 +39,7 @@ export class SoftwareRenderer {
       camera.projectionMatrix,
       camera.matrixWorldInverse,
     );
-    scene.traverseVisible((mesh) => {
+    const emitMesh = (mesh, modelMatrix) => {
       if (!mesh.isMesh || mesh.userData.skipSoftware) return;
       const mat = mesh.material;
       if (!mat || mat.opacity < 0.005) return;
@@ -49,8 +49,8 @@ export class SoftwareRenderer {
         normals = geometry.attributes.normal,
         index = geometry.index;
       if (!pos) return;
-      this.mvp.multiplyMatrices(cameraMatrix, mesh.matrixWorld);
-      this.normalMatrix.getNormalMatrix(mesh.matrixWorld);
+      this.mvp.multiplyMatrices(cameraMatrix, modelMatrix);
+      this.normalMatrix.getNormalMatrix(modelMatrix);
       const points = [];
       for (let i = 0; i < pos.count; i++) {
         this.vector.fromBufferAttribute(pos, i).applyMatrix4(this.mvp);
@@ -134,7 +134,9 @@ export class SoftwareRenderer {
           a,
           b,
           c,
-          z: (a.z + b.z + c.z) / 3,
+          z: quad
+            ? quad.reduce((sum, p) => sum + p.z, 0) / 4
+            : (a.z + b.z + c.z) / 3,
           color: `rgb(${rgb.join(",")})`,
           alpha: mat.opacity,
           order: mesh.renderOrder,
@@ -142,6 +144,18 @@ export class SoftwareRenderer {
           quad,
         });
       }
+    };
+    const instanceMatrix = new THREE.Matrix4(),
+      modelMatrix = new THREE.Matrix4();
+    scene.traverseVisible((mesh) => {
+      if (!mesh.isMesh || mesh.userData.skipSoftware) return;
+      if (mesh.isInstancedMesh) {
+        for (let i = 0; i < mesh.count; i++) {
+          mesh.getMatrixAt(i, instanceMatrix);
+          modelMatrix.multiplyMatrices(mesh.matrixWorld, instanceMatrix);
+          emitMesh(mesh, modelMatrix);
+        }
+      } else emitMesh(mesh, mesh.matrixWorld);
     });
     faces.sort((a, b) => a.order - b.order || b.z - a.z);
     for (const f of faces) {

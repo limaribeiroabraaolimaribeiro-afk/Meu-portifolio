@@ -1,25 +1,25 @@
 {
-  "context": "Local lab samples, not field or physical-device results. No mobile network emulation applied.",
+  "context": "File sizes and local laboratory samples. Remote Chrome uses Canvas and a throttled compositor; GPU and real mobile not verified.",
   "files": {
     "index.html": {
-      "bytes": 31733,
-      "gzipBytes": 7230
+      "bytes": 35559,
+      "gzipBytes": 8568
     },
     "css/portfolio.css": {
-      "bytes": 27035,
-      "gzipBytes": 5692
+      "bytes": 57001,
+      "gzipBytes": 10383
     },
     "js/projects-config.js": {
       "bytes": 5642,
       "gzipBytes": 2152
     },
     "js/app.bundle.js": {
-      "bytes": 15295,
-      "gzipBytes": 5876
+      "bytes": 18190,
+      "gzipBytes": 6728
     },
     "js/scene.bundle.js": {
-      "bytes": 571255,
-      "gzipBytes": 156035
+      "bytes": 587267,
+      "gzipBytes": 159966
     },
     "fonts/manrope-regular.ttf": {
       "bytes": 94972,
@@ -29,27 +29,41 @@
       "bytes": 69308,
       "gzipBytes": 34481
     },
-    "img/portrait.webp": {
-      "bytes": 55614,
-      "gzipBytes": 55553
+    "img/v2/anarosa-cover.webp": {
+      "bytes": 60320,
+      "gzipBytes": 60358
+    },
+    "img/v2/day-cover.webp": {
+      "bytes": 103814,
+      "gzipBytes": 103867
+    },
+    "img/v2/nexa-cover.webp": {
+      "bytes": 51126,
+      "gzipBytes": 51164
+    },
+    "img/v2/portrait.webp": {
+      "bytes": 108524,
+      "gzipBytes": 108268
+    },
+    "img/cases/anarosa.webp": {
+      "bytes": 92910,
+      "gzipBytes": 92895
     },
     "img/cases/day.webp": {
       "bytes": 71798,
       "gzipBytes": 71636
     },
-    "img/cases/smart.webp": {
-      "bytes": 29532,
-      "gzipBytes": 29201
-    },
     "img/cases/nexa.webp": {
       "bytes": 71780,
       "gzipBytes": 71823
     },
-    "img/cases/anarosa.webp": {
-      "bytes": 92910,
-      "gzipBytes": 92895
+    "img/cases/smart.webp": {
+      "bytes": 29532,
+      "gzipBytes": 29201
     }
   },
+  "portableBytes": 1748707,
+  "newAssetsTotalBytes": 323784,
   "viewportMeasurements": "viewport-results.json",
   "interactionMeasurements": "interaction-results.json",
   "targets": {
@@ -57,12 +71,20 @@
     "webglLowFps": 30,
     "canvasFpsCap": 30
   },
+  "geometry": {
+    "highInstances": 125,
+    "mediumInstances": 64,
+    "lowAndCanvasInstances": 27,
+    "maxDpr": {
+      "high": 1.6,
+      "medium": 1.25,
+      "low": 1
+    }
+  },
   "validationLimits": [
-    "GPU path unavailable in review browser",
-    "Sustained FPS not established in this session; idle samples were irregular",
-    "Physical phone and field Core Web Vitals pending",
-    "Real AI API request not performed"
-  ],
-  "caseImagesTotalBytes": 266020,
-  "portableBytes": 1653776
+    "Cloud Chrome has WebGL disabled; screenshots show Canvas fallback.",
+    "Remote presentation delay invalidates INP/FPS as evidence of physical device performance.",
+    "Physical phone, sustained WebGL frame rate and mobile-network Core Web Vitals remain pending.",
+    "Real authenticated AI API request not performed."
+  ]
 }

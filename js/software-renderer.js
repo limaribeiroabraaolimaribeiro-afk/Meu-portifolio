@@ -40,7 +40,7 @@ export class SoftwareRenderer {
       camera.matrixWorldInverse,
     );
     scene.traverseVisible((mesh) => {
-      if (!mesh.isMesh) return;
+      if (!mesh.isMesh || mesh.userData.skipSoftware) return;
       const mat = mesh.material;
       if (!mat || mat.opacity < 0.005) return;
       const geometry = mesh.geometry,
@@ -91,8 +91,8 @@ export class SoftwareRenderer {
             .applyMatrix3(this.normalMatrix)
             .normalize();
           shade = 0.26 + Math.max(0, this.normal.dot(this.light)) * 0.9;
-          spec = Math.pow(Math.max(0, this.normal.dot(this.half)), 24) * 0.75;
-          rim = Math.pow(1 - Math.abs(this.normal.z), 4) * 0.26;
+          spec = Math.pow(Math.max(0, this.normal.dot(this.half)), 24) * 0.05;
+          rim = Math.pow(1 - Math.abs(this.normal.z), 4) * 0.035;
         }
         const color = mat.color.clone().convertLinearToSRGB();
         const rgb = [color.r, color.g, color.b].map((v, j) =>
@@ -116,6 +116,20 @@ export class SoftwareRenderer {
             })),
           };
         }
+        let quad = null;
+        if (!tex && geometry.type === "BoxGeometry" && index && i % 6 === 0) {
+          const ids = [
+            ...new Set(Array.from({ length: 6 }, (_, k) => index.getX(i + k))),
+          ];
+          quad = ids.map((k) => points[k]);
+          const mx = quad.reduce((sum, p) => sum + p.x, 0) / 4;
+          const my = quad.reduce((sum, p) => sum + p.y, 0) / 4;
+          quad.sort(
+            (p, q) =>
+              Math.atan2(p.y - my, p.x - mx) - Math.atan2(q.y - my, q.x - mx),
+          );
+          i += 3;
+        }
         faces.push({
           a,
           b,
@@ -123,11 +137,13 @@ export class SoftwareRenderer {
           z: (a.z + b.z + c.z) / 3,
           color: `rgb(${rgb.join(",")})`,
           alpha: mat.opacity,
+          order: mesh.renderOrder,
           tex,
+          quad,
         });
       }
     });
-    faces.sort((a, b) => b.z - a.z);
+    faces.sort((a, b) => a.order - b.order || b.z - a.z);
     for (const f of faces) {
       ctx.globalAlpha = f.alpha;
       if (f.tex) {
@@ -138,9 +154,9 @@ export class SoftwareRenderer {
       ctx.strokeStyle = f.color;
       ctx.lineWidth = 0.5;
       ctx.beginPath();
-      ctx.moveTo(f.a.x, f.a.y);
-      ctx.lineTo(f.b.x, f.b.y);
-      ctx.lineTo(f.c.x, f.c.y);
+      const polygon = f.quad || [f.a, f.b, f.c];
+      ctx.moveTo(polygon[0].x, polygon[0].y);
+      for (const p of polygon.slice(1)) ctx.lineTo(p.x, p.y);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
@@ -178,9 +194,17 @@ export class SoftwareRenderer {
       det;
     ctx.save();
     ctx.beginPath();
-    ctx.moveTo(d0.x, d0.y);
-    ctx.lineTo(d1.x, d1.y);
-    ctx.lineTo(d2.x, d2.y);
+    const mx = (d0.x + d1.x + d2.x) / 3,
+      my = (d0.y + d1.y + d2.y) / 3;
+    const expand = (p) => {
+      const dx = p.x - mx,
+        dy = p.y - my,
+        l = Math.hypot(dx, dy) || 1;
+      return [p.x + (dx / l) * 0.7, p.y + (dy / l) * 0.7];
+    };
+    ctx.moveTo(...expand(d0));
+    ctx.lineTo(...expand(d1));
+    ctx.lineTo(...expand(d2));
     ctx.closePath();
     ctx.clip();
     ctx.transform(a, b, c, d, e, g);

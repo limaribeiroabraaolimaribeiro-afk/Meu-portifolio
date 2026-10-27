@@ -1,0 +1,68 @@
+{
+  "context": "Local lab samples, not field or physical-device results. No mobile network emulation applied.",
+  "files": {
+    "index.html": {
+      "bytes": 31733,
+      "gzipBytes": 7230
+    },
+    "css/portfolio.css": {
+      "bytes": 27035,
+      "gzipBytes": 5692
+    },
+    "js/projects-config.js": {
+      "bytes": 5642,
+      "gzipBytes": 2152
+    },
+    "js/app.bundle.js": {
+      "bytes": 15295,
+      "gzipBytes": 5876
+    },
+    "js/scene.bundle.js": {
+      "bytes": 571255,
+      "gzipBytes": 156035
+    },
+    "fonts/manrope-regular.ttf": {
+      "bytes": 94972,
+      "gzipBytes": 41414
+    },
+    "fonts/space-grotesk-bold.ttf": {
+      "bytes": 69308,
+      "gzipBytes": 34481
+    },
+    "img/portrait.webp": {
+      "bytes": 55614,
+      "gzipBytes": 55553
+    },
+    "img/cases/day.webp": {
+      "bytes": 71798,
+      "gzipBytes": 71636
+    },
+    "img/cases/smart.webp": {
+      "bytes": 29532,
+      "gzipBytes": 29201
+    },
+    "img/cases/nexa.webp": {
+      "bytes": 71780,
+      "gzipBytes": 71823
+    },
+    "img/cases/anarosa.webp": {
+      "bytes": 92910,
+      "gzipBytes": 92895
+    }
+  },
+  "viewportMeasurements": "viewport-results.json",
+  "interactionMeasurements": "interaction-results.json",
+  "targets": {
+    "webglHighMediumFps": 60,
+    "webglLowFps": 30,
+    "canvasFpsCap": 30
+  },
+  "validationLimits": [
+    "GPU path unavailable in review browser",
+    "Sustained FPS not established in this session; idle samples were irregular",
+    "Physical phone and field Core Web Vitals pending",
+    "Real AI API request not performed"
+  ],
+  "caseImagesTotalBytes": 266020,
+  "portableBytes": 1653776
+}

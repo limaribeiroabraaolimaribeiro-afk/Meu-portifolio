@@ -1,0 +1,26 @@
+{
+  "environment": "Local portable HTML in cloud Chrome; native dialog opening plus offline submit; no external API request.",
+  "measurements": {
+    "cls": 0.002,
+    "fpsObserved": "1.1",
+    "frameCpuMs": 0.5,
+    "inpMs": 128,
+    "inpTiming": [
+      {
+        "duration": 128,
+        "event": "pointerdown",
+        "inputDelay": 1,
+        "processing": 0
+      },
+      {
+        "duration": 128,
+        "event": "pointerdown",
+        "inputDelay": 1,
+        "processing": 0
+      }
+    ],
+    "lcpMs": 564,
+    "quality": "medium",
+    "renderer": "canvas"
+  }
+}

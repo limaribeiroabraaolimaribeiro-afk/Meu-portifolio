@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createDirector} from '../js/animations/director.js';
+const markers=[...readFileSync('index.html','utf8').matchAll(/data-chapter="([^"]+)"/g)].map(m=>({id:m[1]}));
+const d=createDirector(markers),at=(id)=>{d.seek(markers.findIndex(m=>m.id===id)+.9);return {...d.state}};
+const hero=at('inicio');assert.equal(hero.order,0);assert.equal(hero.bridge,0);assert.equal(hero.world,1);
+const transformation=at('transformacao');assert.equal(transformation.bridge,1);assert.equal(transformation.order,.8);
+const caseState=at('case-smart-2');assert.equal(caseState.screen,1);assert.ok(Math.abs(caseState.order-2/3)<1e-9);
+const final=at('contato');assert.equal(final.order,1);assert.equal(final.bridge,1);
+assert.deepEqual(at('inicio'),hero,'Reverse scroll must restore the full initial scene');
+assert.deepEqual(at('case-smart-2'),caseState,'A menu jump must match the same scene reached through scroll');
+d.dispose();console.log('Timeline: forward, reverse and direct jumps passed.');

@@ -1,61 +1,56 @@
-/* Portfolio interactions. Native scrolling stays in charge of the experience. */
+import { observeMetrics } from "./lib/metrics.js";
+import { createScrollState, clamp } from "./lib/scroll-state.js";
+import { chooseQuality } from "./lib/quality.js";
+/* Native document scrolling is the only input. All content is present in HTML. */
 (() => {
   "use strict";
   const root = document.documentElement;
+  let reduced = root.classList.contains("reduced-motion");
   const media = matchMedia("(prefers-reduced-motion: reduce)");
-  let storedMotion = null;
-  try {
-    storedMotion = localStorage.getItem("portfolio-motion");
-  } catch {}
-  let reduced =
-    storedMotion === "reduced" || (storedMotion !== "full" && media.matches);
   const motionButton = document.getElementById("motionToggle");
-  function setMotion(value, persist = false) {
-    reduced = value;
-    root.classList.toggle("reduced-motion", reduced);
-    root.classList.toggle("full-motion", !reduced);
-    root.classList.toggle("js-motion", !reduced);
-    motionButton.setAttribute("aria-pressed", String(reduced));
-    motionButton.querySelector("span").textContent = reduced
-      ? "Ativar animações"
-      : "Reduzir movimento";
-    if (persist) {
-      storedMotion = reduced ? "reduced" : "full";
-      try {
-        localStorage.setItem("portfolio-motion", reduced ? "reduced" : "full");
-      } catch {}
-    }
-    window.dispatchEvent(
-      new CustomEvent("portfolio:motion", { detail: { reduced } }),
-    );
-    updateScroll();
-  }
+  motionButton.setAttribute("aria-pressed", String(reduced));
+  motionButton.querySelector("span").textContent = reduced
+    ? "Ativar animações"
+    : "Reduzir movimento";
   motionButton.addEventListener("click", () => {
-    setMotion(!reduced, true);
-    requestAnimationFrame(() =>
-      motionButton.scrollIntoView({ block: "center", behavior: "instant" }),
-    );
+    try {
+      localStorage.setItem("portfolio-motion", reduced ? "full" : "reduced");
+    } catch {}
+    location.reload();
   });
-  media.addEventListener("change", (e) => {
-    if (storedMotion === null) setMotion(e.matches);
+  media.addEventListener("change", () => {
+    let stored = null;
+    try {
+      stored = localStorage.getItem("portfolio-motion");
+    } catch {}
+    if (!stored) location.reload();
   });
-  window.addEventListener("portfolio:graphics-fallback", () => setMotion(true));
-
+  const quality = document.getElementById("qualitySelect");
+  try {
+    quality.value = localStorage.getItem("portfolio-quality") || "auto";
+  } catch {}
+  root.dataset.quality = chooseQuality();
+  quality.addEventListener("change", () => {
+    try {
+      localStorage.setItem("portfolio-quality", quality.value);
+    } catch {}
+    root.dataset.quality = chooseQuality();
+    dispatchEvent(new Event("portfolio:quality"));
+  });
   const waBase = `https://wa.me/${WHATSAPP_NUMBER}`;
   const waUrl = `${waBase}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-  document.querySelectorAll(".whatsapp-link").forEach((el) => {
-    el.href = waUrl;
-  });
+  document
+    .querySelectorAll(".whatsapp-link")
+    .forEach((el) => (el.href = waUrl));
   document.getElementById("year").textContent = String(
     new Date().getFullYear(),
   );
-
-  const nav = document.getElementById("nav");
-  const toggle = document.getElementById("navToggle");
-  function setMenuInert(value) {
-    document.querySelector("main").inert = value;
-    document.querySelector("footer").inert = value;
-    document.getElementById("orcamentoFloat").inert = value;
+  const nav = document.getElementById("nav"),
+    toggle = document.getElementById("navToggle");
+  function setMenuInert(v) {
+    document.querySelector("main").inert = v;
+    document.querySelector("footer").inert = v;
+    document.getElementById("orcamentoFloat").inert = v;
   }
   function closeMenu() {
     setMenuInert(false);
@@ -64,6 +59,7 @@
     toggle.setAttribute("aria-label", "Abrir menu");
     document.body.classList.remove("menu-open");
   }
+  document.querySelector(".header .logo").addEventListener("click", closeMenu);
   toggle.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") !== "true";
     nav.classList.toggle("open", open);
@@ -82,11 +78,11 @@
       toggle.focus();
     }
     if (e.key === "Tab" && nav.classList.contains("open")) {
-      const focusable = [
-        ...document.querySelectorAll(".header a,.header button"),
-      ].filter((el) => el.getClientRects().length);
-      const first = focusable[0],
-        last = focusable[focusable.length - 1];
+      const items = [
+          ...document.querySelectorAll(".header a,.header button"),
+        ].filter((el) => el.getClientRects().length),
+        first = items[0],
+        last = items.at(-1);
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
@@ -96,154 +92,161 @@
       }
     }
   });
-  matchMedia("(min-width: 701px)").addEventListener("change", (e) => {
+  matchMedia("(min-width:701px)").addEventListener("change", (e) => {
     if (e.matches) closeMenu();
   });
-
-  const escapeHTML = (str) =>
-    String(str).replace(
-      /[&<>"']/g,
-      (c) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        })[c],
-    );
-  const meta = {
-    "day-lanches": {
-      group: "sites",
-      label: "CARDÁPIO DIGITAL",
-      glow: "#de782523",
-    },
-    "nexa-story": { group: "sites", label: "E-COMMERCE", glow: "#b48fe523" },
-    "js-autocar": {
-      group: "sites",
-      label: "SITE & AGENDAMENTO",
-      glow: "#6c9cf123",
-    },
-    "agrisolo-apontamentos": {
-      group: "sistemas",
-      label: "GESTÃO DA OPERAÇÃO",
-      glow: "#b98a3523",
-    },
-    "controle-gastos-pro": {
-      group: "sistemas",
-      label: "GESTÃO FINANCEIRA",
-      title: "Clareza para decidir.",
-    },
-    "funcionario-ia": {
-      group: "automacao",
-      label: "WHATSAPP & INTELIGÊNCIA ARTIFICIAL",
-      title: "Atendimento conectado.",
-    },
-    trufaspay: {
-      group: "automacao",
-      label: "VENDAS & COBRANÇAS",
-      title: "Cada venda organizada.",
-    },
-  };
-  const order = [
-    "day-lanches",
-    "nexa-story",
-    "js-autocar",
-    "agrisolo-apontamentos",
-    "controle-gastos-pro",
-    "funcionario-ia",
-    "trufaspay",
+  const scroll = createScrollState();
+  const labels = [
+    "O PONTO DE PARTIDA",
+    "O PONTO DE PARTIDA",
+    "O QUE ESTÁ TRAVANDO",
+    "ANTES DE CONSTRUIR",
+    "OLHAR MAIS DE PERTO",
+    "CONECTAR O QUE IMPORTA",
+    "TRABALHOS SELECIONADOS",
   ];
-  const projects = [...PROJECTS].sort(
-    (a, b) => order.indexOf(a.id) - order.indexOf(b.id),
-  );
-  const demo = (p, m) =>
-    p.id === "funcionario-ia"
-      ? `<div class="project-demo flow-demo" aria-hidden="true"><div class="flow-node"><span>Uma nova mensagem</span><b>↗</b></div><div class="flow-line"></div><div class="flow-node"><span>Atendimento inteligente</span><b>✳</b></div><div class="flow-line"></div><div class="flow-node"><span>Próximo passo organizado</span><b>✓</b></div></div><span class="demo-illustration">VISUAL ILUSTRATIVO</span>`
-      : `<div class="project-demo" aria-hidden="true"><div class="demo-top"><span>${escapeHTML(p.nome)}</span><i class="demo-dot"></i></div><span class="demo-title">${m.title}</span><div class="demo-chart">${[30, 50, 42, 75, 62, 88, 100].map((h) => `<i style="height:${h}%"></i>`).join("")}</div><div class="demo-lines"><i></i><i></i><i></i></div></div><span class="demo-illustration">VISUAL ILUSTRATIVO</span>`;
-  const grid = document.getElementById("projectsGrid");
-  grid.innerHTML = projects
-    .map((p, i) => {
-      const m = meta[p.id] || { group: "sistemas", label: p.subtitulo };
-      const similarUrl = `${waBase}?text=${encodeURIComponent(`Olá, Abraão! Vi o projeto ${p.nome} no seu portfólio e gostaria de conversar sobre uma solução parecida.`)}`;
-      const image = p.imagem
-        ? `<img src="${escapeHTML(p.imagem.replace(/\.jpg$/, ".webp"))}" alt="Apresentação do projeto ${escapeHTML(p.nome)}" width="1300" height="975" loading="lazy" decoding="async">`
-        : demo(p, m);
-      return `<article class="project-case reveal${p.destaque ? " featured" : ""}" data-category="${m.group}" style="--project-glow:${m.glow || "#db782b1c"}"><a class="project-media" href="${escapeHTML(p.urlProd || similarUrl)}" target="_blank" rel="noopener noreferrer" aria-label="${p.urlProd ? "Visitar" : "Conversar sobre"} ${escapeHTML(p.nome)}"><span class="project-index">[ ${String(i + 1).padStart(2, "0")} / PROJETO ]</span>${p.destaque ? '<div class="featured-label"><span>PROJETO EM DESTAQUE</span><strong>Da vontade<br>ao pedido.</strong><small>Uma experiência digital para o Day Lanches.</small></div>' : ""}${image}<span class="project-corner" aria-hidden="true">↗</span></a><div class="project-info"><div class="project-info-top"><h3>${escapeHTML(p.nome)}</h3><span class="project-category">${escapeHTML(m.label)}</span></div><p>${escapeHTML(p.descricao)}</p><div class="project-links">${p.urlProd ? `<a href="${escapeHTML(p.urlProd)}" target="_blank" rel="noopener noreferrer">Ver projeto ↗</a>` : ""}<a href="${escapeHTML(similarUrl)}" target="_blank" rel="noopener noreferrer">Quero uma solução assim ↗</a>${p.urlGithub ? `<a href="${escapeHTML(p.urlGithub)}" target="_blank" rel="noopener noreferrer">Código ↗</a>` : ""}</div></div></article>`;
-    })
-    .join("");
-  document.querySelector(
-    '.project-filters [data-filter="all"] span',
-  ).textContent = String(projects.length).padStart(2, "0");
-  document.querySelectorAll("[data-filter]").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll("[data-filter]").forEach((other) => {
-        const active = other === button;
-        other.classList.toggle("active", active);
-        other.setAttribute("aria-pressed", String(active));
-      });
-      grid.querySelectorAll(".project-case").forEach((card) => {
-        card.hidden =
-          button.dataset.filter !== "all" &&
-          button.dataset.filter !== card.dataset.category;
-        if (!card.hidden) card.classList.remove("pending");
-      });
-      requestAnimationFrame(updateScroll);
-    });
-  });
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove("pending");
-            observer.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08 },
-    );
-    document.querySelectorAll(".reveal").forEach((el) => {
-      el.classList.add("pending");
-      observer.observe(el);
-    });
-  }
-
-  const story = document.getElementById("servicos");
-  const steps = [...document.querySelectorAll(".story-step")];
-  const dots = [...document.querySelectorAll(".story-dots i")];
-  const meter = document.querySelector(".scroll-meter span");
-  let scrollQueued = false;
-  function updateScroll() {
-    scrollQueued = false;
-    const y = window.scrollY;
-    meter.style.transform = `scaleX(${Math.min(1, y / Math.max(1, document.documentElement.scrollHeight - innerHeight))})`;
-    const max = Math.max(1, story.offsetHeight - innerHeight);
-    const p = Math.max(0, Math.min(1, (y - story.offsetTop) / max));
-    const index = Math.min(2, Math.floor(p * 3));
-    steps.forEach((step, i) => {
-      step.classList.toggle("is-active", i === index);
-      step.inert = !reduced && i !== index;
-    });
-    dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
-    document.querySelector(".story-counter").textContent = `0${index + 1} / 03`;
+  const meter = document.querySelector(".scroll-meter span"),
+    header = document.getElementById("header"),
+    caption = document.querySelector(".chapter-label"),
+    counter = document.querySelector(".scene-number");
+  let queued = false;
+  function update() {
+    queued = false;
+    const { index, marker, progress } = scroll.at();
+    root.dataset.chapter = marker.id;
+    meter.style.transform = `scaleX(${clamp(scrollY / Math.max(1, root.scrollHeight - innerHeight))})`;
+    header.classList.toggle("is-scrolled", scrollY > 30);
+    const caseIndex = Number(marker.el.dataset.caseIndex);
+    caption.textContent = Number.isFinite(caseIndex)
+      ? `CASE / ${["DAY LANCHES", "SMART BILLINGG", "NEXA STORY", "ANAROSA"][caseIndex]}`
+      : labels[index] ||
+        {
+          inteligencia: "INTELIGÊNCIA COM PROPÓSITO",
+          sobre: "QUEM PENSA A SOLUÇÃO",
+          resolvido: "TUDO NO SEU LUGAR",
+          evoluindo: "O PRÓXIMO PASSO",
+          contato: "A PRÓXIMA SOLUÇÃO",
+        }[marker.id] ||
+        "";
+    counter.textContent =
+      index <= 6
+        ? `${String(Math.min(5, index + 1)).padStart(2, "0")} / 08`
+        : marker.id.startsWith("case")
+          ? "05 / 08"
+          : marker.id === "inteligencia"
+            ? "06 / 08"
+            : marker.id === "sobre"
+              ? "07 / 08"
+              : "08 / 08";
     if (!reduced) {
-      root.style.setProperty("--note-y", `${Math.min(y * 0.1, 80)}px`);
-      root.style.setProperty("--asterisk-angle", `${y * 0.025}deg`);
+      for (const el of scroll.sections) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < innerHeight * 1.2) {
+          const entry = clamp(
+            (innerHeight * 0.95 - r.top) / (innerHeight * 0.3),
+          );
+          el.style.setProperty("--reveal", String(entry));
+        }
+      }
+      document
+        .querySelectorAll(".solution-words li")
+        .forEach((el, i) =>
+          el.classList.toggle(
+            "is-current",
+            i === Math.min(5, Math.floor(progress * 6)) &&
+              marker.id === "transformacao",
+          ),
+        );
+    }
+    root.dataset.sceneTime = String(scroll.at().time);
+  }
+  function request() {
+    if (!queued) {
+      queued = true;
+      requestAnimationFrame(update);
     }
   }
+  addEventListener("scroll", request, { passive: true });
   addEventListener(
-    "scroll",
+    "resize",
     () => {
-      if (!scrollQueued) {
-        scrollQueued = true;
-        requestAnimationFrame(updateScroll);
-      }
+      scroll.measure();
+      request();
     },
     { passive: true },
   );
-  addEventListener("resize", updateScroll, { passive: true });
-  setMotion(reduced);
-
+  document.fonts.ready.then(() => {
+    scroll.measure();
+    request();
+  });
+  update();
+  document.querySelectorAll("[data-filter]").forEach((button) =>
+    button.addEventListener("click", () => {
+      document.querySelectorAll("[data-filter]").forEach((el) => {
+        el.classList.toggle("active", el === button);
+        el.setAttribute("aria-pressed", String(el === button));
+      });
+      document
+        .querySelectorAll(".archive-row")
+        .forEach(
+          (el) =>
+            (el.hidden =
+              button.dataset.filter !== "all" &&
+              button.dataset.filter !== el.dataset.category),
+        );
+      scroll.measure();
+    }),
+  );
+  document.getElementById("arquivo").addEventListener("toggle", () => {
+    scroll.measure();
+    request();
+  });
+  if (!reduced && !root.dataset.standalone) {
+    const inject = () => {
+      const s = document.createElement("script");
+      s.src = "js/scene.bundle.js";
+      s.async = true;
+      document.body.append(s);
+    };
+    if ("requestIdleCallback" in window)
+      requestIdleCallback(inject, { timeout: 1000 });
+    else setTimeout(inject, 60);
+  }
+  addEventListener("portfolio:graphics-fallback", () => {
+    reduced = true;
+    root.className = "reduced-motion";
+    motionButton.setAttribute("aria-pressed", "true");
+    motionButton.querySelector("span").textContent = "Ativar animações";
+    root.dataset.renderer = "css";
+    document.getElementById("sceneStage").classList.remove("is-ready");
+  });
+  if (matchMedia("(hover:hover) and (pointer:fine)").matches && !reduced) {
+    const cursor = document.querySelector(".context-cursor");
+    document.querySelectorAll("[data-cursor]").forEach((el) => {
+      el.addEventListener("pointerenter", () => {
+        cursor.textContent = el.dataset.cursor;
+        cursor.classList.add("is-visible");
+      });
+      el.addEventListener("pointerleave", () =>
+        cursor.classList.remove("is-visible"),
+      );
+    });
+    addEventListener(
+      "pointermove",
+      (e) => {
+        cursor.style.transform = `translate(${e.clientX + 18}px,${e.clientY + 18}px)`;
+      },
+      { passive: true },
+    );
+    document.querySelectorAll(".magnetic").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.045}px,${(e.clientY - r.top - r.height / 2) * 0.08}px)`;
+      });
+      el.addEventListener("pointerleave", () => (el.style.transform = ""));
+    });
+  }
+  observeMetrics();
   const dialog = document.getElementById("chatDialog");
   const messages = document.getElementById("orcamentoChat");
   const input = document.getElementById("orcamentoInput");
@@ -269,7 +272,7 @@
       document.body.style.overflow = "hidden";
       if (!history.length) {
         const greeting =
-          "Olá! Sou a assistente do Abraão. Vamos pensar no seu projeto?\n\nMe conta: você precisa de um site, sistema, cardápio digital ou automação?";
+          "Olá! Sou a assistente do Abraão.\n\nO que está travando a rotina do seu negócio hoje?";
         history.push({ role: "assistant", content: greeting });
         addMessage("assistant", greeting);
       }
@@ -306,7 +309,7 @@
       loading = true;
       sendButton.disabled = true;
       history.push({ role: "user", content });
-      status.textContent = "Pensando no seu projeto…";
+      status.textContent = "Entendendo o problema…";
       const typing = addMessage("typing", "Preparando uma resposta…");
       const abort = new AbortController();
       const timeout = setTimeout(() => abort.abort(), 30000);
@@ -339,10 +342,10 @@
           "assistant",
           document.documentElement.dataset.standalone === "true" ||
             location.protocol === "file:"
-            ? "A conversa com IA não está disponível nesta prévia. Você pode levar sua ideia diretamente para Abraão pelo WhatsApp."
+            ? "A conversa com IA não está disponível nesta prévia. Você pode contar o problema diretamente para Abraão pelo WhatsApp."
             : "O assistente não conseguiu responder agora. Você pode continuar sua conversa diretamente com Abraão pelo WhatsApp.",
         );
-        wa.href = `${waBase}?text=${encodeURIComponent("Olá, Abraão! Minha ideia de projeto é: " + content)}`;
+        wa.href = `${waBase}?text=${encodeURIComponent("Olá, Abraão! O que preciso resolver é: " + content)}`;
         wa.textContent = "Continuar esta conversa no WhatsApp ↗";
       } finally {
         clearTimeout(timeout);

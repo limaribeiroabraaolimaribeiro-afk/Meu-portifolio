@@ -8,7 +8,7 @@
 const WHATSAPP_NUMBER = "5547992101675";
 
 // ✏️ Mensagem padrão dos botões gerais de WhatsApp
-const WHATSAPP_MESSAGE = "Olá, vi seu portfólio e tenho interesse em um projeto";
+const WHATSAPP_MESSAGE = "Olá, Abraão! O que está travando meu negócio hoje é: ";
 
 // ✏️ Lista de projetos exibidos na seção "Projetos desenvolvidos"
 //

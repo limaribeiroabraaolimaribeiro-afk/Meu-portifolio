@@ -1,39 +1,54 @@
-# Prévia do portfólio 3D
+# dev.abraao — prévia cinematográfica
 
-Novo layout de apresentação para Abraão Dev, preparado na branch `feat/portfolio-3d-preview` para avaliação antes de qualquer integração com `master`.
+Nova versão na branch `feat/portfolio-3d-preview`, em rascunho para aprovação. **Não integrar com `master` nem publicar no domínio principal antes da aprovação de Abraão.**
 
-## Experiência
+## Abrir a experiência
 
-- Escultura 3D original na abertura; a rolagem nativa conduz a transição para site, painel de gestão e fluxo de automação.
-- Cenas em Three.js com alternativa de projeção da mesma geometria em Canvas quando WebGL não está disponível.
-- Celular com composição própria; menu acessível, filtros dos sete projetos existentes, FAQ, WhatsApp e assistente de projetos.
-- Fotografias e apresentações dos projetos do repositório, otimizadas em WebP. Fontes locais e geometria procedural: a página não depende de CDNs.
-- Preferência de movimento reduzido do sistema e botão para alternar, com conteúdo completo em formato estático. Renderização pausada fora da experiência e quando a aba está oculta.
-- Ilustrações de sistemas sem captura existente são identificadas como visuais ilustrativos. Depoimentos e métricas sem comprovação não fazem parte da nova apresentação.
+`preview/portfolio-3d.html` é uma versão portátil, com fontes, scripts e imagens incorporados. Abra em um navegador e role normalmente. O arquivo não depende de servidor nem de CDN. Os links externos continuam apontando para os projetos e para o contato existente. O assistente informa que a IA não está disponível nessa prévia e oferece a continuação pelo WhatsApp; nenhuma mensagem é enviada automaticamente.
+
+A prévia da branch no Vercel pode exigir acesso à conta do proprietário. Não foi alterada a proteção de acesso, o domínio, o deploy de produção ou a configuração da API.
+
+## O que mudou
+
+O cubo laranja conduz uma história contínua: bloqueio → diagnóstico → conexão → experiências reais → estruturas alinhadas. A rolagem nativa controla câmera, posição, organização dos blocos, abertura do caminho, luz e formação da interface. Não há sequestro do gesto de toque.
+
+Os quatro cases seguem problema, ideia, solução e experiência: Day Lanches, Smart Billingg, Nexa Story e Anarosa. As telas de Day Lanches e Anarosa são capturas dos sites; Smart usa componentes reais em demonstração local sem dados de clientes. Nexa usa a apresentação já existente no repositório, identificada como acervo, pois a versão atual solicita cadastro. Recursos foram conferidos no código disponível. Nenhuma métrica de negócio foi inventada.
+
+Os sete projetos da configuração original continuam no arquivo de projetos, com filtros e links. WhatsApp, e-mail, redes, FAQ e assistente foram preservados. O prompt comercial do assistente passou a começar pelo problema, mantendo a rota, o contrato e o provedor da API existente.
 
 ## Desenvolvimento
 
 ```sh
 npm ci
-npm run build:scene
+npm run build:all
+npm run check:director
 npm run preview:bundle
+npm run preview:prepare
 ```
 
-O arquivo `preview/portfolio-3d.html` reúne HTML, estilos, scripts, fontes e imagens. Pode ser aberto diretamente em um navegador para avaliação, sem servidor. Nessa versão, o assistente informa que a IA não está disponível e oferece a continuação pelo WhatsApp. Nenhuma mensagem é enviada automaticamente.
+O projeto original é estático; foi mantido assim. Three.js e GSAP operam sem introduzir um framework ou bibliotecas de animação duplicadas. Os bundles são versionados para a hospedagem atual. Não foi criado um script `build` padrão que altere o comportamento do Vercel.
 
-O site usa `js/projects-config.js` como fonte dos contatos, textos e links existentes. Os metadados de categorias e a ordem da seleção visual estão em `js/portfolio.js`. O código 3D está em `js/scene.js`; a alternativa Canvas, em `js/software-renderer.js`. `js/scene.bundle.js` é gerado e versionado para manter a hospedagem estática atual.
+- `scripts/render-page.py`: gera HTML semântico completo, incluindo os cases e os sete projetos.
+- `data/cases.json`: conteúdo e evidências dos cases.
+- `js/animations/director.js`: relógio GSAP, estados e interpolação determinística nos dois sentidos.
+- `js/scene.js`: mundo Three.js, câmera, materiais e carregamento progressivo das telas.
+- `js/software-renderer.js`: projeção Canvas para ambientes sem WebGL.
+- `js/lib/`: rolagem, qualidade e métricas locais.
+- `js/portfolio.js`: navegação, preferências, filtros, contato e assistente.
+- `scripts/templates/dialog.html`: estrutura do diálogo existente.
 
-Para a prévia interna com Sites, `npm run preview:prepare` cria o diretório ignorado `dist/` e o manifesto local. Nenhum ID de Site, publicação ou troca de domínio é necessário.
+## Acesso e performance
+
+O conteúdo principal está no DOM; existe um H1 e hierarquia de títulos. Canonical, sitemap, robots, Open Graph, Twitter e Person schema estão presentes. Fontes são locais e imagens estão em WebP. Nenhum modelo 3D pesado ou áudio é carregado.
+
+Há qualidade automática e modos alta/média/leve, com limite de DPR e redução de geometria. A renderização pausa com a aba oculta e fora da experiência. A meta de WebGL é 60 FPS em alta/média e 30 FPS no modo leve; a alternativa Canvas limita a 30 FPS. **Esses limites são metas, não resultados comprovados em celular físico.**
+
+O sistema respeita `prefers-reduced-motion`; também há um modo de leitura escolhido pelo visitante. Sem animação, os quatro cases mostram imagens e conteúdo integral. A navegação funciona por teclado, com foco visível, link de salto e diálogo nativo. Se a renderização não estiver disponível, o conteúdo continua em HTML.
 
 ## Validação e limites
 
-- Build do bundle e verificação de sintaxe dos scripts.
-- Navegação, mudança dos capítulos na rolagem, filtros, menu móvel, abertura e fechamento do diálogo, FAQ e movimento reduzido verificados no navegador.
-- Layout inspecionado em desktop e em viewport de 390 × 844 dentro de iframe. Isso não substitui um teste em aparelho físico.
-- O navegador de teste não oferece WebGL. A alternativa Canvas foi inspecionada nas cenas; a aparência e a performance da renderização por GPU ainda precisam de validação em dispositivo compatível.
-- `api/chat.js` e sua configuração permanecem como no repositório original. A chamada real ao provedor de IA não foi executada nesta avaliação.
-- O arquivo portátil tem `noindex`; os metadados indexáveis do site principal são preservados.
+As oito larguras pedidas foram verificadas: 360, 390, 412, 430, 768, 1366, 1440 e 1920 px. Não houve estouro horizontal na matriz. Menu, teclado/Escape, filtros, FAQ, qualidade, movimento reduzido, contato e o comportamento offline do assistente foram revisados. A timeline tem uma verificação de ida, volta e salto direto.
 
-## Produção
+O navegador de revisão não oferece WebGL; portanto as capturas mostram a alternativa Canvas. Os dados de LCP/CLS e tempos de quadro em `docs/` são amostras de laboratório local, sem simular rede móvel. A amostragem de FPS nesta sessão foi irregular e não comprova fluidez em aparelho real. A aparência por GPU, os Core Web Vitals de campo e o teste em celular físico permanecem pendentes antes da produção. A API real de IA não foi chamada e nenhuma compra ou mensagem foi enviada.
 
-Não foi feito merge nem publicação em produção. A aprovação visual deve acontecer antes de integrar a branch. Na etapa de publicação, confirmar a prévia no aparelho do usuário e a hospedagem da API existente.
+O relatório técnico está em `docs/IMPLEMENTACAO-3D.md`.

@@ -1,0 +1,160 @@
+[
+  {
+    "id": "day",
+    "name": "Day Lanches",
+    "category": "CARDÁPIO & OPERAÇÃO",
+    "screen": "img/cases/day.webp",
+    "url": "https://www.daylanches.com.br",
+    "source": "https://github.com/limaribeiroabraaolimaribeiro-afk/DayLanches",
+    "note": "Interface real do cardápio digital do Day Lanches.",
+    "flow": [
+      "Cardápio",
+      "Pedido",
+      "Carrinho",
+      "Localização",
+      "Pagamento",
+      "Operação"
+    ],
+    "phases": [
+      {
+        "label": "PROBLEMA",
+        "title": "COMPRAR PRECISA<br>SER SIMPLES.",
+        "body": "Entre escolher o lanche e concluir o pedido, cada etapa precisa fazer sentido."
+      },
+      {
+        "label": "IDEIA",
+        "title": "UM PEDIDO.<br>UM CAMINHO.",
+        "body": "Aproximar o cardápio da rotina de quem compra e de quem atende."
+      },
+      {
+        "label": "SOLUÇÃO",
+        "title": "DA ESCOLHA<br>À OPERAÇÃO.",
+        "body": "Cardápio, carrinho, endereço e pagamento conectados ao fluxo do pedido."
+      },
+      {
+        "label": "EXPERIÊNCIA",
+        "title": "MENOS DESVIOS.<br>MAIS CLAREZA.",
+        "body": "Explore a experiência real e veja como o pedido acontece."
+      }
+    ],
+    "evidence": [
+      "index.html: cardápio, carrinho, endereço e localização",
+      "Código do checkout e integração de pagamento; não foi feita transação"
+    ]
+  },
+  {
+    "id": "smart",
+    "name": "Smart Billingg",
+    "category": "COBRANÇAS & ACOMPANHAMENTO",
+    "screen": "img/cases/smart.webp",
+    "url": null,
+    "source": "https://github.com/limaribeiroabraaolimaribeiro-afk/Smart-Billingg",
+    "note": "Interface real em demonstração local. Nenhum dado de cliente foi carregado.",
+    "flow": [
+      "Clientes",
+      "Cobranças",
+      "Pagamentos",
+      "Recibos",
+      "Acompanhamento"
+    ],
+    "phases": [
+      {
+        "label": "PROBLEMA",
+        "title": "COBRAR EXIGE<br>ACOMPANHAR.",
+        "body": "Cliente, cobrança e situação do pagamento precisam estar conectados."
+      },
+      {
+        "label": "IDEIA",
+        "title": "CADA INFORMAÇÃO<br>NO SEU LUGAR.",
+        "body": "Organizar o caminho da cobrança para que a próxima ação fique visível."
+      },
+      {
+        "label": "SOLUÇÃO",
+        "title": "UM FLUXO.<br>DO INÍCIO AO RECIBO.",
+        "body": "Gestão de clientes, cobranças, estados de pagamento e geração de recibos."
+      },
+      {
+        "label": "EXPERIÊNCIA",
+        "title": "ACOMPANHAR<br>SEM SE PERDER.",
+        "body": "Uma interface para consultar a operação. A demonstração preserva os dados dos clientes."
+      }
+    ],
+    "evidence": [
+      "index.html e recibos.html: telas de gestão",
+      "assets/js/cobranca-publica.js: estados e checkout",
+      "assets/js/receipt-pdf.js: geração de PDF"
+    ]
+  },
+  {
+    "id": "nexa",
+    "name": "Nexa Story",
+    "category": "EXPERIÊNCIA DE COMPRA",
+    "screen": "img/cases/nexa.webp",
+    "url": "https://www.nexastory.com.br",
+    "source": null,
+    "note": "Apresentação do acervo do projeto. A loja atual solicita cadastro; nenhuma compra foi realizada.",
+    "flow": ["Produto", "Carrinho", "Checkout", "Pagamento", "Acompanhamento"],
+    "phases": [
+      {
+        "label": "PROBLEMA",
+        "title": "ESCOLHER É SÓ<br>O COMEÇO.",
+        "body": "Uma experiência de compra precisa continuar depois da vitrine."
+      },
+      {
+        "label": "IDEIA",
+        "title": "CONECTAR<br>CADA DECISÃO.",
+        "body": "Dar continuidade ao caminho entre produto, carrinho e finalização."
+      },
+      {
+        "label": "SOLUÇÃO",
+        "title": "DA VITRINE<br>AO PEDIDO.",
+        "body": "Catálogo, carrinho, checkout, pagamento e consulta de pedidos no mesmo percurso."
+      },
+      {
+        "label": "EXPERIÊNCIA",
+        "title": "A COMPRA<br>COM CONTINUIDADE.",
+        "body": "Conheça a loja e explore o caminho da compra. O acesso atual solicita cadastro."
+      }
+    ],
+    "evidence": [
+      "Loja pública: catálogo e carrinho",
+      "comandosjs.js?v=20260529e: processarPagamentoDesktopIntegrado, consultarStatusPix, carregarMeusPedidos"
+    ]
+  },
+  {
+    "id": "anarosa",
+    "name": "Anarosa",
+    "category": "CATÁLOGO & APRESENTAÇÃO",
+    "screen": "img/cases/anarosa.webp",
+    "url": "https://www.lojaanarosa.com.br",
+    "source": "https://github.com/limaribeiroabraaolimaribeiro-afk/Anarosa",
+    "note": "Interface real do catálogo da Anarosa.",
+    "flow": ["Catálogo", "Produto", "Variações", "Carrinho"],
+    "phases": [
+      {
+        "label": "PROBLEMA",
+        "title": "O PRODUTO PRECISA<br>SER ENTENDIDO.",
+        "body": "Apresentar uma coleção exige cuidado com a informação e com a escolha."
+      },
+      {
+        "label": "IDEIA",
+        "title": "DEIXAR A ESCOLHA<br>MAIS CLARA.",
+        "body": "Trazer produto, apresentação e variações para o centro da experiência."
+      },
+      {
+        "label": "SOLUÇÃO",
+        "title": "UM CATÁLOGO.<br>VÁRIAS POSSIBILIDADES.",
+        "body": "Catálogo, busca, seleção de produtos e carrinho construídos para a marca."
+      },
+      {
+        "label": "EXPERIÊNCIA",
+        "title": "APRESENTAR BEM.<br>FACILITAR O PRÓXIMO PASSO.",
+        "body": "Uma apresentação que ajuda o visitante a conhecer a coleção e escolher o próximo passo."
+      }
+    ],
+    "evidence": [
+      "README.md: escopo e limites de homologação",
+      "js/services/catalog-service.js e cart-service.js: catálogo e carrinho"
+    ]
+  }
+]

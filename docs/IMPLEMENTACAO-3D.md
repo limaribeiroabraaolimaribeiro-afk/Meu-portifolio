@@ -43,7 +43,7 @@ Bundles gzip: app 6.728 bytes e cena 159.966 bytes. A cena carrega depois do HTM
 
 A matriz de oito larguras passou sem overflow: 360, 390, 412, 430, 768, 1366, 1440 e 1920 px. Todos mantêm H1 único, quatro cases, seis soluções, sete projetos e nenhuma imagem carregada com erro. Os resultados estruturais estão em `viewport-results.json`.
 
-No HTML portátil local, LCP 212 ms e CLS 0,002. A sessão remota não tem WebGL e o compositor ficou próximo de 1 FPS. INP bruto 6.608 ms, atraso de entrada 2 ms e processamento 0 ms; a espera de apresentação domina a amostra. Esses números não demonstram fluidez ou Core Web Vitals de celular real. Não se reivindica a meta de 60 FPS como atingida. `interaction-results.json` conserva os dados e os limites de interpretação.
+No HTML portátil local, LCP 212 ms e CLS 0,002. A sessão remota não tem WebGL e o compositor ficou próximo de 1 FPS. INP bruto 7.712 ms, atraso de entrada 12 ms e processamento 0 ms; a espera de apresentação domina a amostra. Esses números não demonstram fluidez ou Core Web Vitals de celular real. Não se reivindica a meta de 60 FPS como atingida. `interaction-results.json` conserva os dados e os limites de interpretação.
 
 ## Verificações realizadas
 

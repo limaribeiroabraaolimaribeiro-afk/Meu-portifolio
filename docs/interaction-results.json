@@ -1,7 +1,7 @@
 {
   "environment": "Local portable HTML; cloud Chrome; WebGL disabled; native dialog open and close; offline submit; no external API request.",
   "limitations": [
-    "Remote compositor running near 1 FPS; INP includes ~6.6s presentation delay with 2ms input delay and 0ms processing. Not representative of device performance.",
+    "Remote compositor running near 1 FPS; INP includes ~7.7s presentation delay with 12ms input delay and 0ms processing. Not representative of device performance.",
     "GPU/WebGL and physical mobile frame rate remain unverified."
   ],
   "measurements": {

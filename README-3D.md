@@ -54,7 +54,7 @@ Qualidade alta/média/leve limita DPR a 1,6/1,25/1 e instâncias a 125/64/27. O 
 
 360, 390, 412, 430, 768, 1366, 1440 e 1920 px: nenhum overflow horizontal, quatro cases, seis soluções e sete projetos preservados. Build, sintaxe, estados do morph, retorno e saltos diretos passaram. Menu/Escape, abas por teclado, passagem entre cases, filtros, FAQ, movimento reduzido e fallback offline do assistente foram conferidos.
 
-O navegador remoto tem WebGL desativado: as capturas são da alternativa Canvas. O HTML portátil registrou LCP local de 212 ms e CLS de 0,002, sem rede móvel simulada. O compositor remoto operou perto de 1 FPS e registrou INP de 6.608 ms, com 2 ms de atraso de entrada e 0 ms de processamento; essa amostra não comprova desempenho em aparelho real. Os valores brutos estão em `docs/interaction-results.json`.
+O navegador remoto tem WebGL desativado: as capturas são da alternativa Canvas. O HTML portátil registrou LCP local de 212 ms e CLS de 0,002, sem rede móvel simulada. O compositor remoto operou perto de 1 FPS e registrou INP de 7.712 ms, com 12 ms de atraso de entrada e 0 ms de processamento; essa amostra não comprova desempenho em aparelho real. Os valores brutos estão em `docs/interaction-results.json`.
 
 Ainda precisam de homologação antes da produção: WebGL/GPU, celular físico, FPS sustentado, Core Web Vitals em rede móvel e chamada real à API autenticada do preview. Não houve merge, troca de domínio, envio de mensagem, transação ou publicação em produção.
 

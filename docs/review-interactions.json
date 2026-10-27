@@ -1,0 +1,29 @@
+{
+  "context": "Cloud Chrome, Canvas fallback; no physical-device or WebGL performance claim",
+  "carousel": {
+    "nextButton": "01 / 04 \u2192 02 / 04",
+    "endKey": "04 / 04; next button disabled",
+    "imageMovement": "two distinct computed matrix3d transforms observed while running",
+    "pauseButton": "animationPlayState paused; aria-pressed true",
+    "reducedMotion": "animation none; stage display none; pause disabled; content and contact retained"
+  },
+  "visualReview": [
+    "hero mobile and desktop",
+    "cases mobile and desktop",
+    "transformation",
+    "vertical process",
+    "final contact"
+  ],
+  "artBounds": "Canvas parent is the active data-scene-window; clipping follows native scroll",
+  "layoutSamples": 264,
+  "widths": [
+    360,
+    390,
+    412,
+    430,
+    768,
+    1366,
+    1440,
+    1920
+  ]
+}

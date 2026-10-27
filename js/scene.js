@@ -1,3 +1,4 @@
+import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { SoftwareRenderer } from "./software-renderer.js";
@@ -51,7 +52,7 @@ function init() {
   geometries.add(boxGeometry);
   const roundedGeometry = software
     ? boxGeometry
-    : new RoundedBoxGeometry(1, 1, 1, 2, 0.045);
+    : new RoundedBoxGeometry(1, 1, 1, 3, 0.075);
   geometries.add(roundedGeometry);
   function mat(options = {}, basic = false) {
     const m = basic
@@ -64,7 +65,7 @@ function init() {
     materials.add(m);
     return m;
   }
-  const orange = mat({ color: "#ff7a00", roughness: 0.38, metalness: 0.12 }),
+  const orange = mat({ color: "#ff7a00", roughness: 0.55, metalness: 0.06 }),
     black = mat({ color: "#272623", roughness: 0.85 }),
     white = mat({ color: "#f4f0e8", roughness: 0.72 }),
     dark = mat({ color: "#111111", roughness: 0.6 }),
@@ -92,11 +93,11 @@ function init() {
     return m;
   }
   if (!software) {
-    scene.add(new THREE.HemisphereLight("#fff9ef", "#454038", 2.2));
-    const key = new THREE.DirectionalLight("#fff7e8", 4.4);
+    scene.add(new THREE.HemisphereLight("#fff9ef", "#454038", 1.7));
+    const key = new THREE.DirectionalLight("#fff7e8", 2.6);
     key.position.set(-4, 7, 6);
     scene.add(key);
-    const rim = new THREE.DirectionalLight("#ff9c44", 2.1);
+    const rim = new THREE.DirectionalLight("#ff9c44", 1.1);
     rim.position.set(5, 4, -4);
     scene.add(rim);
     const fill = new THREE.DirectionalLight("#ffffff", 1.1);
@@ -220,57 +221,19 @@ function init() {
   for (let i = 0; i < 18; i++) {
     const height = 0.35 + (i % 4) * 0.34;
     const m = box(0.68, height, 0.68, i % 3 === 0 ? black : white, props);
-    const angle = i * 2.39996 + 0.4,
-      r = 2.7 + (i % 3) * 0.5;
+    const angle = i * 2.39996 + 0.4;
     const chaos = new THREE.Vector3(
-      Math.cos(angle) * r,
+      Math.sign(Math.cos(angle)) * (2 + Math.abs(Math.cos(angle)) * .9),
       -1.5 + height / 2,
-      Math.sin(angle) * r * 0.65 - 1.6,
+      -2.2 - Math.abs(Math.sin(angle)) * 1.2,
     );
     const ordered = new THREE.Vector3(
       [-3.7, -2.5, -1.3, 1.3, 2.5, 3.7][i % 6],
       -1.5 + height / 2,
       -3.8 + Math.floor(i / 6) * 1.25,
     );
-    blocks.push({ mesh: m, chaos, ordered, angle: ((i % 5) - 2) * 0.18 });
+    blocks.push({ mesh: m, height, chaos, ordered, angle: ((i % 5) - 2) * 0.18 });
   }
-  const panel = new THREE.Group();
-  scene.add(panel);
-  panel.position.set(1.8, 0.2, -3.1);
-  panel.rotation.y = -0.17;
-  box(3.1, 2.35, 0.12, white, panel);
-  const panelCanvas = document.createElement("canvas");
-  panelCanvas.width = 640;
-  panelCanvas.height = 480;
-  function drawPanel() {
-    const ctx = panelCanvas.getContext("2d");
-    ctx.fillStyle = "#fffdf9";
-    ctx.fillRect(0, 0, 640, 480);
-    ctx.fillStyle = "#797267";
-    ctx.font = "16px Manrope,Arial";
-    ctx.fillText("DO CONTEXTO AO CAMINHO", 55, 55);
-    ["Ideia.", "Estratégia.", "Código.", "Resultado."].forEach((label, i) => {
-      ctx.fillStyle = i === 3 ? "#ff7a00" : "#292723";
-      ctx.font = "700 54px Space,Arial";
-      ctx.fillText(label, 55, 145 + i * 77);
-    });
-  }
-  drawPanel();
-  const panelTexture = new THREE.CanvasTexture(panelCanvas);
-  panelTexture.colorSpace = THREE.SRGBColorSpace;
-  textures.add(panelTexture);
-  const panelGeo = new THREE.PlaneGeometry(2.93, 2.19);
-  geometries.add(panelGeo);
-  const panelMat = mat({ map: panelTexture, toneMapped: false }, true);
-  const panelFace = new THREE.Mesh(panelGeo, panelMat);
-  panelFace.position.z = 0.07;
-  panelFace.renderOrder = 1;
-  panel.position.set(0.9, 0.45, -3.2);
-  panel.add(panelFace);
-  document.fonts.ready.then(() => {
-    drawPanel();
-    panelTexture.needsUpdate = true;
-  });
   const paths = new THREE.Group();
   scene.add(paths);
   const route = [
@@ -386,8 +349,9 @@ function init() {
   const director = createDirector(),
     dummy = new THREE.Object3D(),
     target = new THREE.Vector3();
-  let width = innerWidth,
-    height = innerHeight,
+  const windows = createSceneWindows(stage);
+  let width = 0,
+    height = 0,
     disposed = false,
     last = 0,
     raf = 0,
@@ -396,18 +360,16 @@ function init() {
     pointerX = 0,
     pointerY = 0;
   function resize() {
-    width = innerWidth;
-    height = innerHeight;
-    mobile = width <= 700;
+    mobile = innerWidth <= 700;
+    windows.invalidate();
+    width = height = 0;
     quality = chooseQuality();
     q = QUALITY[quality];
     root.dataset.quality = quality;
     renderer.setPixelRatio(
       Math.min(devicePixelRatio || 1, q.dpr, software ? 1.25 : 2),
     );
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+
     morphTargets = createMorphTargets(software ? 3 : q.grid);
     cellMesh.count = morphTargets.count;
     root.dataset.microcubes = String(cellMesh.count);
@@ -420,8 +382,8 @@ function init() {
     addEventListener(
       "pointermove",
       (e) => {
-        pointerX = (e.clientX / width - 0.5) * 0.15;
-        pointerY = (e.clientY / height - 0.5) * 0.08;
+        pointerX = (e.clientX / innerWidth - 0.5) * 0.10;
+        pointerY = (e.clientY / innerHeight - 0.5) * 0.05;
       },
       { passive: true },
     );
@@ -432,46 +394,44 @@ function init() {
     const interval = 1000 / (software ? 30 : q.fps);
     if (now - last < interval - 0.5) return;
     last = now - ((now - last) % interval);
-    const start = performance.now(),
-      id = root.dataset.chapter || "inicio",
-      progress = Number(root.dataset.chapterProgress || 0),
-      s = director.seek(id, progress);
-    if (root.dataset.filmVisible === "false") s.opacity = 0;
-    stage.style.setProperty("--scene-opacity", String(s.opacity));
+    const view = windows.read();
+    if (!view) return;
+    if (width !== view.width || height !== view.height) {
+      width = view.width; height = view.height;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+    }
+    const start = performance.now(), id = view.id, progress = view.progress,
+      s = director.seek(id, progress), aspect = width / height;
+    stage.style.setProperty("--scene-opacity", "1");
     root.dataset.morphShape = s.shape.toFixed(3);
     root.dataset.sceneOrder = s.order.toFixed(3);
-    if (s.opacity < 0.001) return;
+    camera.clearViewOffset();
+    target.set(0, -.3, 0);
+    let worldHeight = Math.max(4, 4.4 / aspect);
+    if (id === "transformacao") {target.y = .25; worldHeight = Math.max(4.5, 6.8 / aspect);}
+    if (id === "inteligencia") worldHeight = Math.max(4.5, 5.7 / aspect);
+    if (id === "contato") {target.set(1.15,-.2,-1.1); worldHeight = Math.max(5.3,8.5/aspect);}
     if (id === "processo") {
-      if (mobile) {
-        s.actorScale = 0.45;
-        s.mobileX = 0.84;
-        s.mobileY = Number(root.dataset.processScreenY || s.mobileY);
-      } else {
-        s.screenX = Number(root.dataset.processScreenX || s.screenX);
-        s.screenY = Number(root.dataset.processScreenY || s.screenY);
-      }
+      s.actorScale = 1;
+      worldHeight = mobile ? 2.9 / aspect : 3.25;
+      const nodes = [...document.querySelectorAll('.process-node')],
+        first = nodes[0].getBoundingClientRect(), end = nodes.at(-1).getBoundingClientRect(),
+        t = Math.max(0,Math.min(1,(progress-.1)/.8));
+      const x = mobile ? .5 : (first.x + first.width/2 + (end.x-first.x)*t - view.rect.left)/width;
+      const y = mobile ? Math.max(.1,Math.min(.85,(first.y + first.height/2 + (end.y-first.y)*t - view.rect.top)/height)) : .48;
+      camera.setViewOffset(width,height,(.5-x)*width,(.5-y)*height,width,height);
     }
-    const distance = mobile ? s.mobileDistance : 1;
-    camera.position.set(s.cx + pointerX, s.cy + pointerY, s.cz * distance);
-    target.set(s.tx, s.ty, s.tz);
+    const distance = worldHeight / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+    camera.position.set(s.cx + pointerX, s.cy + pointerY, s.cz).sub(target).normalize().multiplyScalar(distance).add(target);
     camera.lookAt(target);
-    const screenX = mobile ? s.mobileX : s.screenX,
-      screenY = mobile ? s.mobileY : s.screenY;
-    camera.setViewOffset(
-      width,
-      height,
-      (0.5 - screenX) * width,
-      (0.5 - screenY) * height,
-      width,
-      height,
-    );
     camera.updateProjectionMatrix();
     actor.position.set(
       s.actorX,
-      s.actorY + Math.abs(Math.sin(s.walk)) * 0.055 * s.walkAmp,
+      s.actorY + Math.abs(Math.sin(s.walk)) * 0.035 * s.walkAmp + (id === "inicio" ? Math.sin(now*.0013)*.035 : 0),
       s.actorZ,
     );
-    actor.rotation.y = s.yaw;
+    actor.rotation.y = s.yaw + (id === "inicio" ? Math.sin(now*.0007)*.075 : 0);
     actor.scale.setScalar(s.actorScale);
     body.rotation.z = Math.sin(s.walk) * 0.024 * s.walkAmp;
     const fracture = fractureAt(s.shape),
@@ -521,17 +481,20 @@ function init() {
     props.visible = s.props > 0.02;
     props.scale.setScalar(Math.max(0.01, s.props));
     blocks.forEach((b, i) => {
-      b.mesh.visible = i < (software ? 8 : q.blocks);
+      b.mesh.visible = i < (id === "inicio" ? 3 : software ? 8 : q.blocks);
+      b.mesh.scale.set(.68,b.height,.68);
       b.mesh.position.lerpVectors(b.chaos, b.ordered, s.order);
+      if (id === "inicio" && i < 3) {
+        const slots = [[-2.05,-1.25,-.75],[1.9,-1.3,-1.6],[.6,-1.38,-3.2]];
+        b.mesh.position.set(...slots[i]); b.mesh.scale.set(.64,i === 0 ? .48 : .34,.64);
+      }
       b.mesh.rotation.set(
         b.angle * (1 - s.order),
         b.angle * 2 * (1 - s.order),
         b.angle * (1 - s.order),
       );
     });
-    panel.visible = s.panel > 0.01 && !mobile;
-    panel.scale.setScalar(Math.max(0.01, s.panel));
-    paths.visible = s.path > 0.02;
+    paths.visible = s.path > 0.02 && id !== "processo";
     paths.scale.setScalar(Math.max(0.02, s.path));
     network.visible = s.network > 0.02;
     network.scale.setScalar(Math.max(0.01, s.network));
@@ -547,6 +510,7 @@ function init() {
       root.dataset.drawCalls = String(renderer.info.render.calls);
       root.dataset.triangles = String(renderer.info.render.triangles);
     } else renderer.render(scene, camera);
+    stage.style.visibility = "visible";
     root.dataset.frameMs = String(
       Math.round((performance.now() - start) * 10) / 10,
     );
@@ -574,6 +538,7 @@ function init() {
     cancelAnimationFrame(raf);
     removeEventListener("resize", resize);
     removeEventListener("portfolio:quality", resize);
+    windows.dispose();
     director.dispose();
     for (const g of geometries) g.dispose();
     for (const m of materials) m.dispose();

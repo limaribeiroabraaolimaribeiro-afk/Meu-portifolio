@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://devabraao.com.br/</loc>
-  </url>
+  <url><loc>https://devabraao.com.br/</loc></url>
+  <url><loc>https://devabraao.com.br/servicos/sites.html</loc></url>
+  <url><loc>https://devabraao.com.br/servicos/sistemas.html</loc></url>
+  <url><loc>https://devabraao.com.br/servicos/automacoes.html</loc></url>
+  <url><loc>https://devabraao.com.br/projetos/day-lanches.html</loc></url>
+  <url><loc>https://devabraao.com.br/projetos/smart-billingg.html</loc></url>
+  <url><loc>https://devabraao.com.br/projetos/anarosa.html</loc></url>
+  <url><loc>https://devabraao.com.br/projetos/nexa-store.html</loc></url>
 </urlset>

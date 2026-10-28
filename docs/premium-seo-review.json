@@ -1,0 +1,70 @@
+{
+  "pages": [
+    {
+      "path": "index.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "servicos/sites.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/servicos/sites.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "servicos/sistemas.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/servicos/sistemas.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "servicos/automacoes.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/servicos/automacoes.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "projetos/day-lanches.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/projetos/day-lanches.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "projetos/smart-billingg.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/projetos/smart-billingg.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "projetos/anarosa.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/projetos/anarosa.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    },
+    {
+      "path": "projetos/nexa-store.html",
+      "h1": 1,
+      "canonical": "https://devabraao.com.br/projetos/nexa-store.html",
+      "jsonLdValid": true,
+      "internalLinksValid": true
+    }
+  ],
+  "sitemapUrls": 8,
+  "isolatedPreviewNoindex": true,
+  "mainCubeAndIntegrationsUnchanged": true,
+  "searchConsoleValidation": "not performed",
+  "physicalWebGLValidation": "pending; remote browser uses CSS fallback",
+  "cubeInteractions": {
+    "structureToggle": "aria-pressed true after opening",
+    "pauseToggle": "aria-pressed true after pause",
+    "keyboardRotation": "range advanced from 32 to 33 with ArrowRight"
+  }
+}

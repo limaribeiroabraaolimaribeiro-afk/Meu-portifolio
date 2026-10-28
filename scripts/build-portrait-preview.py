@@ -3,7 +3,7 @@ from pathlib import Path
 import base64, json, subprocess
 from PIL import Image
 R=Path(__file__).resolve().parents[1]
-subprocess.run([str(R/'node_modules/.bin/esbuild'),str(R/'js/three/portrait-motion.js'),'--bundle','--minify','--format=iife','--target=es2020','--outfile='+str(R/'.openai/portrait-motion.bundle.js')],check=True)
+subprocess.run([str(R/'node_modules/.bin/esbuild'),str(R/'js/three/portrait-study-entry.js'),'--bundle','--minify','--format=iife','--target=es2020','--outfile='+str(R/'.openai/portrait-motion.bundle.js')],check=True)
 im=Image.open(R/'img/v2/portrait.webp').convert('RGBA');w,h=im.size
 # Sample original alpha and colors; preserve the supplied photograph unchanged.
 samples=[]

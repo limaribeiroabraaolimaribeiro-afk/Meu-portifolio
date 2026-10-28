@@ -1,3 +1,5 @@
+import { initPortraitMotion } from "./three/portrait-motion.js";
+initPortraitMotion();
 import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shell.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";

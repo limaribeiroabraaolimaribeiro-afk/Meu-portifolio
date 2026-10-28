@@ -367,7 +367,8 @@ function init() {
     if (now - last < interval - 0.5) return;
     last = now - ((now - last) % interval);
     const view = windows.read();
-    if (!view) return;
+    if (!view) {root.dataset.cinemaImmersive="false";return;}
+    root.dataset.cinemaImmersive=String(view.id === "problema" && view.rect.top<=2 && view.rect.bottom>Math.min(innerHeight*.45,300));
     if (width !== view.width || height !== view.height) {
       width = view.width; height = view.height;
       renderer.setSize(width, height, false);
@@ -399,7 +400,7 @@ function init() {
     const filmState=cinematicState(progress);
     cinema.group.visible=id === "problema";
     if(id === "problema") {
-      const fit=Math.max(7.3,6.8/aspect)*filmState.zoom;
+      const fit=Math.max(6.4,5.8/aspect)*filmState.zoom;
       const d=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
       target.set(...filmState.focus);
       const angle=.52+progress*.30;

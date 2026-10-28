@@ -1,16 +1,13 @@
-<div class="problem-labels problem-flow scene-window" data-scene-window="problema" data-active-row="0" role="group" aria-label="Exemplos de uma operação desconectada: mensagens e pedidos, pedidos e cobranças, atendimento e planilhas">
-<p class="flow-eyebrow">UM EXEMPLO DA ROTINA <span aria-hidden="true">01 — 03</span></p>
-<svg class="flow-paths" viewBox="0 0 600 500" preserveAspectRatio="none" aria-hidden="true">
-<g class="flow-link flow-link-0"><path class="flow-source" d="M165 85H288"/><path class="flow-target" d="M348 85H435"/><path class="flow-break" d="M309 75l-7 20m21-20-7 20"/></g>
-<g class="flow-link flow-link-1"><path class="flow-source" d="M165 230H288"/><path class="flow-target" d="M348 230H435"/><path class="flow-break" d="M309 220l-7 20m21-20-7 20"/></g>
-<g class="flow-link flow-link-2"><path class="flow-source" d="M165 375H288"/><path class="flow-target" d="M348 375H435"/><path class="flow-break" d="M309 365l-7 20m21-20-7 20"/></g>
-<path class="flow-investigation" d="M195 85V375"/>
-</svg>
-<ol class="flow-rows">
-<li class="flow-row flow-row-0" data-active="true"><span class="flow-node flow-from">Mensagens</span><span class="flow-node flow-to">Pedidos</span><p>A informação não chega.</p></li>
-<li class="flow-row flow-row-1"><span class="flow-node flow-from">Pedidos</span><span class="flow-node flow-to">Cobranças</span><p>Alguém precisa conferir.</p></li>
-<li class="flow-row flow-row-2"><span class="flow-node flow-from">Atendimento</span><span class="flow-node flow-to">Planilhas</span><p>O mesmo dado, de novo.</p></li>
-</ol>
-<span class="flow-static-token" aria-hidden="true"></span>
-<p class="flow-footnote"><span aria-hidden="true">↳</span> Encontrar a falha vem antes de escolher a ferramenta.</p>
+<div class="cinematic-flow scene-window" data-scene-window="problema" role="group" aria-label="Cena de investigação: três pontos em que a operação de um negócio pode parar" data-cinema-phase="0">
+<div class="film-fallback" aria-hidden="true"><svg viewBox="0 0 600 600" fill="none"><path d="M70 360 300 230 530 360 300 500Z" fill="#242520" stroke="#49483d"/><path d="m120 320 95-55 95 55-95 55Z" fill="#e2d6bf"/><path d="m330 330 90-52 85 52-85 50Z" fill="#92816b"/><path d="m235 190 80-45 80 45-80 47Z" fill="#e2d6bf"/><path d="m125 321v55l90 52v-53m95-55v55l-95 53" fill="#454438"/><path d="m331 331v48l89 51v-50m85-50v50l-85 50" fill="#34352e"/><path d="m270 355 38-22m21-12 33-19M303 284l10-27m6-17 9-28" stroke="#f17c24" stroke-width="5"/><path d="m267 328 25-14 24 14-24 14Z" fill="#ff9c3c"/><path d="m267 328v27l25 14v-27m24-14v27l-24 14" fill="#d46113"/></svg></div>
+<div class="film-topline" aria-hidden="true"><span><i></i> INVESTIGAÇÃO EM CURSO</span><span>DEV.ABRAAO / 02</span></div>
+<span class="film-island" data-island="0" aria-hidden="true">ATENDIMENTO</span><span class="film-island" data-island="1" aria-hidden="true">OPERAÇÃO</span><span class="film-island" data-island="2" aria-hidden="true">INFORMAÇÃO</span>
+<div class="film-corners" aria-hidden="true"></div>
+<div class="film-captions" aria-hidden="true">
+<div class="film-act" data-active="true"><span class="film-route">01 / MENSAGENS → PEDIDOS</span><strong>A informação sai.<br>O pedido não chega.</strong><span class="film-detail">Um caminho interrompido exige trabalho manual.</span></div>
+<div class="film-act"><span class="film-route">02 / PEDIDOS → COBRANÇAS</span><strong>A operação avança.<br>A conferência fica para trás.</strong><span class="film-detail">As partes existem. Falta uma ligação entre elas.</span></div>
+<div class="film-act"><span class="film-route">03 / ATENDIMENTO → PLANILHAS</span><strong>O mesmo dado.<br>Mais uma vez.</strong><span class="film-detail">Antes de automatizar, entender onde o fluxo para.</span></div>
+</div>
+<ol class="film-accessible"><li>Mensagens → Pedidos: a informação não chega.</li><li>Pedidos → Cobranças: alguém precisa conferir.</li><li>Atendimento → Planilhas: o mesmo dado precisa ser digitado novamente.</li></ol>
+<div class="film-scroll" aria-hidden="true">ROLE PARA INVESTIGAR <span>↓</span></div>
 </div>

@@ -27,7 +27,7 @@ function createSceneWindows(stage) {
     const { rect, section, id } = best, sr = section.getBoundingClientRect(), pin = section.querySelector(".section-pin"), pinned = pin && getComputedStyle(pin).position === "sticky", progress = Math.max(0, Math.min(1, pinned ? -sr.top / Math.max(1, sr.height - pin.offsetHeight) : (innerHeight * 0.45 - sr.top) / Math.max(1, sr.height)));
     if (stage.parentElement !== best.el) best.el.appendChild(stage);
     Object.assign(stage.style, { left: "0", top: "0", width: `${rect.width}px`, height: `${rect.height}px` });
-    const mappedProgress=id === "problema" ? Math.max(0,Math.min(1,(innerHeight*.85-rect.top)/(rect.height+innerHeight*.35))) : progress;
+    const mappedProgress=id === "problema" && !pinned ? Math.max(0,Math.min(1,(innerHeight*.85-rect.top)/(rect.height+innerHeight*.35))) : progress;
     active = { id, progress:mappedProgress, width: Math.round(rect.width), height: Math.round(rect.height), rect };
     stage.dataset.scene = id;
     stage.dataset.progress = mappedProgress.toFixed(4);

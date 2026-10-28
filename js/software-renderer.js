@@ -39,7 +39,7 @@ export class SoftwareRenderer {
       camera.projectionMatrix,
       camera.matrixWorldInverse,
     );
-    const emitMesh = (mesh, modelMatrix) => {
+    const emitMesh = (mesh, modelMatrix, tint = null) => {
       if (!mesh.isMesh || mesh.userData.skipSoftware) return;
       const mat = mesh.material;
       if (!mat || mat.opacity < 0.005) return;
@@ -94,7 +94,9 @@ export class SoftwareRenderer {
           spec = Math.pow(Math.max(0, this.normal.dot(this.half)), 24) * 0.05;
           rim = Math.pow(1 - Math.abs(this.normal.z), 4) * 0.035;
         }
-        const color = mat.color.clone().convertLinearToSRGB();
+        const color = mat.color.clone();
+        if (tint) color.multiply(tint);
+        color.convertLinearToSRGB();
         const rgb = [color.r, color.g, color.b].map((v, j) =>
           Math.round(
             Math.min(
@@ -146,14 +148,16 @@ export class SoftwareRenderer {
       }
     };
     const instanceMatrix = new THREE.Matrix4(),
-      modelMatrix = new THREE.Matrix4();
+      modelMatrix = new THREE.Matrix4(),
+      tint = new THREE.Color();
     scene.traverseVisible((mesh) => {
       if (!mesh.isMesh || mesh.userData.skipSoftware) return;
       if (mesh.isInstancedMesh) {
         for (let i = 0; i < mesh.count; i++) {
           mesh.getMatrixAt(i, instanceMatrix);
           modelMatrix.multiplyMatrices(mesh.matrixWorld, instanceMatrix);
-          emitMesh(mesh, modelMatrix);
+          if (mesh.instanceColor) mesh.getColorAt(i, tint);
+          emitMesh(mesh, modelMatrix, mesh.instanceColor ? tint : null);
         }
       } else emitMesh(mesh, mesh.matrixWorld);
     });

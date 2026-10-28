@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { createPremiumShell } from "./premium-shell.js";
 import { notebookState, notebookPanelPose, ease } from "./notebook-state.js";
 
 // One procedural prop, four photographs of interfaces, one reversible camera score.
@@ -16,14 +15,12 @@ export function createNotebookCinema({scene, software=false, quality="medium"}) 
   const edge=material({color:"#a8a79e",roughness:.23,metalness:.88});
   const graphite=material({color:"#20221f",roughness:.5});
   const black=material({color:"#10120f",roughness:.7});
-  const ceramic=material({color:"#dedbd2",roughness:.62,metalness:.14});
   const orange=material({color:"#ed791d",roughness:.3,metalness:.56});
   const light=material({color:"#f18c36",toneMapped:false},true);
   const boxGeo=geo(low?new THREE.BoxGeometry(1,1,1):new RoundedBoxGeometry(1,1,1,2,.035));
   const sharpGeo=geo(new THREE.BoxGeometry(1,1,1));
   const planeGeo=geo(new THREE.PlaneGeometry(4.22,2.6375,low?8:12,low?5:8));
   function box(w,h,d,mat,parent=group,sharp=false) {const m=new THREE.Mesh(sharp?sharpGeo:boxGeo,mat);m.scale.set(w,h,d);parent.add(m);return m;}
-  function rod(a,b,r,mat,parent=group) {const v=new THREE.Vector3(...a),end=new THREE.Vector3(...b),delta=end.clone().sub(v),m=box(r,delta.length(),r,mat,parent,true);m.position.copy(v).add(end).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),delta.normalize());return m;}
   function instances(count,mat,parent) {const mesh=new THREE.InstancedMesh(boxGeo,mat,count);mesh.frustumCulled=false;parent.add(mesh);return mesh;}
   const dummy=new THREE.Object3D();
   function stamp(mesh,i,x,y,z,sx,sy,sz) {dummy.position.set(x,y,z);dummy.rotation.set(0,0,0);dummy.scale.set(sx,sy,sz);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);}
@@ -65,19 +62,11 @@ export function createNotebookCinema({scene, software=false, quality="medium"}) 
   const seamMat=material({color:"#e48639",transparent:true,opacity:.08,toneMapped:false},true);
   const seam=box(4.35,.018,.016,seamMat,lid);seam.position.set(0,.175,.112);seam.renderOrder=9;
 
-  // A studio plinth with warm inlaid paths, not a floating field of particles.
-  box(7.30,.12,5.30,ceramic).position.set(0,-1.24,.40);
-  box(7.39,.055,5.39,edge).position.set(0,-1.335,.40);
-  box(7.15,.035,5.15,ceramic).position.set(0,-1.155,.40);
-  const route=[[-3.5,-1.128,1.7],[-2.7,-1.128,1.7],[-2.7,-1.128,2.8],[2.7,-1.128,2.8],[2.7,-1.128,-1.8],[3.5,-1.128,-1.8]];
-  for(let i=0;i<route.length-1;i++)rod(route[i],route[i+1],.019,orange);
-  for(const x of [-3.45,3.45])for(const z of [-1.95,2.8]){box(.12,.008,.012,edge).position.set(x,-1.12,z);box(.012,.008,.12,edge).position.set(x,-1.12,z);}
+  // Soft contact shadow keeps the notebook grounded without extra props.
   const shadowCanvas=document.createElement("canvas");shadowCanvas.width=shadowCanvas.height=64;
   const ctx=shadowCanvas.getContext("2d"),gradient=ctx.createRadialGradient(32,32,0,32,32,32);gradient.addColorStop(0,"#25221990");gradient.addColorStop(1,"#25221900");ctx.fillStyle=gradient;ctx.fillRect(0,0,64,64);
   const shadowTexture=new THREE.CanvasTexture(shadowCanvas);textures.add(shadowTexture);
   const shadow=new THREE.Mesh(geo(new THREE.PlaneGeometry(6.4,4.5)),material({map:shadowTexture,transparent:true,depthWrite:false},true));shadow.rotation.x=-Math.PI/2;shadow.position.set(0,-1.125,.5);group.add(shadow);
-  // Coarse Canvas painter ordering keeps the plinth behind the finer equipment.
-  group.children.filter(m=>m.isMesh).forEach(m=>m.renderOrder=-8);
   shadow.renderOrder=-7;
 
   const panels=sources.map((el,i)=>{
@@ -90,10 +79,6 @@ export function createNotebookCinema({scene, software=false, quality="medium"}) 
     const tab=box(.22,.06,.016,orange,board);tab.position.set(-1.90,1.405,.01);
     return {board,frame,inset,face,tab,faceMat,border,texture:null,el};
   });
-  const guideCube=createPremiumShell({size:.38,software});group.add(guideCube.group);
-  guideCube.group.position.set(-2.87,-.91,1.80);
-  const modules=instances(low?20:34,orange,group);modules.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-  modules.renderOrder=11;
   let meshCount=0;group.traverse(m=>{if(m.isMesh)meshCount++;});stage.dataset.notebookMeshes=String(meshCount);
   const scratchPosition=new THREE.Vector3(),scratchQuaternion=new THREE.Quaternion(),hoverQuaternion=new THREE.Quaternion(),rotation=new THREE.Euler();
   const targetPosition=new THREE.Vector3(),controlA=new THREE.Vector3(),controlB=new THREE.Vector3();
@@ -163,18 +148,8 @@ export function createNotebookCinema({scene, software=false, quality="medium"}) 
     if(state.index===0&&state.dock<=.998){display.material=blank;lastIndex=-1;}
     display.visible=true;
     seamMat.opacity=.12+state.pulse*.70;
-    const build=ease(.12,.42,state.local)*(1-ease(.72,.90,state.local));
-    guideCube.update({fracture:build,spread:build*.25});
-    modules.visible=build>.001;
-    if(modules.visible)for(let i=0;i<modules.count;i++){
-      const t=i/(modules.count-1),angle=t*Math.PI*1.3+state.local*1.2;
-      const start=new THREE.Vector3(-2.87,-.91,1.80),end=group.worldToLocal(targetPosition.clone());
-      dummy.position.lerpVectors(start,end,t);dummy.position.y+=Math.sin(t*Math.PI)*(1.25+build*.65);dummy.position.z+=Math.sin(angle)*.12*build;
-      dummy.rotation.set(t*.7,t*1.5+state.local,t*.3);dummy.scale.setScalar((.035+Math.sin(t*Math.PI)*.018)*build);dummy.updateMatrix();modules.setMatrixAt(i,dummy.matrix);
-    }
-    modules.instanceMatrix.needsUpdate=modules.visible;
     world.dataset.rendered="true";stage.dataset.docking=state.dock.toFixed(3);
     return state;
   }
-  return {group,update,dispose(){disposed=true;observer.disconnect();scene.remove(group);group.traverse(m=>{if(m.isInstancedMesh)m.dispose();});guideCube.dispose();geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}};
+  return {group,update,dispose(){disposed=true;observer.disconnect();scene.remove(group);group.traverse(m=>{if(m.isInstancedMesh)m.dispose();});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}};
 }

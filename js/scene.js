@@ -436,7 +436,7 @@ function init() {
     sphere.scale.setScalar(sphereWeight);
     cage.visible = s.wire > 0.02;
     cage.scale.setScalar(Math.max(0.01, s.wire));
-    props.visible = s.props > 0.02 && id !== "inicio";
+    props.visible = s.props > 0.02 && id !== "inicio" && id !== "problema";
     props.scale.setScalar(Math.max(0.01, s.props));
     blocks.forEach((b, i) => {
       b.mesh.visible = i < (id === "inicio" ? 3 : software ? 8 : q.blocks);

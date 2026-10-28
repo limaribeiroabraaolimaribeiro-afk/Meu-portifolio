@@ -3348,3 +3348,12 @@ html {
 .static-cube i:first-child:after{left:22px;top:auto;bottom:20px;width:28px;height:6px;border-radius:0;background:repeating-linear-gradient(90deg,#81350090 0 1px,transparent 1px 4px)}
 .static-cube i:nth-child(2){background:linear-gradient(120deg,#d66c1b,#a73c09)}
 .static-cube i:nth-child(3){background:linear-gradient(130deg,#ffc273,#ee8c2a)}
+
+/* Keep process labels in two readable rows, clear of the central cube. */
+.problem-labels.scene-window .signal{inset:auto;bottom:auto;transform:none;max-width:32%;white-space:nowrap;justify-content:center;padding:8px;font-size:10px}
+.problem-labels.scene-window .signal-0{top:5%;left:0}
+.problem-labels.scene-window .signal-1{top:5%;left:50%;transform:translateX(-50%)}
+.problem-labels.scene-window .signal-4{top:5%;right:0}
+.problem-labels.scene-window .signal-2{bottom:5%;left:0}
+.problem-labels.scene-window .signal-3{bottom:5%;left:50%;transform:translateX(-50%)}
+.problem-labels.scene-window .signal-5{bottom:5%;right:0}

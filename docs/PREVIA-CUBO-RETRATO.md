@@ -19,3 +19,11 @@ Após aprovação expressa do proprietário, a abertura substitui a primeira cen
 CSS isolado em `css/portrait-opening.css`; texto inicial, H1 e CTAs existem no HTML. Movimento reduzido mostra retrato estático e mantém navegação/contato. Assistente flutuante fica oculto apenas enquanto a abertura ocupa a tela, evitando sobreposição com os controles; contato e CTA continuam disponíveis. Novas URLs de assets invalidam o cache anterior. O SEO e o backend existentes são preservados.
 
 Build completo, teste da timeline, sintaxe e diff passaram. Home integrada conferida em desktop e iframe mobile de 390 × 844, incluindo escolha do retrato e navegação à esfera da cena seguinte. Inspeção remota em Canvas; sem comprovação de 60 FPS em GPU física.
+
+## Correção após revisão mobile
+
+A home agora usa apenas scroll: removidos reprodução automática, botão de assistir, barra de progresso e seletor de etapas. CTAs e dica de rolagem preservados. Shell e enxame não se sobrepõem durante a desmontagem, evitando interferência de profundidade no WebGL.
+
+Os blocos de fundo da cena `problema` foram removidos da renderização. Os seis rótulos tiveram os insets conflitantes zerados e foram organizados em duas linhas, sem cartões esticados nem cortes nas bordas.
+
+Build, sintaxe e teste da timeline passaram. Conferência em desktop e iframe mobile 390/360 px: nenhum controle de player no DOM, sem overflow horizontal, rótulos com altura uniforme e retrato alcançável pelo scroll. A prévia isolada anterior permanece como registro histórico; o HTML portátil da home reflete a correção. Inspeção remota em Canvas; não representa teste físico de GPU.

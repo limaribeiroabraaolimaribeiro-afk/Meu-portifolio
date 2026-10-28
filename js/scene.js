@@ -3,6 +3,7 @@ initPortraitMotion();
 import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shell.js";
 import { createCinematicProblem, cinematicState } from "./three/cinematic-problem.js";
 import { createNotebookCinema } from "./three/notebook-cinema.js";
+import { createSolutionsCinema } from "./three/solutions-cinema.js";
 import { notebookState } from "./three/notebook-state.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
@@ -350,6 +351,7 @@ function init() {
   }
   const cinema = createCinematicProblem({scene,software,quality});
   const notebook = createNotebookCinema({scene,software,quality});
+  const solutions = createSolutionsCinema({scene,software,quality});
   resize();
   addEventListener("resize", resize, { passive: true });
   addEventListener("portfolio:quality", resize);
@@ -403,6 +405,7 @@ function init() {
     const filmState=cinematicState(progress);
     cinema.group.visible=id === "problema";
     notebook.group.visible=id === "projetos";
+    solutions.group.visible=id === "solucoes";
     if(id === "problema") {
       const fit=Math.max(6.4,5.8/aspect)*filmState.zoom;
       const d=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
@@ -492,13 +495,17 @@ function init() {
     shadow.position.z = actor.position.z;
     shadow.scale.setScalar(s.actorScale);
     shadowMat.opacity = (1 - fracture * 0.6) * 0.85;
-    actor.visible=id !== "projetos";
+    actor.visible=id !== "projetos" && id !== "solucoes";
     if(id === "projetos") {
       props.visible=paths.visible=network.visible=portal.visible=shadow.visible=false;
       notebook.update(progress,now,camera);
     }
+    if(id === "solucoes") {
+      props.visible=paths.visible=network.visible=portal.visible=shadow.visible=false;
+      solutions.update(progress,now,camera);
+    }
     if (!software) {
-      renderer.toneMappingExposure = id === "problema" ? .88 : s.light * .92;
+      renderer.toneMappingExposure = id === "problema" ? .88 : id === "solucoes" ? 1.05 : s.light * .92;
       renderer.render(scene, camera);
       root.dataset.drawCalls = String(renderer.info.render.calls);
       root.dataset.triangles = String(renderer.info.render.triangles);
@@ -536,6 +543,7 @@ function init() {
     premium.dispose();
     cinema.dispose();
     notebook.dispose();
+    solutions.dispose();
     environment?.dispose();
     for (const g of geometries) g.dispose();
     for (const m of materials) m.dispose();

@@ -18,6 +18,15 @@ for(const p of [-2,0,1,2,NaN,Infinity]){
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 assert.equal([...html.matchAll(/data-solution-scene\b/g)].length,6);
 assert.equal([...html.matchAll(/<g data-build=/g)].length,18);
-assert(html.includes('css/solutions-story.css?v=solutions-20261028'));
+assert(html.includes('css/solutions-story.css?v=solutions-cinema-20261028'));
 assert(!html.includes('Deslize para explorar as soluções'));
 console.log('Solutions: six complete assemblies, 601 reverse seeks, boundaries and generated production markup passed.');
+
+// The travelling camera reaches each next set with the same pose from either side.
+const {solutionsFilmState}=await import('../js/lib/solutions-state.js');
+for(let i=1;i<6;i++){
+ const a=solutionsFilmState(i/6-1e-8),b=solutionsFilmState(i/6+1e-8);
+ for(const key of ['x','yaw','zoom'])assert(Math.abs(a[key]-b[key])<1e-5,`Continuous camera ${key} at shot ${i}`);
+}
+for(const p of points){const s=solutionsFilmState(p);assert([s.x,s.yaw,s.zoom,s.assemble,s.connect,s.resolve,s.copyOpacity].every(Number.isFinite));}
+console.log('Film: continuous camera handoffs, finite poses and reverse seeking passed.');

@@ -1,0 +1,110 @@
+{
+  "version": "V2 light",
+  "environment": "Cloud Chrome iframe. Layout checks; Core Web Vitals measured separately in interaction-results.json. No physical device or GPU validation.",
+  "results": [
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 345,
+      "frameCpuMs": 1.4,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 360
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 375,
+      "frameCpuMs": 1.5,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 390
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 397,
+      "frameCpuMs": 2.5,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 412
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 415,
+      "frameCpuMs": 1.7,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 430
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 753,
+      "frameCpuMs": 2,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 768
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 1351,
+      "frameCpuMs": 2.5,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 1366
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 1425,
+      "frameCpuMs": 3.3,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 1440
+    },
+    {
+      "archive": 7,
+      "brokenImages": 0,
+      "cases": 4,
+      "clientWidth": 1905,
+      "frameCpuMs": 2.1,
+      "h1": 1,
+      "microcubes": 27,
+      "overflow": false,
+      "renderer": "canvas",
+      "solutions": 6,
+      "viewport": 1920
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "day": {
+    "repository": "DayLanches",
+    "path": "index.html",
+    "sha256": "5a69ad9be7797a22fbeb1bb259af5b10e40f90d28ae99fc639ccb9c4da621e8f"
+  },
+  "smart": {
+    "repository": "Smart-Billingg",
+    "path": "index.html",
+    "sha256": "c67c359b9022e1312271e142786d53c4d0ecffe1f046f31e71b277d1c37b648d"
+  },
+  "smart-pay": {
+    "repository": "Smart-Billingg",
+    "path": "assets/js/cobranca-publica.js",
+    "sha256": "09da1e5e3126ffd363af24b7dcb281347fdfabcfdcf0ba8a006dc059124b99fe"
+  },
+  "smart-pdf": {
+    "repository": "Smart-Billingg",
+    "path": "assets/js/receipt-pdf.js",
+    "sha256": "6ca31af8289d8c9916215f2134d390db793215e723886b3275a34d5d0aab4007"
+  },
+  "anarosa-readme": {
+    "repository": "Anarosa",
+    "path": "README.md",
+    "sha256": "2015b018a897a36b7f7f7f47dbc45cd92d8d47e005ea8a658472d0bfd0f7e793"
+  },
+  "anarosa-catalog": {
+    "repository": "Anarosa",
+    "path": "js/services/catalog-service.js",
+    "sha256": "d936a1f4d1997b67848411eef29c86dad51160261c79c1e91c49064396af61ca"
+  },
+  "anarosa-cart": {
+    "repository": "Anarosa",
+    "path": "js/services/cart-service.js",
+    "sha256": "4dd1ca7199b4682f8471a5ba0bc7877ec59c35d493e87c06de91bb0359392e1b"
+  },
+  "nexa": {
+    "url": "https://nexastory.com.br/comandosjs.js?v=20260529e",
+    "sha256": "0ce89951bae329d0d51e059391a9cd2d7d1eb33804b0cc8a9e195c9ce273cfc5",
+    "functions": [
+      "abrirCompraComSelecaoCarrinho",
+      "processarPagamentoDesktopIntegrado",
+      "processarPagamentoCartao",
+      "consultarStatusPix",
+      "iniciarConsultaStatusPix",
+      "abrirPaginaMeusPedidos",
+      "carregarMeusPedidos"
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "context": "File sizes and local laboratory samples. Remote Chrome uses Canvas and a throttled compositor; GPU and real mobile not verified.",
+  "files": {
+    "index.html": {
+      "bytes": 36253,
+      "gzipBytes": 8710
+    },
+    "css/portfolio.css": {
+      "bytes": 67399,
+      "gzipBytes": 12882
+    },
+    "js/projects-config.js": {
+      "bytes": 5642,
+      "gzipBytes": 2152
+    },
+    "js/app.bundle.js": {
+      "bytes": 19475,
+      "gzipBytes": 7129
+    },
+    "js/scene.bundle.js": {
+      "bytes": 590113,
+      "gzipBytes": 161322
+    },
+    "fonts/manrope-regular.ttf": {
+      "bytes": 94972,
+      "gzipBytes": 41414
+    },
+    "fonts/space-grotesk-bold.ttf": {
+      "bytes": 69308,
+      "gzipBytes": 34481
+    },
+    "img/v2/anarosa-cover.webp": {
+      "bytes": 60320,
+      "gzipBytes": 60358
+    },
+    "img/v2/day-cover.webp": {
+      "bytes": 103814,
+      "gzipBytes": 103867
+    },
+    "img/v2/nexa-cover.webp": {
+      "bytes": 51126,
+      "gzipBytes": 51164
+    },
+    "img/v2/portrait.webp": {
+      "bytes": 108524,
+      "gzipBytes": 108268
+    },
+    "img/cases/anarosa.webp": {
+      "bytes": 92910,
+      "gzipBytes": 92895
+    },
+    "img/cases/day.webp": {
+      "bytes": 71798,
+      "gzipBytes": 71636
+    },
+    "img/cases/nexa.webp": {
+      "bytes": 71780,
+      "gzipBytes": 71823
+    },
+    "img/cases/smart.webp": {
+      "bytes": 29532,
+      "gzipBytes": 29201
+    }
+  },
+  "portableBytes": 1763930,
+  "newAssetsTotalBytes": 323784,
+  "viewportMeasurements": "viewport-results.json",
+  "interactionMeasurements": "interaction-results.json",
+  "targets": {
+    "webglHighMediumFps": 60,
+    "webglLowFps": 30,
+    "canvasFpsCap": 30
+  },
+  "geometry": {
+    "highInstances": 125,
+    "mediumInstances": 64,
+    "lowAndCanvasInstances": 27,
+    "maxDpr": {
+      "high": 1.6,
+      "medium": 1.25,
+      "low": 1
+    }
+  },
+  "validationLimits": [
+    "Cloud Chrome has WebGL disabled; screenshots show Canvas fallback.",
+    "Remote presentation delay invalidates INP/FPS as evidence of physical device performance.",
+    "Physical phone, sustained WebGL frame rate and mobile-network Core Web Vitals remain pending.",
+    "Real authenticated AI API request not performed."
+  ],
+  "layoutReviewMeasurements": "layout-review-results.json",
+  "historicalVitalsRevision": "3a8ae6cd2ff08522befee9aa590c52c4f9f5bea9: viewport-results.json and interaction-results.json precede the current visual fixes"
+}

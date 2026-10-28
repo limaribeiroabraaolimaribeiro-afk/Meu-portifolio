@@ -1,0 +1,19 @@
+{
+  "semanticHTML": "passed",
+  "h1": 1,
+  "cases": 4,
+  "sceneWindows": [
+    "inicio",
+    "problema",
+    "diagnostico",
+    "transformacao",
+    "processo",
+    "inteligencia",
+    "resultado",
+    "contato"
+  ],
+  "uniqueIds": true,
+  "ariaTargetsExist": true,
+  "localAssetsExist": true,
+  "integrationsAndDeployConfigUnchanged": true
+}

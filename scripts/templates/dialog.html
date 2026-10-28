@@ -1,0 +1,45 @@
+<dialog class="chat-dialog" id="chatDialog" aria-labelledby="chatTitle">
+  <div class="chat-header">
+    <div class="chat-avatar" aria-hidden="true">✳</div>
+    <div>
+      <h2 id="chatTitle">Sua ideia começa aqui.</h2>
+      <span id="orcamentoStatus">Assistente de projetos com IA</span>
+    </div>
+    <button
+      id="orcamentoClose"
+      class="icon-button"
+      aria-label="Fechar assistente"
+    >
+      ×
+    </button>
+  </div>
+  <div
+    class="chat-messages"
+    id="orcamentoChat"
+    aria-live="polite"
+    aria-relevant="additions"
+  ></div>
+  <a
+    class="chat-whatsapp whatsapp-link"
+    id="orcamentoWaBtn"
+    href="https://wa.me/5547992101675"
+    target="_blank"
+    rel="noopener noreferrer"
+    >Prefere falar direto com Abraão? ↗</a
+  >
+  <form class="chat-form" id="orcamentoForm">
+    <label class="sr-only" for="orcamentoInput">Sua mensagem</label
+    ><input
+      id="orcamentoInput"
+      placeholder="Conte um pouco da sua ideia…"
+      maxlength="2000"
+      autocomplete="off"
+      required
+    /><button type="submit" id="orcamentoSendBtn" aria-label="Enviar mensagem">
+      ↑
+    </button>
+  </form>
+  <p class="chat-disclaimer">
+    O valor final é definido por Abraão após analisar seu projeto.
+  </p>
+</dialog>

@@ -1,0 +1,6 @@
+import assert from 'node:assert/strict';
+import {createDirector,CHAPTERS} from '../js/animations/director.js';
+import {createMorphTargets,morphAt,shapeSegment,fractureAt} from '../js/three/morph-targets.js';
+for(const n of [3,4,5]){const t=createMorphTargets(n);assert.equal(t.count,n**3);for(const formation of t.formations){assert.equal(formation.length,t.count);assert.equal(new Set(formation.map(p=>p.join(','))).size,t.count,'No overlapping target cells');assert.ok(formation.flat().every(Number.isFinite));}for(const p of t.formations[3])assert.ok(Math.abs(Math.hypot(...p)-1.6)<1e-9);}
+assert.deepEqual([.1,.3,.5,.7,.9].map(morphAt),[1,1.15,2,3,4]);assert.equal(fractureAt(0),0);assert.equal(fractureAt(4),0);assert.equal(shapeSegment(2).to,3);
+const d=createDirector(),copy=(id,p)=>({...d.seek(id,p)});const hero=copy('inicio',.2);for(const id of CHAPTERS)for(const p of [0,.1,.5,.9,1])assert.ok(Object.values(copy(id,p)).every(Number.isFinite));assert.deepEqual(copy('inicio',.2),hero,'Reverse scroll restores the same full scene');assert.equal(copy('transformacao',.5).shape,2);assert.equal(copy('transformacao',.9).shape,4);assert.equal(copy('resultado',.9).order,1);assert.equal(copy('sobre',.9).opacity,0);d.dispose();console.log('V2: formations, no duplicate cells, sphere radius, five morph phases and reverse/direct navigation passed.');

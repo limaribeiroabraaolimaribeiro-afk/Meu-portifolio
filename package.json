@@ -2,5 +2,19 @@
   "private": true,
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "three": "^0.170.0",
+    "gsap": "3.13.0",
+    "web-vitals": "4.2.4"
+  },
+  "scripts": {
+    "build:scene": "esbuild js/scene.js --bundle --minify --format=iife --target=es2020 --outfile=js/scene.bundle.js",
+    "preview:bundle": "python3 scripts/make-preview.py",
+    "preview:prepare": "python3 scripts/prepare-local-preview.py",
+    "build:app": "esbuild js/portfolio.js --bundle --minify --format=iife --target=es2020 --outfile=js/app.bundle.js",
+    "build:all": "npm run build:app && npm run build:scene && python3 scripts/render-page.py",
+    "check:director": "esbuild scripts/check-director.mjs --bundle --platform=node --format=cjs --outfile=.openai/director-check.cjs && node .openai/director-check.cjs"
   }
 }

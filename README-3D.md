@@ -10,7 +10,7 @@ O preview da branch no Vercel pode exigir acesso à conta do proprietário. A pr
 
 ## Direção da V2
 
-Creme e branco predominantes, preto para contraste, laranja original `#ff7a00`. O personagem é um cubo com expressão discreta e membros mecânicos: acompanha a rolagem, investiga o caos, se divide em microcubos, forma esfera e ponte, se recompõe e segue até uma saída iluminada. Não é o logotipo.
+Creme e branco predominantes, preto para contraste, laranja original `#ff7a00`. O personagem é um cubo modular sem rosto ou membros, com material acetinado e seis painéis: acompanha a rolagem, investiga o caos, se divide em microcubos, forma esfera e ponte, se recompõe e segue até uma saída iluminada. Não é o logotipo.
 
 Onze capítulos conectam problema, diagnóstico, transformação, soluções, projetos, processo, IA, pessoa, resultado e contato. A abertura apresenta os dois CTAs. O diagnóstico inclui grade e wireframe. A transformação tem cinco fases controladas por scroll e botões acessíveis. Seis soluções usam cards claros; no celular há rolagem lateral nativa. Quatro cases têm abas de problema, solução e experiência. A timeline do processo passa de horizontal para vertical no celular, com o personagem acompanhando as etapas. A foto fornecida de Abraão é utilizada sem alterar sua aparência.
 
@@ -18,7 +18,7 @@ Day Lanches, Smart Billingg, Anarosa e Nexa Store usam conteúdo conferido. As a
 
 Nexa Store é o nome solicitado no novo briefing. O arquivo original Nexa Story e seu endereço existente foram preservados; não se afirma que a loja publicada foi renomeada. Os sete projetos originais continuam no arquivo filtrável.
 
-WhatsApp, e-mail, redes, FAQ e assistente permanecem disponíveis. Esta revisão não modifica `api/chat.js`, `js/projects-config.js`, `vercel.json`, CNAME, robots ou sitemap.
+WhatsApp, e-mail, redes, FAQ e assistente permanecem disponíveis. Esta revisão não modifica `api/chat.js`, `js/projects-config.js`, `vercel.json`, CNAME ou robots. O sitemap agora inclui a home, três páginas de serviços e quatro cases.
 
 ## Desenvolvimento
 

@@ -106,7 +106,7 @@ import { chooseQuality } from "./lib/quality.js";
   if (!reduced && !root.dataset.standalone) {
     const inject = () => {
       const script = document.createElement("script");
-      script.src = "js/scene.bundle.js?v=notebook-cinema-20261028";
+      script.src = "js/scene.bundle.js?v=notebook-only-20261028";
       script.async = true;
       document.body.append(script);
     };

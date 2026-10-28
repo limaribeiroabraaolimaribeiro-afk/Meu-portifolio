@@ -1,7 +1,7 @@
 import { initPortraitMotion } from "./three/portrait-motion.js";
 initPortraitMotion();
 import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shell.js";
-import { createProblemFlow } from "./three/problem-flow.js";
+import { createCinematicProblem, cinematicState } from "./three/cinematic-problem.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
@@ -18,7 +18,7 @@ const root = document.documentElement;
 if (!root.classList.contains("reduced-motion")) init();
 function init() {
   const stage = document.getElementById("sceneStage");
-  const problemFlow = createProblemFlow();
+
   let canvas = document.getElementById("sceneCanvas"),
     renderer,
     software = false,
@@ -346,6 +346,7 @@ function init() {
     root.dataset.microcubes = String(cellMesh.count);
     root.dataset.graphicsInitialized = "true";
   }
+  const cinema = createCinematicProblem({scene,software,quality});
   resize();
   addEventListener("resize", resize, { passive: true });
   addEventListener("portfolio:quality", resize);
@@ -395,7 +396,15 @@ function init() {
     }
     const distance = worldHeight / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
     camera.position.set(s.cx + pointerX, s.cy + pointerY, s.cz).sub(target).normalize().multiplyScalar(distance).add(target);
-    if(id === "problema") {target.set(0,0,0);camera.position.set(0,0,distance);}
+    const filmState=cinematicState(progress);
+    cinema.group.visible=id === "problema";
+    if(id === "problema") {
+      const fit=Math.max(7.3,6.8/aspect)*filmState.zoom;
+      const d=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+      target.set(...filmState.focus);
+      const angle=.52+progress*.30;
+      camera.position.set(Math.sin(angle)*.77,.78,Math.cos(angle)*.90).normalize().multiplyScalar(d).add(target);
+    }
     camera.lookAt(target);
     camera.updateProjectionMatrix();
     actor.position.set(
@@ -406,9 +415,9 @@ function init() {
     actor.rotation.y = s.yaw + (id === "inicio" ? Math.sin(now*.0007)*.075 : 0);
     actor.scale.setScalar(s.actorScale);
     if(id === "problema") {
-      const point=problemFlow.update(progress), span=2*distance*Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
-      actor.position.set((point.x-.5)*span*aspect,(.5-point.y)*span,0);
-      actor.scale.setScalar(.20);actor.rotation.y=-.35;actor.rotation.x=.16;
+      const state=cinema.update(progress,now,camera);
+      actor.position.set(...state.actor);actor.position.y+=.30;
+      actor.scale.setScalar(.45);actor.rotation.set(0,state.yaw,0);
     }else actor.rotation.x=0;
     body.rotation.z = 0;
     const fracture = fractureAt(s.shape),
@@ -416,7 +425,7 @@ function init() {
       segment = shapeSegment(s.shape),
       a = morphTargets.formations[segment.from],
       b = morphTargets.formations[segment.to];
-    premium.update({fracture,spread:id === "diagnostico" ? Math.sin(progress*Math.PI)**2*.45 : 0});
+    premium.update({fracture,spread:id === "problema" && filmState.blocked ? .20 : id === "diagnostico" ? Math.sin(progress*Math.PI)**2*.45 : 0});
     cellMesh.visible = fracture > 0.005 && sphereWeight < 0.98;
     if (cellMesh.visible) {
       const cellSize =
@@ -472,7 +481,7 @@ function init() {
     shadow.scale.setScalar(s.actorScale);
     shadowMat.opacity = (1 - fracture * 0.6) * 0.85;
     if (!software) {
-      renderer.toneMappingExposure = s.light * .92;
+      renderer.toneMappingExposure = id === "problema" ? .88 : s.light * .92;
       renderer.render(scene, camera);
       root.dataset.drawCalls = String(renderer.info.render.calls);
       root.dataset.triangles = String(renderer.info.render.triangles);
@@ -508,6 +517,7 @@ function init() {
     windows.dispose();
     director.dispose();
     premium.dispose();
+    cinema.dispose();
     environment?.dispose();
     for (const g of geometries) g.dispose();
     for (const m of materials) m.dispose();

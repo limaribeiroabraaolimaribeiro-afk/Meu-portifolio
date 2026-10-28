@@ -1,6 +1,7 @@
 import { observeMetrics } from "./lib/metrics.js";
 import { initScrollUI } from "./animations/scroll-ui.js";
 import { initNotebookCases } from "./lib/notebook-ui.js";
+import { initSolutions } from "./lib/solutions-ui.js";
 import { initMicrointeractions } from "./lib/microinteractions.js";
 import { chooseQuality } from "./lib/quality.js";
 /* Native document scrolling is the only input. All content is present in HTML. */
@@ -98,6 +99,7 @@ import { chooseQuality } from "./lib/quality.js";
     if (e.matches) closeMenu();
   });
   const narrative = initScrollUI(root, () => reduced);
+  initSolutions(() => reduced, () => narrative.measure());
   initNotebookCases(
     () => reduced,
     () => narrative.measure(),

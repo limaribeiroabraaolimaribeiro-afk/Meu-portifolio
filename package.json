@@ -18,6 +18,7 @@
     "check:director": "esbuild scripts/check-director.mjs --bundle --platform=node --format=cjs --outfile=.openai/director-check.cjs && node .openai/director-check.cjs",
     "build:seo": "python3 scripts/render-seo-pages.py",
     "preview:cube": "python3 scripts/build-cube-preview.py",
-    "check:notebook": "node scripts/check-notebook.mjs"
+    "check:notebook": "node scripts/check-notebook.mjs",
+    "check:solutions": "node scripts/check-solutions.mjs"
   }
 }

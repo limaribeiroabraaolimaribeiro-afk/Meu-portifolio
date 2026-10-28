@@ -1,6 +1,7 @@
 import { observeMetrics } from "./lib/metrics.js";
 import { initScrollUI } from "./animations/scroll-ui.js";
 import { initNotebookCases } from "./lib/notebook-ui.js";
+import { initResultFilm } from "./lib/result-ui.js";
 import { initSolutions } from "./lib/solutions-ui.js";
 import { initMicrointeractions } from "./lib/microinteractions.js";
 import { chooseQuality } from "./lib/quality.js";
@@ -100,6 +101,7 @@ import { chooseQuality } from "./lib/quality.js";
   });
   const narrative = initScrollUI(root, () => reduced);
   initSolutions(() => reduced, () => narrative.measure());
+  initResultFilm(() => reduced, () => narrative.measure());
   initNotebookCases(
     () => reduced,
     () => narrative.measure(),
@@ -108,7 +110,7 @@ import { chooseQuality } from "./lib/quality.js";
   if (!reduced && !root.dataset.standalone) {
     const inject = () => {
       const script = document.createElement("script");
-      script.src = "js/scene.bundle.js?v=reactor-20261028";
+      script.src = "js/scene.bundle.js?v=result-film-20261028";
       script.async = true;
       document.body.append(script);
     };

@@ -4,6 +4,7 @@ import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shel
 import { createCinematicProblem, cinematicState } from "./three/cinematic-problem.js";
 import { createNotebookCinema } from "./three/notebook-cinema.js";
 import { createSolutionsCinema } from "./three/solutions-cinema.js";
+import { createIntelligenceReactor } from "./three/intelligence-reactor.js";
 import { notebookState } from "./three/notebook-state.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
@@ -352,6 +353,7 @@ function init() {
   const cinema = createCinematicProblem({scene,software,quality});
   const notebook = createNotebookCinema({scene,software,quality});
   const solutions = createSolutionsCinema({scene,software,quality});
+  const intelligence = createIntelligenceReactor({scene,software,quality});
   resize();
   addEventListener("resize", resize, { passive: true });
   addEventListener("portfolio:quality", resize);
@@ -406,6 +408,7 @@ function init() {
     cinema.group.visible=id === "problema";
     notebook.group.visible=id === "projetos";
     solutions.group.visible=id === "solucoes";
+    intelligence.group.visible=id === "inteligencia";
     if(id === "problema") {
       const fit=Math.max(6.4,5.8/aspect)*filmState.zoom;
       const d=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
@@ -495,7 +498,7 @@ function init() {
     shadow.position.z = actor.position.z;
     shadow.scale.setScalar(s.actorScale);
     shadowMat.opacity = (1 - fracture * 0.6) * 0.85;
-    actor.visible=id !== "projetos" && id !== "solucoes";
+    actor.visible=id !== "projetos" && id !== "solucoes" && id !== "inteligencia";
     if(id === "projetos") {
       props.visible=paths.visible=network.visible=portal.visible=shadow.visible=false;
       notebook.update(progress,now,camera);
@@ -504,8 +507,12 @@ function init() {
       props.visible=paths.visible=network.visible=portal.visible=shadow.visible=false;
       solutions.update(progress,now,camera);
     }
+    if(id === "inteligencia") {
+      props.visible=paths.visible=network.visible=portal.visible=shadow.visible=false;
+      intelligence.update(progress,now,camera,{width,height});
+    }
     if (!software) {
-      renderer.toneMappingExposure = id === "problema" ? .88 : id === "solucoes" ? 1.05 : s.light * .92;
+      renderer.toneMappingExposure = id === "problema" ? .88 : id === "solucoes" ? 1.05 : id === "inteligencia" ? 1.12 : s.light * .92;
       renderer.render(scene, camera);
       root.dataset.drawCalls = String(renderer.info.render.calls);
       root.dataset.triangles = String(renderer.info.render.triangles);
@@ -544,6 +551,7 @@ function init() {
     cinema.dispose();
     notebook.dispose();
     solutions.dispose();
+    intelligence.dispose();
     environment?.dispose();
     for (const g of geometries) g.dispose();
     for (const m of materials) m.dispose();

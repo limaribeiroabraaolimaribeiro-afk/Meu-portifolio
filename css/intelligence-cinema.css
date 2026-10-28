@@ -1,0 +1,61 @@
+/* Living intelligence field. The animation clock continues independently of scroll. */
+.intelligence-reactor.intelligence{height:auto;min-height:0;max-height:none;padding:130px 0 115px;overflow:visible;background:radial-gradient(ellipse at 75% 52%,#273c3220,transparent 60%),#101511;scroll-margin-top:75px}
+.intelligence-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.25fr);align-items:center;gap:4vw}
+.intelligence-reactor .story-copy{position:relative;max-width:470px;z-index:2}
+.intelligence-reactor .eyebrow{color:#b8ac92;font-size:8px;margin-bottom:28px;letter-spacing:1.5px}
+.intelligence-reactor h2{font-size:clamp(47px,5.5vw,82px);line-height:1.01;letter-spacing:-.055em}
+.intelligence-reactor .ai-statement{font-size:clamp(20px,2vw,30px);line-height:1.35;margin-top:30px;letter-spacing:-.65px;color:#f0ecdf}
+.intelligence-reactor .lead{font-size:12px;line-height:1.9;color:#a7ad9c;margin-top:25px;max-width:350px}
+.reactor-editorial{font-size:10px;color:#8f9c88;line-height:1.9;border-left:1px solid #d08743;padding-left:16px;margin-top:50px}
+.reactor-editorial strong{font-weight:400;color:#ceba95}
+.reactor-film{position:relative;min-width:0;height:720px;isolation:isolate;overflow:hidden;border:1px solid #a38a5428;border-radius:14px;background:radial-gradient(ellipse at 50% 47%,#95602420,transparent 53%),radial-gradient(ellipse at 90% 10%,#568f7920,transparent 60%),#0b120e;box-shadow:0 30px 90px #0002}
+.reactor-film:before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#ae946208 1px,transparent 1px),linear-gradient(#ae946208 1px,transparent 1px);background-size:65px 65px;mask-image:radial-gradient(ellipse,black,transparent 73%);z-index:0}
+.reactor-film:after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;box-shadow:inset 0 0 80px #030c0660;border-radius:inherit}
+.reactor-topline{position:absolute;left:25px;right:25px;top:23px;display:flex;justify-content:space-between;gap:15px;font-size:6px;letter-spacing:1.5px;color:#b4ae97;z-index:5;line-height:1.5}
+.reactor-topline>span:first-child{display:flex;align-items:center;gap:9px}
+.reactor-topline i{display:block;width:5px;height:5px;border-radius:50%;background:#e49c53;box-shadow:0 0 15px #f0963750}
+.reactor-topline>span:last-child{color:#7c8e79;font-size:5px;white-space:nowrap}
+.intelligence-world.scene-window{position:absolute;inset:60px -6% 115px;width:112%;height:auto;min-height:0;overflow:hidden;z-index:1}
+.intelligence-world.scene-window:before{display:none}
+.intelligence-world .scene-stage{border-radius:0}
+.intelligence-world .scene-caption,.intelligence-world .world-floor{display:none}
+.reactor-poster{position:absolute;inset:0;opacity:1}
+.reactor-poster>svg{width:100%;height:100%;display:block}
+.has-motion .intelligence-world[data-rendered=true] .reactor-poster{display:none}
+.reactor-labels{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.reactor-label{position:absolute;left:0;top:0;display:inline-flex;align-items:center;gap:7px;min-height:27px;padding:5px 9px;font-size:9px;line-height:1.3;color:#bccbb3;background:#0d1713df;border:1px solid #9cbd8e35;border-radius:3px;white-space:nowrap;transition:color .3s,border-color .3s,box-shadow .3s;will-change:transform}
+.reactor-label>i{width:3px;height:3px;flex:none;background:#a2c1a1;border-radius:50%}
+.reactor-label[data-active=true]{color:#fff0d4;border-color:#ed9b4c8c;box-shadow:0 0 20px #e88e2712}
+.reactor-label[data-active=true]>i{background:#f8ac60;box-shadow:0 0 10px #f0a256}
+.intelligence-world:not([data-rendered=true]) .reactor-label-0{left:17%;top:23%}
+.intelligence-world:not([data-rendered=true]) .reactor-label-1{left:76%;top:27%}
+.intelligence-world:not([data-rendered=true]) .reactor-label-2{left:20%;top:75%}
+.intelligence-world:not([data-rendered=true]) .reactor-label-3{left:73%;top:75%}
+.intelligence-world:not([data-rendered=true]) .reactor-label{transform:translate(-50%,-50%)}
+.reactor-caption{position:absolute;left:30px;right:30px;bottom:54px;z-index:5}
+.reactor-caption>span{display:block;color:#d39958;font-size:6px;letter-spacing:1.5px;margin-bottom:10px}
+.reactor-caption>p{color:#ddd8c4;font-size:13px;line-height:1.6;letter-spacing:-.1px;max-width:370px}
+.reactor-footer{position:absolute;left:30px;right:30px;bottom:18px;display:flex;align-items:center;gap:15px;z-index:5;color:#87947e;font-size:5px;letter-spacing:1.6px}
+.reactor-footer>i{height:1px;background:#a18a5b33;flex:1}
+html[data-chapter=inteligencia] #orcamentoFloat{visibility:hidden;pointer-events:none}
+@media(max-width:1100px) and (min-width:701px){.intelligence-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:3vw}.reactor-film{height:620px}.intelligence-reactor h2{font-size:54px}.intelligence-reactor .ai-statement{font-size:22px}.reactor-label{font-size:8px;padding:5px 7px}.reactor-topline{left:18px;right:18px;font-size:5px;letter-spacing:1px}.reactor-topline>span:last-child{display:none}}
+@media(max-width:700px){
+ .intelligence-reactor.intelligence{padding:100px 0 65px;scroll-margin-top:70px;background:radial-gradient(ellipse at 60% 67%,#44351d28,transparent 60%),#101511}
+ .intelligence-layout{display:flex;flex-direction:column;gap:36px;padding-inline:6vw}
+ .intelligence-reactor .story-copy{max-width:none;width:100%}
+ .intelligence-reactor .eyebrow{font-size:7px;letter-spacing:1.4px;margin-bottom:22px}
+ .intelligence-reactor h2{font-size:clamp(41px,12.6vw,57px);line-height:1}
+ .intelligence-reactor .ai-statement{font-size:21px;line-height:1.35;margin-top:24px;letter-spacing:-.45px}
+ .intelligence-reactor .lead{font-size:11px;line-height:1.85;margin-top:20px;max-width:330px}
+ .reactor-editorial{font-size:9px;margin-top:25px;padding-left:12px}
+ .reactor-film{height:660px;min-height:0;width:calc(100% + 12vw);border-radius:0;border-left:0;border-right:0;background:radial-gradient(ellipse at 50% 45%,#bd722420,transparent 56%),radial-gradient(ellipse at 92% 18%,#5189751f,transparent 65%),#0b120e;box-shadow:none}
+ .reactor-topline{top:24px;left:7vw;right:7vw;font-size:6px;letter-spacing:1.1px}.reactor-topline>span:last-child{font-size:4px}
+ .intelligence-world.scene-window{inset:62px -7% 114px;width:114%;height:auto;min-height:0}
+ .reactor-label{font-size:8px;min-height:24px;padding:5px 7px;gap:6px}
+ .reactor-caption{left:7vw;right:7vw;bottom:57px}.reactor-caption>span{font-size:5px;margin-bottom:9px}.reactor-caption>p{font-size:12px;max-width:300px}
+ .reactor-footer{left:7vw;right:7vw;bottom:22px;font-size:4px;letter-spacing:1.3px}
+}
+@media(max-width:700px) and (max-height:740px){.reactor-film{height:570px}.intelligence-layout{gap:30px}.reactor-topline{font-size:5px}.reactor-label{font-size:7px}.intelligence-reactor .ai-statement{font-size:20px}}
+.reduced-motion .intelligence-world.scene-window{display:block}
+.reduced-motion .reactor-label{transition:none;will-change:auto}
+@media(prefers-reduced-motion:reduce){.reactor-label{transition:none}}

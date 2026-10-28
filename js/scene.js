@@ -2,6 +2,8 @@ import { initPortraitMotion } from "./three/portrait-motion.js";
 initPortraitMotion();
 import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shell.js";
 import { createCinematicProblem, cinematicState } from "./three/cinematic-problem.js";
+import { createNotebookCinema } from "./three/notebook-cinema.js";
+import { notebookState } from "./three/notebook-state.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
@@ -347,6 +349,7 @@ function init() {
     root.dataset.graphicsInitialized = "true";
   }
   const cinema = createCinematicProblem({scene,software,quality});
+  const notebook = createNotebookCinema({scene,software,quality});
   resize();
   addEventListener("resize", resize, { passive: true });
   addEventListener("portfolio:quality", resize);
@@ -399,12 +402,20 @@ function init() {
     camera.position.set(s.cx + pointerX, s.cy + pointerY, s.cz).sub(target).normalize().multiplyScalar(distance).add(target);
     const filmState=cinematicState(progress);
     cinema.group.visible=id === "problema";
+    notebook.group.visible=id === "projetos";
     if(id === "problema") {
       const fit=Math.max(6.4,5.8/aspect)*filmState.zoom;
       const d=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
       target.set(...filmState.focus);
       const angle=.52+progress*.30;
       camera.position.set(Math.sin(angle)*.77,.78,Math.cos(angle)*.90).normalize().multiplyScalar(d).add(target);
+    }
+    if(id === "projetos") {
+      const shot=notebookState(progress);
+      const fit=Math.max(7.0,6.3/aspect)*(1-shot.cameraDock*.16);
+      const d=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
+      target.set(0,1.10-shot.cameraDock*.60,.18);
+      camera.position.set(.18-shot.cameraDock*.13,.20+Math.sin(shot.local*Math.PI)*.035,1).normalize().multiplyScalar(d).add(target);
     }
     camera.lookAt(target);
     camera.updateProjectionMatrix();
@@ -481,6 +492,11 @@ function init() {
     shadow.position.z = actor.position.z;
     shadow.scale.setScalar(s.actorScale);
     shadowMat.opacity = (1 - fracture * 0.6) * 0.85;
+    actor.visible=id !== "projetos";
+    if(id === "projetos") {
+      props.visible=paths.visible=network.visible=portal.visible=shadow.visible=false;
+      notebook.update(progress,now,camera);
+    }
     if (!software) {
       renderer.toneMappingExposure = id === "problema" ? .88 : s.light * .92;
       renderer.render(scene, camera);
@@ -519,6 +535,7 @@ function init() {
     director.dispose();
     premium.dispose();
     cinema.dispose();
+    notebook.dispose();
     environment?.dispose();
     for (const g of geometries) g.dispose();
     for (const m of materials) m.dispose();

@@ -1,6 +1,6 @@
 import { observeMetrics } from "./lib/metrics.js";
 import { initScrollUI } from "./animations/scroll-ui.js";
-import { initCases } from "./lib/cases-ui.js";
+import { initNotebookCases } from "./lib/notebook-ui.js";
 import { initMicrointeractions } from "./lib/microinteractions.js";
 import { chooseQuality } from "./lib/quality.js";
 /* Native document scrolling is the only input. All content is present in HTML. */
@@ -98,7 +98,7 @@ import { chooseQuality } from "./lib/quality.js";
     if (e.matches) closeMenu();
   });
   const narrative = initScrollUI(root, () => reduced);
-  initCases(
+  initNotebookCases(
     () => reduced,
     () => narrative.measure(),
   );
@@ -106,7 +106,7 @@ import { chooseQuality } from "./lib/quality.js";
   if (!reduced && !root.dataset.standalone) {
     const inject = () => {
       const script = document.createElement("script");
-      script.src = "js/scene.bundle.js?v=immersive-cinema-20261028";
+      script.src = "js/scene.bundle.js?v=notebook-cinema-20261028";
       script.async = true;
       document.body.append(script);
     };

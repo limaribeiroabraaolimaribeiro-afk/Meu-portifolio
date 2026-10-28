@@ -40,23 +40,8 @@ parts.append('<div class="wrap content-layer"><div class="section-heading"><div>
 for i,(kind,title,subtitle,body) in enumerate(solutions):
  parts.append(f'<article class="solution-card" data-tilt><span class="solution-icon">{icon(kind)}</span><span class="solution-index">0{i+1}</span><h3>{title}</h3><p class="solution-subtitle">{subtitle}</p><p class="solution-detail">{body}</p><span class="solution-arrow" aria-hidden="true">↗</span></article>')
 parts.append('</div><p class=swipe-note>Deslize para explorar as soluções →</p></div>');parts.append(close_section())
-parts.append(open_section('projetos','projects'))
-parts.append('<div class="wrap content-layer"><div class="section-heading"><div>'+kicker(6,'PROJETOS SELECIONADOS')+'<h2 id="projetos-title">Negócios reais.<br><em>Resultados reais.</em></h2></div><p>Problemas diferentes. Soluções com contexto.<br>Conheça o que foi construído em cada experiência.</p></div><div class="projects-track" id="caseTrack" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Cases de projetos, use as setas ou deslize">')
-for i,c in enumerate(cases):
- phases=[c['phases'][0],c['phases'][2],c['phases'][3]]
- parts.append(f'<article class="case-card" id="case-{c["id"]}" aria-labelledby="case-title-{c["id"]}"><figure class="project-media {c["coverKind"]}-media"><img src="{c["cover"]}" alt="{e(c["coverLabel"])} — {e(c["name"])}" width="1200" height="675" loading="lazy" decoding="async"><figcaption>{e(c["coverLabel"])}</figcaption><span class="project-number">0{i+1}</span></figure><div class="case-content"><div class="case-heading"><div><p class="case-category">{e(c["category"])}</p><h3 id="case-title-{c["id"]}">{e(c["name"])}</h3></div><span class="case-corner" aria-hidden="true">↗</span></div><div class="case-tabs" role="tablist" aria-label="História de {e(c["name"])}">')
- for j,label in enumerate(['Problema','Solução','Experiência']):
-  parts.append(f'<button role="tab" id="tab-{c["id"]}-{j}" aria-controls="panel-{c["id"]}-{j}" aria-selected="{str(j==0).lower()}" tabindex="{0 if j==0 else -1}">{label}</button>')
- parts.append('</div>')
- for j,p in enumerate(phases):
-  parts.append(f'<div class="case-panel" role="tabpanel" tabindex="0" id="panel-{c["id"]}-{j}" aria-labelledby="tab-{c["id"]}-{j}" {"hidden" if j!=0 else ""}><p>{p["body"]}</p>')
-  if j==1:parts.append('<ul class="case-flow">'+''.join(f'<li>{e(v)}</li>' for v in c['flow'])+'</ul>')
-  if j==2:
-   if c['url']:parts.append(f'<a class="text-link" href="{e(c["url"])}" target="_blank" rel="noopener noreferrer">Explorar a experiência {arrow}</a>')
-   parts.append(f'<details class="screen-detail"><summary>Ver {"a interface demonstrativa" if c["id"]=="smart" else "o acervo do projeto" if c["id"]=="nexa" else "a interface real"}<span>+</span></summary><figure><img src="{c["screen"]}" width="1200" height="824" alt="{e(c["note"])}" loading="lazy" decoding="async"><figcaption>{e(c["note"])}</figcaption></figure></details>')
-  parts.append('</div>')
- parts.append('</div></article>')
-parts.append('</div><div class="projects-bottom"><p>Deslize para conhecer cada história.<br>Problema, solução e experiência.</p><div class="project-controls"><button data-case-direction="-1" aria-label="Projeto anterior">←</button><span id="caseCounter" aria-live="polite" aria-atomic="true">01 / 04</span><button data-case-direction="1" aria-label="Próximo projeto">→</button></div><button id="caseMotionToggle" class="case-motion-toggle" aria-pressed="false">Pausar movimento Ⅱ</button><a class="text-link" href="#arquivo">Ver o arquivo de projetos '+arrow+'</a></div></div>');parts.append(close_section())
+from notebook_markup import render_notebook
+parts.append(render_notebook(cases,kicker,arrow))
 parts.append(open_section('processo','process scene-section','light',True))
 steps=[('Você mostra o problema','O que trava a rotina?'),('Eu analiso','Entendo o cenário e as conexões.'),('Definimos a solução','Alinhamos o caminho e o escopo.'),('Eu desenvolvo','Você acompanha a construção.'),('Entrego e evoluímos','Validamos e definimos os próximos passos.')]
 parts.append('<div class="wrap content-layer"><div class="section-heading"><div>'+kicker(7,'COMO FUNCIONA')+'<h2 id="processo-title">Um problema.<br><em>Um caminho claro.</em></h2></div><p>Você traz o contexto.<br>Eu traduzo em uma solução que faça sentido.</p></div><div class="process-journey"><div class="scene-window process-window" data-scene-window="processo" aria-hidden="true"></div><ol class="process-timeline">'+''.join(f'<li><span class="process-node">0{i+1}</span><h3>{title}</h3><p>{desc}</p></li>' for i,(title,desc) in enumerate(steps))+'</ol></div></div>')

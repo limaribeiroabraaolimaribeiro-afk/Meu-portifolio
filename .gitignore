@@ -8,3 +8,7 @@ node_modules/
 # Local browser QA (no Sites deployment)
 dist/
 .openai/
+
+# Python render helpers
+__pycache__/
+*.pyc

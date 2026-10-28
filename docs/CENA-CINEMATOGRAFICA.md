@@ -9,3 +9,11 @@ A página mantém o creme como base e contém a iluminação escura em um cenár
 Movimento reduzido e ausência de JS preservam ilustração vetorial e três relações de negócio no DOM. A narrativa usa section sticky adaptada ao celular, sem interceptar eventos de toque/scroll.
 
 Validação: builds completos; testes existentes da timeline; check-cinematic-problem.mjs para continuidade, pausas, reversão, limites, preservação de lacunas, matrizes e descarte nas geometrias WebGL/Canvas; sintaxe e diff. Inspeção em desktop e iframes mobile 360/390/430 px, sem overflow e com as três fases alcançáveis. Saída para diagnóstico conferida; modo reduzido conferido. Ambiente remoto sem WebGL: inspeção visual em Canvas, sem promessa de 60 FPS em GPU física. Bundle de cena aproximadamente 594 KB minificado, sem novos assets remotos. Backend, orçamento com IA, WhatsApp e SEO preservados.
+
+## Apresentação imersiva
+
+A introdução editorial agora precede o cenário. `#investigacao` oferece acesso direto à cena, que ocupa 100% da largura e 100svh, sem moldura ou coluna lateral. O período de investigação permanece fixo durante o scroll; o progresso desconta a altura da introdução. O limite antigo de altura da seção foi removido para não cortar a cena mobile.
+
+Cabeçalho e menu ganham contraste sobre a cena sem perder navegação; o menu aberto mantém fundo claro e logo legível. Legendas foram ampliadas com margens para áreas seguras. A câmera se aproxima mais; nenhum renderizador, efeito ou asset novo foi adicionado. Movimento reduzido mantém introdução e representação estática.
+
+Conferência em iframe 390px: canvas com limites x=0/y=0, largura útil de 375px e altura de 844px, sem overflow horizontal; fase 2 em progresso 0,600 e navegação mobile funcionando. Builds e testes da timeline/cena passaram. Verificação visual em Canvas no navegador remoto, sem nova medição em GPU física.

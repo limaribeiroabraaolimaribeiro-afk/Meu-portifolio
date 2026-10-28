@@ -1,6 +1,7 @@
 import { initPortraitMotion } from "./three/portrait-motion.js";
 initPortraitMotion();
 import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shell.js";
+import { createProblemFlow } from "./three/problem-flow.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
@@ -17,6 +18,7 @@ const root = document.documentElement;
 if (!root.classList.contains("reduced-motion")) init();
 function init() {
   const stage = document.getElementById("sceneStage");
+  const problemFlow = createProblemFlow();
   let canvas = document.getElementById("sceneCanvas"),
     renderer,
     software = false,
@@ -393,6 +395,7 @@ function init() {
     }
     const distance = worldHeight / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
     camera.position.set(s.cx + pointerX, s.cy + pointerY, s.cz).sub(target).normalize().multiplyScalar(distance).add(target);
+    if(id === "problema") {target.set(0,0,0);camera.position.set(0,0,distance);}
     camera.lookAt(target);
     camera.updateProjectionMatrix();
     actor.position.set(
@@ -402,6 +405,11 @@ function init() {
     );
     actor.rotation.y = s.yaw + (id === "inicio" ? Math.sin(now*.0007)*.075 : 0);
     actor.scale.setScalar(s.actorScale);
+    if(id === "problema") {
+      const point=problemFlow.update(progress), span=2*distance*Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+      actor.position.set((point.x-.5)*span*aspect,(.5-point.y)*span,0);
+      actor.scale.setScalar(.20);actor.rotation.y=-.35;actor.rotation.x=.16;
+    }else actor.rotation.x=0;
     body.rotation.z = 0;
     const fracture = fractureAt(s.shape),
       sphereWeight = Math.max(0, 1 - Math.abs(s.shape - 2) / 0.34),
@@ -452,12 +460,13 @@ function init() {
         b.angle * (1 - s.order),
       );
     });
-    paths.visible = s.path > 0.02 && id !== "processo";
+    paths.visible = s.path > 0.02 && id !== "processo" && id !== "problema";
     paths.scale.setScalar(Math.max(0.02, s.path));
     network.visible = s.network > 0.02;
     network.scale.setScalar(Math.max(0.01, s.network));
     portal.visible = s.portal > 0.02;
     portal.scale.setScalar(Math.max(0.01, s.portal));
+    shadow.visible = id !== "problema";
     shadow.position.x = actor.position.x;
     shadow.position.z = actor.position.z;
     shadow.scale.setScalar(s.actorScale);

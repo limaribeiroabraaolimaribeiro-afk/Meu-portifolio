@@ -9,11 +9,11 @@ html=(ROOT/'index.html').read_text().replace('<html lang="pt-BR"','<html data-st
 html=re.sub(r'<link\b(?=[^>]*\brel="preload")[^>]*>','',html)
 css=(ROOT/'css/portfolio.css').read_text()
 css=re.sub(r'''url\(["']?([^"')]+)["']?\)''',lambda m:"url('"+data_uri(str((Path('css')/m[1]).as_posix()).replace('css/../',''))+"')",css)
-html=re.sub(r'<link\b[^>]*href="css/portfolio.css"[^>]*>',lambda m:'<style>'+css+'</style>',html)
+html=re.sub(r'<link\b[^>]*href="css/portfolio.css(?:\?[^"]*)?"[^>]*>',lambda m:'<style>'+css+'</style>',html)
 for source in ['js/projects-config.js','js/app.bundle.js','js/scene.bundle.js']:
     script=(ROOT/source).read_text()
     script=re.sub(r'''(["'])(img/[^"'\n]+\.webp)\1''',lambda m:'"'+data_uri(m[2])+'"',script)
-    html=re.sub(r'<script\b[^>]*src="'+re.escape(source)+r'"[^>]*>\s*</script>','',html)
+    html=re.sub(r'<script\b[^>]*src="'+re.escape(source)+r'(?:\?[^"]*)?"[^>]*>\s*</script>','',html)
     html=html.replace('</body>','<script>'+script.replace('</script','<\\/script')+'</script></body>')
 html=re.sub(r'(<(?:img|source)\b[^>]*(?:src|srcset)=")(img/[^"\n]+\.webp)(")',lambda m:m[1]+data_uri(m[2])+m[3],html)
 html=html.replace('"favicon.svg"','"'+data_uri('favicon.svg')+'"')

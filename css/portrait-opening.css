@@ -1,0 +1,56 @@
+/* Approved opening, scoped independently of the following narrative. */
+.portrait-opening{height:460svh;position:relative;background:#f4f0e8;color:#171614;--progress:0}
+.portrait-opening .frame{position:sticky;top:0;height:100svh;min-height:620px;overflow:hidden;background:radial-gradient(ellipse at 77% 47%,#fffaf0 0,transparent 53%)}
+.portrait-opening .copy{position:absolute;left:7vw;top:28%;width:45%;z-index:2;pointer-events:none}
+.portrait-opening #chapter{font-size:10px;letter-spacing:2px;color:#685f53;margin:0 0 28px}
+.portrait-opening h1{font-family:var(--display,'Space Grotesk',Arial),sans-serif;font-size:clamp(44px,5.1vw,82px);font-weight:700;line-height:1.04;letter-spacing:-.055em;margin:0;min-height:2.1em}
+.portrait-opening em{font-style:normal;color:#d95b00}
+.portrait-opening #subline{font-size:clamp(18px,2.05vw,29px);line-height:1.4;letter-spacing:-.025em;color:#62594e;margin-top:26px;min-height:2.8em}
+.portrait-opening .art{position:absolute;left:49%;right:1%;top:10%;height:76%;isolation:isolate}
+.portrait-opening .art:before{content:'';position:absolute;left:18%;right:15%;bottom:13%;height:8%;border-radius:50%;background:#70512c26;filter:blur(24px);z-index:-1}
+.portrait-opening canvas{display:block;width:100%;height:100%;position:absolute;inset:0}
+.portrait-opening #portrait{position:absolute;height:70.37%;width:auto;max-width:100%;object-fit:contain;top:14.815%;left:50%;transform:translateX(-50%);pointer-events:none;will-change:opacity,filter}
+.has-motion .portrait-opening #portrait{opacity:0}
+.portrait-opening .annotation{position:absolute;right:6vw;bottom:19%;font-size:9px;letter-spacing:2px;color:#786c5d}
+.portrait-opening .controls{position:absolute;bottom:30px;left:7vw;right:7vw;border-top:1px solid #c9c0b5;padding-top:12px;display:grid;grid-template-columns:1fr auto;gap:8px 15px;align-items:center}
+.portrait-opening .steps{display:flex;gap:26px;grid-column:1}
+.portrait-opening .steps button{border:0;padding:10px 0;background:none;color:#766d61;font-size:11px;min-height:44px}
+.portrait-opening .steps button[aria-current=true]{color:#171614}
+.portrait-opening .steps button span{color:#a14906;margin-right:8px;font-size:9px}
+.portrait-opening .play{border:1px solid #b7ac9c;border-radius:24px;background:transparent;padding:13px 21px;font-size:11px;min-height:44px;grid-column:2;grid-row:1}
+.portrait-opening .play:hover{background:#e8dece}
+.portrait-opening .opening-links{grid-column:1/-1;display:flex;gap:24px;font-size:12px;align-items:center}
+.portrait-opening .opening-links a{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:6px}
+.portrait-opening .opening-links a:first-child{color:#a14906}
+.portrait-opening .scrubber{display:flex;align-items:center;gap:20px;grid-column:1/-1}
+.portrait-opening .scrubber label{font-size:9px;letter-spacing:1.5px;white-space:nowrap;color:#766d61}
+.portrait-opening input{width:100%;height:24px;accent-color:#b95000;cursor:ew-resize}
+.portrait-opening #percent{width:32px;text-align:right;font-size:10px;font-variant-numeric:tabular-nums;color:#766d61}
+.reduced-motion .portrait-opening{height:100svh;min-height:700px}
+.reduced-motion .portrait-opening canvas,.reduced-motion .portrait-opening .steps,.reduced-motion .portrait-opening .scrubber,.reduced-motion .portrait-opening .play{display:none}
+.reduced-motion .portrait-opening #portrait{opacity:1!important;filter:none!important}
+@media(max-width:700px){
+.portrait-opening .frame{min-height:700px}
+.portrait-opening .copy{left:7vw;top:14%;width:88%}
+.portrait-opening #chapter{font-size:9px;margin-bottom:17px}
+.portrait-opening h1{font-size:clamp(35px,9.2vw,49px);min-height:2.1em;max-width:96%}
+.portrait-opening #subline{font-size:17px;margin-top:14px;min-height:2.8em}
+.portrait-opening .art{left:0;right:0;top:37%;height:42%}
+.portrait-opening .annotation{display:none}
+.portrait-opening .controls{left:7vw;right:7vw;bottom:14px;gap:4px;padding-top:4px}
+.portrait-opening .steps{gap:15px;grid-column:1/-1;justify-content:space-between}
+.portrait-opening .steps button{font-size:10px;padding:0}
+.portrait-opening .steps button span{margin-right:4px;font-size:8px}
+.portrait-opening .play{grid-column:1/-1;grid-row:auto;justify-self:center;font-size:10px;padding:8px 18px;min-height:44px}
+.portrait-opening .scrubber{gap:10px}.portrait-opening .scrubber label{font-size:8px}
+.portrait-opening .opening-links{justify-content:center;font-size:11px;gap:24px}
+.portrait-opening .opening-links a{min-height:44px}
+}
+html[data-portrait-visible=true] #orcamentoFloat{visibility:hidden;pointer-events:none}
+.portrait-opening .annotation{bottom:23%}
+@media(max-width:700px) and (max-height:740px){
+.portrait-opening .frame{min-height:100svh}
+.portrait-opening .copy{top:13%}.portrait-opening h1{font-size:32px}
+.portrait-opening #chapter{margin-bottom:12px}.portrait-opening #subline{font-size:16px;margin-top:12px}
+.portrait-opening .art{top:38%;height:33%}.portrait-opening .controls{bottom:8px}
+}

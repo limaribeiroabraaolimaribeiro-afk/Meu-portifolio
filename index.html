@@ -340,57 +340,241 @@ document.documentElement.classList.add('js');
   const observer = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});
   qsa('.reveal').forEach(el=>observer.observe(el));
 
-  // THREE.JS HERO CHARACTER
-  function initHero3D(){
-    if(!window.THREE) return;
-    const canvas=qs('#heroCanvas'); if(!canvas) return;
-    const scene=new THREE.Scene();
-    const camera=new THREE.PerspectiveCamera(42,1,.1,100); camera.position.set(0,1.3,7.8);
-    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,1.65)); renderer.outputColorSpace=THREE.SRGBColorSpace;
-    const hemi=new THREE.HemisphereLight(0xffffff,0x4a2c16,2.5); scene.add(hemi);
-    const key=new THREE.DirectionalLight(0xff7a1a,5); key.position.set(3,5,4); scene.add(key);
-    const rim=new THREE.PointLight(0xffffff,3,15); rim.position.set(-4,3,3); scene.add(rim);
+  // THREE.JS HERO — personagem geométrico abstrato, sem feições nem membros.
+  // A personalidade vem de peso, antecipação, reação e metamorfose.
+  function initHero3D() {
+    if (!window.THREE) return;
+    const canvas = qs('#heroCanvas');
+    if (!canvas) return;
 
-    const char=new THREE.Group(); scene.add(char);
-    const orange=new THREE.MeshStandardMaterial({color:0xff5b0b,roughness:.28,metalness:.08,emissive:0x3a0c00,emissiveIntensity:.35});
-    const dark=new THREE.MeshStandardMaterial({color:0x111111,roughness:.6});
-    const body=new THREE.Mesh(new THREE.BoxGeometry(2.2,2.2,2.2,5,5,5),orange); body.rotation.set(.15,-.35,.05); char.add(body);
-    const eyeGeo=new THREE.SphereGeometry(.13,18,18);
-    const e1=new THREE.Mesh(eyeGeo,dark); const e2=e1.clone(); e1.position.set(-.42,.18,1.08); e2.position.set(.42,.18,1.08); e1.scale.set(.65,1.3,.45); e2.scale.copy(e1.scale); char.add(e1,e2);
-    const legGeo=new THREE.BoxGeometry(.28,.78,.28); const footGeo=new THREE.BoxGeometry(.55,.22,.65);
-    [-.52,.52].forEach((x,i)=>{const leg=new THREE.Mesh(legGeo,dark);leg.position.set(x,-1.45,0);leg.rotation.z=i?-0.14:.14;const foot=new THREE.Mesh(footGeo,dark);foot.position.set(x+(i?.1:-.1),-1.88,.12);char.add(leg,foot)});
-    char.position.set(.35,.3,0);
-
-    const bits=[]; const bitGeo=new THREE.BoxGeometry(.22,.22,.22);
-    for(let i=0;i<54;i++){
-      const m=new THREE.Mesh(bitGeo,i%5===0?orange:dark);
-      const a=Math.random()*Math.PI*2,r=2.2+Math.random()*2.4;
-      m.position.set(Math.cos(a)*r,(Math.random()-.5)*4.6,Math.sin(a)*r*.6-1);
-      m.rotation.set(Math.random()*3,Math.random()*3,Math.random()*3); m.userData.base=m.position.clone(); scene.add(m); bits.push(m);
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas, alpha: true, antialias: true, powerPreference: 'high-performance'
+      });
+    } catch (err) {
+      console.warn('WebGL indisponível; mantendo o layout textual.', err);
+      return;
     }
-    const floor=new THREE.GridHelper(12,20,0xff6a13,0xe9dccb); floor.position.y=-2.05; floor.material.opacity=.2; floor.material.transparent=true; scene.add(floor);
-    const rayMat=new THREE.LineBasicMaterial({color:0xff5b0b,transparent:true,opacity:.8});
-    const pts=[new THREE.Vector3(-5,-1.95,1),new THREE.Vector3(-1,-1.95,.3),new THREE.Vector3(1,-1.95,-.5),new THREE.Vector3(4,-1.95,.2)];
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),rayMat));
 
-    const mouse={x:0,y:0};
-    canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();mouse.x=(e.clientX-r.left)/r.width-.5;mouse.y=(e.clientY-r.top)/r.height-.5});
-    function resize(){const r=canvas.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()} resize(); new ResizeObserver(resize).observe(canvas);
-    let t=0;
-    function tick(){
-      t+=.01;
-      const hero=qs('#inicio')?.getBoundingClientRect(); const p=hero?clamp(-hero.top/(hero.height*.82),0,1):0;
-      char.rotation.y += ((mouse.x*.35 + Math.sin(t*.55)*.08)-char.rotation.y)*.04;
-      char.rotation.x += ((-mouse.y*.18)-char.rotation.x)*.03;
-      char.position.y=.28+Math.sin(t*1.1)*.12;
-      body.scale.setScalar(1-p*.18);
-      bits.forEach((m,i)=>{const b=m.userData.base; const pull=p*p; m.position.x=lerp(b.x, b.x*1.18+(i%3-1)*.6,pull); m.position.y=lerp(b.y,b.y*1.15+Math.sin(t+i)*.25,pull); m.rotation.x+=.004+i*.00002;m.rotation.y+=.005;});
-      camera.position.x += (mouse.x*.35-camera.position.x)*.025; camera.lookAt(0,.1,0);
-      renderer.render(scene,camera);
-      if(!reduceMotion) requestAnimationFrame(tick);
+    const mobile = window.matchMedia('(max-width: 767px)').matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1.35 : 1.65));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, .1, 60);
+    camera.position.set(0, 1.15, mobile ? 8.6 : 7.7);
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xc5af9b, 2.35));
+    const key = new THREE.DirectionalLight(0xffe1ba, 3.6);
+    key.position.set(-3, 5, 5);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xff6b16, 3.2);
+    fill.position.set(4, 2, -1);
+    scene.add(fill);
+
+    const character = new THREE.Group();
+    character.position.set(0, .30, 0);
+    scene.add(character);
+
+    const orange = new THREE.MeshPhysicalMaterial({
+      color: 0xff6a13, metalness: .24, roughness: .32,
+      clearcoat: .27, clearcoatRoughness: .34,
+      emissive: 0x411200, emissiveIntensity: .10
+    });
+    const graphite = new THREE.MeshStandardMaterial({
+      color: 0x161514, metalness: .30, roughness: .47
+    });
+    const copper = new THREE.MeshBasicMaterial({
+      color: 0xff6b16, transparent: true, opacity: .5
+    });
+
+    // Módulos chanfrados: 64 peças formam um único volume, não um boneco.
+    const shape = new THREE.Shape();
+    const half = .225;
+    shape.moveTo(-half, -half);
+    shape.lineTo(half, -half);
+    shape.lineTo(half, half);
+    shape.lineTo(-half, half);
+    shape.closePath();
+    const moduleGeometry = new THREE.ExtrudeGeometry(shape, {
+      depth: .45, steps: 1, bevelEnabled: true,
+      bevelSize: .012, bevelThickness: .012, bevelSegments: 2,
+      curveSegments: 1
+    });
+    moduleGeometry.translate(0, 0, -.225);
+
+    const count = 64, modules = new THREE.InstancedMesh(moduleGeometry, orange, count);
+    modules.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    modules.frustumCulled = false;
+    character.add(modules);
+
+    const cubePositions = [], burstPositions = [], spherePositions = [];
+    const colors = [0xff6a13, 0xff7d28, 0xf25b0c, 0xeb8542, 0xd94709];
+    const tmpColor = new THREE.Color();
+    const golden = Math.PI * (3 - Math.sqrt(5));
+
+    for (let i = 0; i < count; i++) {
+      const ix = i % 4, iy = Math.floor(i / 4) % 4, iz = Math.floor(i / 16);
+      const x = (ix - 1.5) * .483;
+      const y = (iy - 1.5) * .483;
+      const z = (iz - 1.5) * .483;
+      cubePositions.push(new THREE.Vector3(x, y, z));
+
+      const angle = i * golden, spread = 2.35 + .38 * Math.sin(i * 1.7);
+      burstPositions.push(new THREE.Vector3(
+        x * 1.35 + Math.cos(angle) * spread * .5,
+        y * 1.25 + Math.sin(angle) * spread * .45,
+        z * 1.2 + Math.sin(angle * 1.4) * .85
+      ));
+
+      const latitude = 1 - 2 * (i + .5) / count;
+      const radius = Math.sqrt(1 - latitude * latitude);
+      spherePositions.push(new THREE.Vector3(
+        Math.cos(i * golden) * radius * 1.7,
+        latitude * 1.7,
+        Math.sin(i * golden) * radius * 1.7
+      ));
+      tmpColor.setHex(colors[(i * 7 + iz) % colors.length]);
+      modules.setColorAt(i, tmpColor);
     }
-    tick(); if(reduceMotion) renderer.render(scene,camera);
+    if (modules.instanceColor) modules.instanceColor.needsUpdate = true;
+
+    // Órbitas arquitetônicas finas: reforçam direção, sem aparência de mascote.
+    const halo = new THREE.Group();
+    const ringMaterial = new THREE.MeshBasicMaterial({
+      color: 0x1e1b18, transparent: true, opacity: .24
+    });
+    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.12, .010, 5, 90), ringMaterial);
+    ring1.rotation.set(.43, -.25, .20);
+    halo.add(ring1);
+    const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.30, .013, 5, 90), copper);
+    ring2.rotation.set(1.18, .32, .35);
+    halo.add(ring2);
+    character.add(halo);
+
+    // Volumes secundários discretos, organizados pelo movimento da câmera.
+    const debris = new THREE.Group();
+    scene.add(debris);
+    const shardGeo = new THREE.BoxGeometry(.18, .18, .18);
+    const shards = [];
+    for (let i = 0; i < (mobile ? 12 : 24); i++) {
+      const m = new THREE.Mesh(shardGeo, i % 7 === 0 ? orange : graphite);
+      const a = i * golden, distance = 2.6 + (i % 5) * .26;
+      m.position.set(Math.cos(a) * distance, (i % 7 - 3) * .38, Math.sin(a) * 1.1 - .5);
+      m.scale.setScalar(.58 + (i % 4) * .13);
+      debris.add(m);
+      shards.push({ mesh: m, initialY: m.position.y, phase: i * 1.22 });
+    }
+
+    const floor = new THREE.GridHelper(12, 20, 0xe7b387, 0xe7ddd1);
+    floor.position.y = -2.20;
+    floor.material.transparent = true;
+    floor.material.opacity = .20;
+    scene.add(floor);
+
+    const trail = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-4.2, -2.15, .5),
+      new THREE.Vector3(-1.8, -2.15, 1.0),
+      new THREE.Vector3(.6, -2.15, -.3),
+      new THREE.Vector3(3.8, -2.15, -.6)
+    ]);
+    const trailMesh = new THREE.Mesh(
+      new THREE.TubeGeometry(trail, 70, .018, 5, false),
+      new THREE.MeshBasicMaterial({ color: 0xff6a13, transparent: true, opacity: .64 })
+    );
+    scene.add(trailMesh);
+
+    let pointerX = 0, pointerY = 0;
+    canvas.addEventListener('pointermove', e => {
+      const r = canvas.getBoundingClientRect();
+      pointerX = ((e.clientX - r.left) / r.width - .5) * 2;
+      pointerY = ((e.clientY - r.top) / r.height - .5) * 2;
+    }, { passive: true });
+    canvas.addEventListener('pointerleave', () => { pointerX = 0; pointerY = 0; });
+
+    const dummy = new THREE.Object3D();
+    const target = new THREE.Vector3();
+    const still = new THREE.Vector3();
+    const size = new THREE.Vector3(1, 1, 1);
+    const tempQuat = new THREE.Quaternion();
+    const euler = new THREE.Euler();
+    let time = 0, inView = true;
+
+    const viewportObserver = new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    viewportObserver.observe(canvas);
+
+    function smooth(t) {
+      t = Math.max(0, Math.min(1, t));
+      return t * t * (3 - 2 * t);
+    }
+
+    function updateMorph(p, elapsed) {
+      const out = smooth((p - .10) / .43);
+      const reform = smooth((p - .53) / .40);
+      const pulse = reduceMotion ? 0 : elapsed;
+      for (let i = 0; i < count; i++) {
+        const start = cubePositions[i], burst = burstPositions[i], sphere = spherePositions[i];
+        target.copy(start).lerp(burst, out).lerp(sphere, reform);
+        if (!reduceMotion) {
+          const amount = .018 + out * .045;
+          target.y += Math.sin(pulse * 1.1 + i * .32) * amount;
+        }
+        dummy.position.copy(target);
+        euler.set(out * .22 * Math.sin(i * .6), out * .34 * Math.cos(i * .4), out * .3 * Math.sin(i));
+        tempQuat.setFromEuler(euler);
+        dummy.quaternion.copy(tempQuat);
+        const scale = 1 - out * .14 + reform * .06;
+        size.setScalar(scale);
+        dummy.scale.copy(size);
+        dummy.updateMatrix();
+        modules.setMatrixAt(i, dummy.matrix);
+      }
+      modules.instanceMatrix.needsUpdate = true;
+    }
+
+    function resize() {
+      const r = canvas.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      renderer.setSize(r.width, r.height, false);
+      camera.aspect = r.width / r.height;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
+    else window.addEventListener('resize', resize, { passive: true });
+
+    function render() {
+      const rect = qs('#inicio')?.getBoundingClientRect();
+      const p = rect ? Math.max(0, Math.min(1, -rect.top / (rect.height * .8))) : 0;
+      const elapsed = reduceMotion ? 0 : time;
+      updateMorph(p, elapsed);
+
+      character.rotation.y += (((reduceMotion ? -.24 : -elapsed * .12) + pointerX * .13) - character.rotation.y) * .045;
+      character.rotation.x += ((-.10 - pointerY * .065) - character.rotation.x) * .05;
+      character.position.y = .24 + (reduceMotion ? 0 : Math.sin(elapsed * .82) * .075);
+      halo.rotation.y = reduceMotion ? 0 : elapsed * .13;
+      halo.rotation.z = reduceMotion ? 0 : Math.sin(elapsed * .21) * .09;
+      halo.scale.setScalar(1 - smooth((p - .18) / .4) * .12);
+      for (const s of shards) {
+        s.mesh.position.y = s.initialY + (reduceMotion ? 0 : Math.sin(elapsed * .38 + s.phase) * .09);
+        s.mesh.rotation.x = reduceMotion ? 0 : elapsed * .08;
+      }
+      camera.lookAt(0, .10, 0);
+      renderer.render(scene, camera);
+    }
+
+    function tick() {
+      if (inView) {
+        time += .012;
+        render();
+      }
+      requestAnimationFrame(tick);
+    }
+    if (reduceMotion) render();
+    else tick();
   }
   initHero3D();
 

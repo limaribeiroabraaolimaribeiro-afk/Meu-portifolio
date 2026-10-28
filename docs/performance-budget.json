@@ -2,12 +2,12 @@
   "context": "File sizes and local laboratory samples. Remote Chrome uses Canvas and a throttled compositor; GPU and real mobile not verified.",
   "files": {
     "index.html": {
-      "bytes": 36253,
-      "gzipBytes": 8710
+      "bytes": 37065,
+      "gzipBytes": 8943
     },
     "css/portfolio.css": {
-      "bytes": 67399,
-      "gzipBytes": 12882
+      "bytes": 68311,
+      "gzipBytes": 13187
     },
     "js/projects-config.js": {
       "bytes": 5642,
@@ -18,8 +18,8 @@
       "gzipBytes": 7129
     },
     "js/scene.bundle.js": {
-      "bytes": 590113,
-      "gzipBytes": 161322
+      "bytes": 597137,
+      "gzipBytes": 163448
     },
     "fonts/manrope-regular.ttf": {
       "bytes": 94972,
@@ -62,7 +62,7 @@
       "gzipBytes": 29201
     }
   },
-  "portableBytes": 1763930,
+  "portableBytes": 1772678,
   "newAssetsTotalBytes": 323784,
   "viewportMeasurements": "viewport-results.json",
   "interactionMeasurements": "interaction-results.json",
@@ -88,5 +88,6 @@
     "Real authenticated AI API request not performed."
   ],
   "layoutReviewMeasurements": "layout-review-results.json",
-  "historicalVitalsRevision": "3a8ae6cd2ff08522befee9aa590c52c4f9f5bea9: viewport-results.json and interaction-results.json precede the current visual fixes"
+  "historicalVitalsRevision": "3a8ae6cd2ff08522befee9aa590c52c4f9f5bea9: viewport-results.json and interaction-results.json precede the current visual fixes",
+  "sharedCubeModule": "js/three/premium-shell.js"
 }

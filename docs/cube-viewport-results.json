@@ -1,0 +1,125 @@
+{
+  "rows": [
+    {
+      "width": 360,
+      "overflow": false,
+      "title": "dev.abraao — Estudo do cubo",
+      "h1": 1,
+      "renderer": "css",
+      "controls": [
+        {
+          "id": "structure",
+          "height": 46,
+          "right": 142
+        },
+        {
+          "id": "pause",
+          "height": 46,
+          "right": 222
+        },
+        {
+          "id": "angle",
+          "height": 44,
+          "right": 334
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "title": "dev.abraao — Estudo do cubo",
+      "h1": 1,
+      "renderer": "css",
+      "controls": [
+        {
+          "id": "structure",
+          "height": 46,
+          "right": 142
+        },
+        {
+          "id": "pause",
+          "height": 46,
+          "right": 222
+        },
+        {
+          "id": "angle",
+          "height": 44,
+          "right": 364
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "overflow": false,
+      "title": "dev.abraao — Estudo do cubo",
+      "h1": 1,
+      "renderer": "css",
+      "controls": [
+        {
+          "id": "structure",
+          "height": 46,
+          "right": 142
+        },
+        {
+          "id": "pause",
+          "height": 46,
+          "right": 222
+        },
+        {
+          "id": "angle",
+          "height": 44,
+          "right": 404
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "title": "dev.abraao — Estudo do cubo",
+      "h1": 1,
+      "renderer": "css",
+      "controls": [
+        {
+          "id": "structure",
+          "height": 51,
+          "right": 476
+        },
+        {
+          "id": "pause",
+          "height": 46,
+          "right": 564
+        },
+        {
+          "id": "angle",
+          "height": 44,
+          "right": 728
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "title": "dev.abraao — Estudo do cubo",
+      "h1": 1,
+      "renderer": "css",
+      "controls": [
+        {
+          "id": "structure",
+          "height": 46,
+          "right": 1114
+        },
+        {
+          "id": "pause",
+          "height": 46,
+          "right": 1203
+        },
+        {
+          "id": "angle",
+          "height": 44,
+          "right": 1366
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

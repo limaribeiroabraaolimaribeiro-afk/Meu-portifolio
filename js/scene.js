@@ -1,3 +1,4 @@
+import { createPremiumShell, applyStudioEnvironment } from "./three/premium-shell.js";
 import { createSceneWindows } from "./three/scene-windows.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
@@ -52,7 +53,7 @@ function init() {
   geometries.add(boxGeometry);
   const roundedGeometry = software
     ? boxGeometry
-    : new RoundedBoxGeometry(1, 1, 1, 3, 0.075);
+    : new RoundedBoxGeometry(1, 1, 1, 3, 0.0325);
   geometries.add(roundedGeometry);
   function mat(options = {}, basic = false) {
     const m = basic
@@ -65,7 +66,7 @@ function init() {
     materials.add(m);
     return m;
   }
-  const orange = mat({ color: "#ff7a00", roughness: 0.55, metalness: 0.06 }),
+  const orange = new THREE.MeshPhysicalMaterial({color:"#e96c0c",roughness:.38,metalness:.48,clearcoat:.08,clearcoatRoughness:.5,envMapIntensity:.7}),
     black = mat({ color: "#272623", roughness: 0.85 }),
     white = mat({ color: "#f4f0e8", roughness: 0.72 }),
     dark = mat({ color: "#111111", roughness: 0.6 }),
@@ -74,6 +75,8 @@ function init() {
       { color: "#ff9b35", transparent: true, opacity: 0.6, toneMapped: false },
       true,
     );
+  materials.add(orange);
+  let environment = null;
   function box(w, h, d, material, parent = scene, rounded = true) {
     const m = new THREE.Mesh(rounded ? roundedGeometry : boxGeometry, material);
     m.scale.set(w, h, d);
@@ -93,59 +96,23 @@ function init() {
     return m;
   }
   if (!software) {
-    scene.add(new THREE.HemisphereLight("#fff9ef", "#454038", 1.7));
-    const key = new THREE.DirectionalLight("#fff7e8", 2.6);
+    environment = applyStudioEnvironment(renderer, scene);
+    scene.add(new THREE.HemisphereLight("#fff4e5", "#5d4937", 1.4));
+    const key = new THREE.DirectionalLight("#fff6e8", 2.5);
     key.position.set(-4, 7, 6);
     scene.add(key);
-    const rim = new THREE.DirectionalLight("#ff9c44", 1.1);
+    const rim = new THREE.DirectionalLight("#ff9c44", .45);
     rim.position.set(5, 4, -4);
     scene.add(rim);
-    const fill = new THREE.DirectionalLight("#ffffff", 1.1);
+    const fill = new THREE.DirectionalLight("#ffffff", .5);
     fill.position.set(3, 2, 7);
     scene.add(fill);
   }
-  const actor = new THREE.Group(),
-    body = new THREE.Group(),
-    face = new THREE.Group(),
-    limbs = new THREE.Group();
-  scene.add(actor);
-  actor.add(body, limbs);
-  body.add(face);
-  const core = box(1.65, 1.65, 1.65, orange, body);
-  const eyeGeo = new THREE.SphereGeometry(
-    1,
-    software ? 6 : 12,
-    software ? 4 : 8,
-  );
-  geometries.add(eyeGeo);
-  for (const x of [-0.34, 0.34]) {
-    const eye = new THREE.Mesh(eyeGeo, dark);
-    eye.position.set(x, 0.18, 0.836);
-    eye.scale.set(0.056, 0.118, 0.033);
-    eye.renderOrder = 3;
-    face.add(eye);
-  }
-  const legs = [],
-    arms = [];
-  for (const sign of [-1, 1]) {
-    const leg = new THREE.Group();
-    leg.position.set(sign * 0.42, -0.82, 0);
-    limbs.add(leg);
-    const shin = box(0.18, 0.55, 0.19, black, leg);
-    shin.position.y = -0.27;
-    const foot = box(0.38, 0.14, 0.55, dark, leg);
-    foot.position.set(0, -0.62, 0.13);
-    legs.push(leg);
-    const arm = new THREE.Group();
-    arm.position.set(sign * 0.88, 0.18, 0);
-    arm.rotation.z = sign * 0.13;
-    limbs.add(arm);
-    const sleeve = box(0.18, 0.59, 0.19, black, arm);
-    sleeve.position.set(sign * 0.09, -0.32, 0);
-    const hand = box(0.25, 0.24, 0.24, orange, arm);
-    hand.position.set(sign * 0.09, -0.71, 0.01);
-    arms.push(arm);
-  }
+  const actor = new THREE.Group(), body = new THREE.Group();
+  scene.add(actor);actor.add(body);
+  const premium = createPremiumShell({size:1.65,software,orange});
+  body.add(premium.group);
+  root.dataset.cubeDesign = "premium-modular";
   const cellMesh = new THREE.InstancedMesh(roundedGeometry, orange, 125);
   cellMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   cellMesh.frustumCulled = false;
@@ -284,7 +251,7 @@ function init() {
     );
   }
   actor.traverse((m) => {
-    if (m.isMesh && m.renderOrder !== 3) m.renderOrder = 2;
+    if (m.isMesh) m.renderOrder = Math.max(2,m.renderOrder);
   });
   const shadowCanvas = document.createElement("canvas");
   shadowCanvas.width = shadowCanvas.height = 64;
@@ -428,19 +395,18 @@ function init() {
     camera.updateProjectionMatrix();
     actor.position.set(
       s.actorX,
-      s.actorY + Math.abs(Math.sin(s.walk)) * 0.035 * s.walkAmp + (id === "inicio" ? Math.sin(now*.0013)*.035 : 0),
+      s.actorY + (id === "inicio" ? Math.sin(now*.0008)*.018 : 0),
       s.actorZ,
     );
     actor.rotation.y = s.yaw + (id === "inicio" ? Math.sin(now*.0007)*.075 : 0);
     actor.scale.setScalar(s.actorScale);
-    body.rotation.z = Math.sin(s.walk) * 0.024 * s.walkAmp;
+    body.rotation.z = 0;
     const fracture = fractureAt(s.shape),
       sphereWeight = Math.max(0, 1 - Math.abs(s.shape - 2) / 0.34),
       segment = shapeSegment(s.shape),
       a = morphTargets.formations[segment.from],
       b = morphTargets.formations[segment.to];
-    core.visible = fracture < 0.8;
-    core.scale.setScalar(1.65 * Math.max(0.01, 1 - fracture));
+    premium.update({fracture,spread:id === "diagnostico" ? Math.sin(progress*Math.PI)**2*.45 : 0});
     cellMesh.visible = fracture > 0.005 && sphereWeight < 0.98;
     if (cellMesh.visible) {
       const cellSize =
@@ -466,19 +432,9 @@ function init() {
     }
     sphere.visible = sphereWeight > 0.01;
     sphere.scale.setScalar(sphereWeight);
-    face.scale.setScalar(Math.max(0.001, (1 - fracture) * s.pose));
-    limbs.scale.setScalar(Math.max(0.001, (1 - fracture) * s.pose));
-    legs.forEach(
-      (leg, i) =>
-        (leg.rotation.x = Math.sin(s.walk + i * Math.PI) * 0.5 * s.walkAmp),
-    );
-    arms.forEach(
-      (arm, i) =>
-        (arm.rotation.x = -Math.sin(s.walk + i * Math.PI) * 0.32 * s.walkAmp),
-    );
     cage.visible = s.wire > 0.02;
     cage.scale.setScalar(Math.max(0.01, s.wire));
-    props.visible = s.props > 0.02;
+    props.visible = s.props > 0.02 && id !== "inicio";
     props.scale.setScalar(Math.max(0.01, s.props));
     blocks.forEach((b, i) => {
       b.mesh.visible = i < (id === "inicio" ? 3 : software ? 8 : q.blocks);
@@ -505,7 +461,7 @@ function init() {
     shadow.scale.setScalar(s.actorScale);
     shadowMat.opacity = (1 - fracture * 0.6) * 0.85;
     if (!software) {
-      renderer.toneMappingExposure = s.light;
+      renderer.toneMappingExposure = s.light * .92;
       renderer.render(scene, camera);
       root.dataset.drawCalls = String(renderer.info.render.calls);
       root.dataset.triangles = String(renderer.info.render.triangles);
@@ -540,6 +496,8 @@ function init() {
     removeEventListener("portfolio:quality", resize);
     windows.dispose();
     director.dispose();
+    premium.dispose();
+    environment?.dispose();
     for (const g of geometries) g.dispose();
     for (const m of materials) m.dispose();
     for (const t of textures) t.dispose();

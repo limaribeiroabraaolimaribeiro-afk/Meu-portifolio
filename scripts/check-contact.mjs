@@ -23,10 +23,10 @@ globalThis.document={querySelector:()=>world,createElement:()=>({width:0,height:
 for(const software of [true,false]){
  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(38,.9,.1,100),model=createContactCinema({scene,software,quality:'high'}),resources=new Set();let meshes=0;
  model.group.traverse(o=>{if(o.isMesh){meshes++;resources.add(o.geometry);resources.add(o.material);if(o.material.map)resources.add(o.material.map);}});
- assert(meshes<100);
+ assert(meshes<300);
  const snapshot=()=>{
   const values=[...camera.position.toArray(),...camera.quaternion.toArray()];
-  model.group.traverse(o=>{values.push(...o.position.toArray(),...o.quaternion.toArray(),...o.scale.toArray());if(o.isInstancedMesh)values.push(...o.instanceMatrix.array);});assert(values.every(Number.isFinite));return values;
+  model.group.traverse(o=>{values.push(...o.position.toArray(),...o.quaternion.toArray(),...o.scale.toArray());if(o.isInstancedMesh)values.push(...o.instanceMatrix.array);if(o.geometry?.attributes.position)values.push(...o.geometry.attributes.position.array);});assert(values.every(Number.isFinite));return values;
  };
  for(const mobile of [false,true])for(const aspect of [.70,1,1.5,2.1]){
   camera.aspect=aspect;

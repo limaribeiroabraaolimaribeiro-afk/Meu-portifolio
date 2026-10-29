@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
-import {contactFilmState} from '../lib/contact-state.js';
+import {contactFilmState,contactLayerOpen} from '../lib/contact-state.js';
 import {createContactInternals} from './contact-internals.js';
 const ease=n=>{const p=Math.max(0,Math.min(1,n));return p*p*(3-2*p);};
 
-// One physical instrument: a message surface separates into suspended pixels,
-// reveals its inner mechanism and reconstructs. All animation is seekable.
+// An exploded handset in parallel physical layers, followed by reconstruction
+// and the contact reveal. One seekable timeline controls the whole sequence.
 export function createContactCinema({scene,software=false,quality='medium'}){
  const group=new THREE.Group();group.visible=false;scene.add(group);
  const world=document.querySelector('.contact-world'),low=software||quality==='low';
@@ -15,12 +15,12 @@ export function createContactCinema({scene,software=false,quality='medium'}){
  const silver=trim,ceramic=mat({color:'#8a96a8',metalness:.72,roughness:.28});
  const light=mat({color:'#ffd297',toneMapped:false},true),pale=mat({color:'#e4e7ee',toneMapped:false},true),violet=mat({color:'#c6a9ff',toneMapped:false},true),ice=mat({color:'#a3e2eb',toneMapped:false},true);
  const dim=mat({color:'#b38ff0',transparent:true,opacity:.30,depthWrite:false,toneMapped:false},true);
- const boxGeo=geo(low?new THREE.BoxGeometry(1,1,1):new RoundedBoxGeometry(1,1,1,3,.065));
- const planeGeo=geo(new THREE.PlaneGeometry(1,1,low?2:6,low?3:8));
- const sphereGeo=geo(new THREE.IcosahedronGeometry(1,low?0:1));
- const torusGeo=geo(new THREE.TorusGeometry(1,.012,low?3:5,low?36:80));
- const dummy=new THREE.Object3D(),point=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
- function box(w,h,d,m,parent,x=0,y=0,z=0,order=0){const o=new THREE.Mesh(boxGeo,m);o.scale.set(w,h,d);o.position.set(x,y,z);o.renderOrder=order;parent.add(o);return o;}
+ const boxGeo=geo(new THREE.BoxGeometry(1,1,1));
+ const planeGeo=geo(new THREE.PlaneGeometry(1,1));
+ const roundGeo=geo(new RoundedBoxGeometry(1,1,1,low?1:3,.055));
+ const ringGeo=geo(new THREE.TorusGeometry(1,.075,low?4:8,low?18:40));
+ const discGeo=geo(new THREE.CylinderGeometry(1,1,1,low?16:40));
+ function box(w,h,d,m,parent,x=0,y=0,z=0,order=0){const o=new THREE.Mesh(roundGeo,m);o.scale.set(w,h,d);o.position.set(x,y,z);o.renderOrder=order;parent.add(o);return o;}
  function round(c,x,y,w,h,r,color){c.fillStyle=color;c.beginPath();c.roundRect(x,y,w,h,r);c.fill();}
  function label(c,s,x,y,size=22,color='#e3d9c4',bold=false){c.font=`${bold?700:400} ${size}px Arial`;c.fillStyle=color;c.fillText(s,x,y);}
  function makeTexture(kind,index=0){
@@ -45,116 +45,70 @@ export function createContactCinema({scene,software=false,quality='medium'}){
   const t=new THREE.CanvasTexture(canvas);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=low?1:4;textures.add(t);return t;
  }
  function face(w,h,texture,parent,z,order=8){const o=new THREE.Mesh(planeGeo,mat({map:texture,color:'#fff',toneMapped:false},true));o.scale.set(w,h,1);o.position.z=z;o.renderOrder=order;parent.add(o);return o;}
- const phone=new THREE.Group();group.add(phone);
- const bodyTrim=box(1.89,3.79,.22,copper,phone,0,0,-.055,3);
- const bodyShell=box(1.83,3.73,.25,graphite,phone,0,0,0,4);
- const screenBed=box(1.72,3.58,.025,black,phone,0,0,.136,6);
- const screenTexture=makeTexture('phone');
- box(.57,.083,.018,black,phone,0,1.61,.171,9);
- box(.38,.018,.025,trim,phone,0,1.605,.186,10);
- box(.40,.032,.020,pale,phone,0,-1.69,.179,9);
- box(.045,.44,.09,copper,phone,.963,.5,-.01,3);
- box(.04,.22,.09,trim,phone,-.963,.68,-.01,3);
- box(.04,.36,.09,trim,phone,-.963,.18,-.01,3);
- // Tiny physical typing lights and a moving scan on the glass keep it alive.
- const typing=[];for(let i=0;i<3;i++){const o=new THREE.Mesh(sphereGeo,light);o.scale.setScalar(.025);o.position.set(-.54+i*.09,-1.19,.178);o.renderOrder=10;phone.add(o);typing.push(o);}
- const mechanism=new THREE.Group();phone.add(mechanism);
- const internals=createContactInternals({parent:mechanism,low,geo,mat,textures,boxGeo,planeGeo,palette:{graphite,black,copper,silver,ceramic,light,pale,violet}});
- const engine=new THREE.Group();mechanism.add(engine);engine.position.set(0,.65,.28);
- const core=new THREE.Mesh(geo(new THREE.TorusKnotGeometry(.26,.085,low?40:88,low?5:9,2,3)),silver);engine.add(core);
- const lens=new THREE.Mesh(geo(new THREE.IcosahedronGeometry(.19,low?0:2)),violet);engine.add(lens);
- const innerRings=[];for(let i=0;i<3;i++){const r=new THREE.Mesh(torusGeo,i===1?ice:light);r.scale.setScalar(.42+i*.085);r.rotation.set(i*.7,.5+i*.6,0);engine.add(r);innerRings.push(r);}
- // Back optics are visible during the orbit. Every lens has a socket, glass,
- // central aperture and a rim rather than a flat decorative dot.
- const optics=new THREE.Group();phone.add(optics);optics.position.set(-.48,1.18,-.20);
+ const phone=new THREE.Group();phone.name='contact-handset';group.add(phone);
+ const display=new THREE.Group();display.name='contact-display';phone.add(display);
+ box(1.84,3.72,.10,graphite,display);
+ box(1.76,3.60,.035,black,display,0,0,.057,1);
+ const screen=face(1.62,3.39,makeTexture('phone'),display,.082,2);screen.name='contact-whole-screen';
+ box(.57,.083,.018,black,display,0,1.61,.094,3);
+ box(.38,.018,.025,trim,display,0,1.605,.109,4);
+ box(.40,.032,.020,pale,display,0,-1.69,.101,3);
+ box(1.76,3.63,.012,ceramic,display,0,0,-.059);
+ // A real open frame, rather than an opaque block hiding its contents.
+ const frame=new THREE.Group();frame.name='contact-frame';phone.add(frame);
+ function contour(w,h,r,Path=THREE.Shape){
+  const s=new Path(),x=w/2,y=h/2;s.moveTo(-x+r,-y);s.lineTo(x-r,-y);s.quadraticCurveTo(x,-y,x,-y+r);s.lineTo(x,y-r);s.quadraticCurveTo(x,y,x-r,y);s.lineTo(-x+r,y);s.quadraticCurveTo(-x,y,-x,y-r);s.lineTo(-x,-y+r);s.quadraticCurveTo(-x,-y,-x+r,-y);return s;
+ }
+ const shape=contour(1.89,3.79,.18);shape.holes.push(contour(1.72,3.61,.14,THREE.Path));
+ const frameMesh=new THREE.Mesh(geo(new THREE.ExtrudeGeometry(shape,{depth:.16,bevelEnabled:!low,bevelSize:.012,bevelThickness:.012,bevelSegments:2,curveSegments:low?4:10})),copper);frameMesh.position.z=-.08;frame.add(frameMesh);
+ box(.045,.44,.09,copper,frame,.963,.5,0);
+ box(.04,.22,.09,trim,frame,-.963,.68,0);box(.04,.36,.09,trim,frame,-.963,.18,0);
+ for(let i=0;i<9;i++)box(.027,.023,.03,black,frame,-.34+i*.085,-1.892,0);
+ // The uppermost cover retains the copper identity of the handset. Its camera
+ // barrels and machined seams move with the cover as a single complete piece.
+ const cover=new THREE.Group();cover.name='contact-back-cover';phone.add(cover);
+ box(1.88,3.78,.10,copper,cover);
+ box(1.80,3.68,.012,mat({color:'#e99b54',roughness:.36,metalness:.72}),cover,0,0,.059,1);
+ box(.93,1.01,.07,copper,cover,-.32,1.13,.10,2);
+ const coverLensMat=mat({color:'#161f1d',roughness:.12,metalness:.65});
  for(let i=0;i<3;i++){
-  const g=new THREE.Group();g.position.set(i===1?.45:0,i===2?-.46:0,0);optics.add(g);
-  const socket=new THREE.Mesh(geo(new THREE.CylinderGeometry(.18,.20,.10,low?12:32)),graphite);socket.rotation.x=Math.PI/2;g.add(socket);
-  const ring=new THREE.Mesh(torusGeo,silver);ring.scale.setScalar(.155);ring.position.z=-.07;g.add(ring);
-  const glass=new THREE.Mesh(geo(new THREE.SphereGeometry(.12,low?8:20,low?6:12)),ceramic);glass.scale.z=.35;glass.position.z=-.09;g.add(glass);
+  const x=-.56+(i===1?.45:0),y=1.39-(i===2?.46:0);
+  const socket=new THREE.Mesh(discGeo,black);socket.rotation.x=Math.PI/2;socket.scale.set(.198,.075,.198);socket.position.set(x,y,.164);socket.renderOrder=3;cover.add(socket);
+  const rim=new THREE.Mesh(ringGeo,trim);rim.scale.setScalar(.176);rim.position.set(x,y,.209);rim.renderOrder=4;cover.add(rim);
+  const glass=new THREE.Mesh(discGeo,coverLensMat);glass.rotation.x=Math.PI/2;glass.scale.set(.151,.013,.151);glass.position.set(x,y,.218);glass.renderOrder=5;cover.add(glass);
+  const highlight=box(.043,.012,.005,ceramic,cover,x-.046,y+.047,.229,6);highlight.rotation.z=-.4;
  }
- // The original conversation artwork is cut into real slabs, each with its own
- // UV window. They remain one complete readable screen in the resting poses.
- const cols=low?6:8,rows=low?12:16,tiles=[],tileMat=mat({map:screenTexture,color:'#fff',toneMapped:false},true);
- const tileBacks=new THREE.InstancedMesh(boxGeo,graphite,cols*rows);tileBacks.frustumCulled=false;tileBacks.instanceMatrix.setUsage(THREE.DynamicDrawUsage);phone.add(tileBacks);tileBacks.renderOrder=7;
- for(let row=0;row<rows;row++)for(let col=0;col<cols;col++){
-  const w=1.62/cols,h=3.39/rows,g=geo(new THREE.PlaneGeometry(w*.992,h*.992)),uv=g.attributes.uv;
-  for(let k=0;k<uv.count;k++)uv.setXY(k,(col+uv.getX(k))/cols,1-(row+1-uv.getY(k))/rows);
-  const mesh=new THREE.Mesh(g,tileMat);mesh.renderOrder=8;phone.add(mesh);tiles.push({mesh,x:(col+.5-cols/2)*w,y:(rows/2-row-.5)*h,w,h,row,col});
- }
- // Two articulated mantles unfold around the device. Machined ribs and tiny
- // rivets give their silhouettes a physical scale when the camera approaches.
- const mantle=new THREE.Group();group.add(mantle);const feathers=[];
- for(let i=0;i<(low?22:36);i++){
-  const g=new THREE.Group();mantle.add(g);const length=.66+(i%6)*.105;
-  box(.13,length,.055,i%3===0?copper:silver,g,0,length*.28,0,1);
-  box(.023,length*.85,.018,i%4===0?violet:ceramic,g,0,length*.26,.040,2);
-  box(.046,.047,.028,light,g,0,-length*.18,.043,3);feathers.push({g,length});
- }
- const filaments=[],filamentSegments=low?48:96,filamentSides=low?3:6;
- for(let i=0;i<4;i++){
-  const pts=[];for(let k=0;k<=48;k++){const u=k/48,a=u*Math.PI*2*(1.15+i*.04)+i*Math.PI/3,r=1.40+.12*Math.sin(u*Math.PI*2+i);pts.push(new THREE.Vector3(Math.cos(a)*r,(u-.5)*4.75,Math.sin(a)*r*.72));}
-  const curve=new THREE.CatmullRomCurve3(pts),g=geo(new THREE.TubeGeometry(curve,filamentSegments,.012+i%2*.005,filamentSides,false));
-  const mesh=new THREE.Mesh(g,i%3===0?ice:i%3===1?light:dim);group.add(mesh);mesh.renderOrder=-1;filaments.push({curve,mesh});
- }
- const photons=new THREE.InstancedMesh(sphereGeo,light,low?36:72);photons.frustumCulled=false;photons.instanceMatrix.setUsage(THREE.DynamicDrawUsage);group.add(photons);
- const shards=new THREE.InstancedMesh(boxGeo,silver,low?44:92);shards.frustumCulled=false;shards.instanceMatrix.setUsage(THREE.DynamicDrawUsage);group.add(shards);
- const haloCanvas=document.createElement('canvas');haloCanvas.width=haloCanvas.height=128;const ctx=haloCanvas.getContext('2d'),gradient=ctx.createRadialGradient(64,64,0,64,64,64);gradient.addColorStop(0,'#b9b9ff38');gradient.addColorStop(.25,'#b7865422');gradient.addColorStop(1,'#b7865400');ctx.fillStyle=gradient;ctx.fillRect(0,0,128,128);
- const haloTex=new THREE.CanvasTexture(haloCanvas);textures.add(haloTex);const halo=new THREE.Mesh(geo(new THREE.PlaneGeometry(7,7)),mat({map:haloTex,color:'#fff',transparent:true,opacity:.7,depthWrite:false,toneMapped:false},true));halo.renderOrder=-30;group.add(halo);
- if(!software){const key=new THREE.PointLight('#e0d2ff',13,12);key.position.set(-2,3,4);group.add(key);const rim=new THREE.PointLight('#a7e6f0',9,12);rim.position.set(3,-1,-2);group.add(rim);}
- engine.traverse(o=>{if(o.isMesh)o.renderOrder=5;});
- const detailCanvas=document.createElement('canvas');detailCanvas.width=768;detailCanvas.height=64;const detailContext=detailCanvas.getContext('2d');
- const detailTexture=new THREE.CanvasTexture(detailCanvas);detailTexture.colorSpace=THREE.SRGBColorSpace;textures.add(detailTexture);
- const detailLabel=new THREE.Mesh(geo(new THREE.PlaneGeometry(4.4,.367)),mat({map:detailTexture,color:'#fff',transparent:true,depthWrite:false,toneMapped:false},true));detailLabel.renderOrder=12;group.add(detailLabel);let previousDetail=-2;
- const look=new THREE.Vector3(),direction=new THREE.Vector3();
- function stamp(mesh,i,p,w,h,d,rx=0,ry=0,rz=0){dummy.position.copy(p);dummy.rotation.set(rx,ry,rz);dummy.scale.set(w,h,d);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);}
+ const stampCanvas=document.createElement('canvas');stampCanvas.width=256;stampCanvas.height=192;const sc=stampCanvas.getContext('2d');sc.fillStyle='#8a431c';sc.font='700 90px Arial';sc.textAlign='center';sc.fillText('a.',128,105);sc.font='16px Arial';sc.fillText('dev.abraao',128,145);
+ const stampTexture=new THREE.CanvasTexture(stampCanvas);stampTexture.colorSpace=THREE.SRGBColorSpace;textures.add(stampTexture);
+ const stamp=new THREE.Mesh(planeGeo,mat({map:stampTexture,color:'#fff',transparent:true,toneMapped:false},true));stamp.scale.set(.72,.54,1);stamp.position.set(0,-.1,.07);cover.add(stamp);
+ const mechanism=new THREE.Group();phone.add(mechanism);
+ const internals=createContactInternals({parent:mechanism,low,geo,mat,textures,boxGeo,planeGeo,palette:{graphite,black,copper,silver:trim,ceramic,light,pale,violet}});
+ if(!software){const key=new THREE.PointLight('#fff0d8',19,17);key.position.set(-3,5,5);group.add(key);const rim=new THREE.PointLight('#efad70',12,15);rim.position.set(4,-1,3);group.add(rim);}
+ const look=new THREE.Vector3(),direction=new THREE.Vector3(),corner=new THREE.Vector3(),viewInverse=new THREE.Quaternion();
+ function order(g,base){g.traverse(o=>{if(o.isMesh){if(o.userData.localOrder===undefined)o.userData.localOrder=o.renderOrder;o.renderOrder=base+o.userData.localOrder;}});}
  function update(progress,now,camera,viewport={}){
-  const s=contactFilmState(progress,now),{t,p}=s,mobile=viewport.mobile??camera.aspect<1.2;
-  const burst=Math.sin(Math.PI*ease((p-.03)/.94))**2;
-  const turn=-.16-.38*Math.sin(p*Math.PI)+.12*Math.sin(p*Math.PI*2);
-  phone.position.set(-.08+Math.sin(t*.33)*.035,.06+s.lift,.10);
-  phone.rotation.set(.06+burst*.10,turn+Math.sin(t*.23)*.028,-.11+.17*burst);
-  bodyShell.position.z=-burst*.38;bodyTrim.position.z=-.055-burst*.38;screenBed.visible=burst<.025;mechanism.position.z=.07+burst*.22;
-  const detail=internals.update(p,t,burst);
-  engine.position.set(-.82*detail.open,.65,.28);engine.rotation.set(t*.12,t*.32,-t*.13);engine.scale.setScalar((.82+burst*.9)*(1-.64*detail.open));core.rotation.z=-t*.4;lens.scale.setScalar(.92+Math.sin(t*1.4)*.08);
-  innerRings.forEach((r,i)=>{r.rotation.set(.4+i*.65+t*(i%2?.25:-.22),i*.52+t*.15,t*(i%2?-.24:.17));});
-  tiles.forEach((o,i)=>{
-   const u=(o.col+.5)/cols,v=(o.row+.5)/rows,a=(u-.5)*1.16;
-   const tx=Math.sin(a)*1.95+.28*Math.sin(v*Math.PI),ty=o.y+.12*Math.sin(v*Math.PI*2+t*.55);
-   const tz=.17+burst*(1.17+.38*Math.cos(a)+.15*Math.sin(v*Math.PI*2+t*.5));
-   o.mesh.position.set(o.x+(tx-o.x)*burst-1.15*detail.open,o.y+(ty-o.y)*burst,tz);
-   o.mesh.rotation.set(Math.cos(v*Math.PI*2+t*.5)*burst*.10,-a*burst*.75,Math.sin(v*Math.PI)*burst*.035);
-   o.mesh.updateMatrix();dummy.position.copy(o.mesh.position);dummy.quaternion.copy(o.mesh.quaternion);dummy.position.addScaledVector(point.set(0,0,-1).applyQuaternion(o.mesh.quaternion),.025);dummy.scale.set(o.w*(.99-.04*burst),o.h*(.99-.04*burst),.035);dummy.updateMatrix();tileBacks.setMatrixAt(i,dummy.matrix);
-  });tileBacks.instanceMatrix.needsUpdate=true;
-  typing.forEach((o,i)=>{o.visible=burst<.18;o.scale.setScalar(.018+(.5+.5*Math.sin(t*3.1-i*.9))*.015);});
-  mantle.rotation.set(.08,turn*.55+Math.sin(t*.19)*.05,0);
-  feathers.forEach((o,i)=>{
-   const side=i%2?1:-1,k=Math.floor(i/2),n=feathers.length/2,u=k/(n-1),a=-1.25+u*2.5;
-   const r=1.05+burst*(.40+.14*Math.sin(u*Math.PI));
-   o.g.position.set(side*(.65+Math.cos(a)*r),Math.sin(a)*2.12+Math.sin(t*.5+i)*.035,-.55-Math.sin(u*Math.PI)*.58+burst*.32);
-   o.g.rotation.set(.2*Math.sin(t*.3+i),side*(.30+burst*.42),side*(-a*.45+.40+Math.sin(t*.35+i)*.05));
-   o.g.scale.setScalar(.68+burst*.36);
-  });
-  filaments.forEach((f,i)=>{f.mesh.rotation.y=t*(i%2?.07:-.055)+turn*.15;f.mesh.scale.set(1+burst*.35,1+burst*.08,1+burst*.20);});
-  const per=photons.count/filaments.length;
-  for(let i=0;i<photons.count;i++){
-   const k=Math.floor(i/per),j=i%per,f=filaments[k],u=(t*(.12+k*.007)+k*.14-j*.016+1)%1;f.curve.getPoint(u,point);point.multiply(f.mesh.scale).applyAxisAngle(up,f.mesh.rotation.y);
-   const size=j===0?.062:Math.max(.010,.034-j*.002);stamp(photons,i,point,size,size,size);
-  }photons.instanceMatrix.needsUpdate=true;
-  for(let i=0;i<shards.count;i++){
-   const a=i*2.39996+t*(i%2?.045:-.038),r=1.28+(i%9)*.10+burst*.66;
-   point.set(Math.cos(a)*r,Math.sin(i*2.3+t*.27)*2.24,Math.sin(a)*r*.65-.25);
-   const size=.028+i%4*.008;stamp(shards,i,point,size,size*(1.5+i%3*.7),size*.35,t*.1+i,t*.16+i,t*.11);
-  }shards.instanceMatrix.needsUpdate=true;
-  look.set(0,.02+burst*.12,.1);
-  mechanism.localToWorld(point.copy(detail.focus));look.lerp(point,detail.weight*.16);
-  const fit=Math.max(mobile?5.8:6.45,(mobile?8.0:8.2)/camera.aspect)*(1.04-burst*.15)*(1-detail.weight*.09);
-  const distance=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
-  direction.set(.10+burst*.14,.17+burst*.25,1).normalize();camera.position.copy(direction).multiplyScalar(distance).add(look);camera.lookAt(look);camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
-  halo.position.set(0,.18,-1.7);halo.quaternion.copy(camera.quaternion);halo.scale.setScalar(.9+burst*.2+Math.sin(t*.4)*.035);
-  detailLabel.visible=detail.weight>.05;detailLabel.position.set(.12,2.14,.25);detailLabel.quaternion.copy(camera.quaternion);
-  if(previousDetail!==detail.index){previousDetail=detail.index;detailContext.clearRect(0,0,768,64);detailContext.fillStyle='#e5b785';detailContext.font='500 24px Manrope, Arial';detailContext.textAlign='center';detailContext.fillText(`${String(detail.index+1).padStart(2,'0')}  /  ${detail.label}`,384,38);detailContext.fillStyle='#ca965960';detailContext.fillRect(245,53,278,1);detailTexture.needsUpdate=true;}
-  world.dataset.rendered='true';world.dataset.filmProgress=p.toFixed(4);world.dataset.motionTime=t.toFixed(2);world.dataset.packetPhase=s.flow.toFixed(4);world.dataset.cameraYaw=turn.toFixed(4);world.dataset.explosion=burst.toFixed(4);world.dataset.internalPart=detail.index>=0?detail.label:'assembled';return s;
+  const s=contactFilmState(progress,now),{t,p,open,tilt,reveal}=s,mobile=viewport.mobile??camera.aspect<1.2;
+  phone.position.set(Math.sin(t*.24)*.018,-.27*tilt+s.lift,0);
+  phone.rotation.set(.035-1.13*tilt,-.17+.10*tilt+Math.sin(t*.13)*.018,-.08-.78*tilt);
+  const displayOpen=contactLayerOpen(p,6),frameOpen=contactLayerOpen(p,5),coverOpen=contactLayerOpen(p,0);
+  display.position.set(0,0,.18+(-2.25-.18)*displayOpen);
+  frame.position.set(0,0,-1.28*frameOpen);
+  cover.position.set(0,0,-.15+3.67*coverOpen);
+  order(display,displayOpen>.015?-10:90);order(frame,10);order(cover,coverOpen>.015?80:0);
+  internals.update(p,t,open);mechanism.visible=tilt>.015&&p<.86;
+  // Fit all eight corners of the complete layer envelope in camera space.
+  // This keeps the copper cover and bottom glass in frame even on narrow phones.
+  const minZ=Math.min(-.28,display.position.z-.12),maxZ=Math.max(.38,cover.position.z+.28),tan=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+  phone.updateWorldMatrix(true,false);look.set(0,0,(minZ+maxZ)/2).applyMatrix4(phone.matrixWorld);
+  direction.set(.13+.07*tilt,.18+.11*tilt,1).normalize();camera.position.copy(direction).add(look);camera.lookAt(look);viewInverse.copy(camera.quaternion).invert();
+  let filmDistance=0;
+  for(const x of [-1.03,1.03])for(const y of [-1.95,1.95])for(const z of [minZ,maxZ]){
+   corner.set(x,y,z).applyMatrix4(phone.matrixWorld).sub(look).applyQuaternion(viewInverse);
+   filmDistance=Math.max(filmDistance,Math.abs(corner.x)*1.04/(tan*camera.aspect)+corner.z,Math.abs(corner.y)*1.04/tan+corner.z);
+  }
+  const contactFit=Math.max(mobile?5.8:6.45,(mobile?8.0:8.2)/camera.aspect),distance=THREE.MathUtils.lerp(filmDistance,contactFit/(2*tan),reveal);
+  camera.position.copy(direction).multiplyScalar(distance).add(look);camera.lookAt(look);camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
+  world.dataset.rendered='true';world.dataset.filmProgress=p.toFixed(4);world.dataset.motionTime=t.toFixed(2);world.dataset.packetPhase=s.flow.toFixed(4);world.dataset.cameraYaw=s.yaw.toFixed(4);world.dataset.explosion=open.toFixed(4);world.dataset.contactReveal=reveal.toFixed(4);world.dataset.internalPart=p<.34?'opening':p<.62?'parallel-layers':p<.87?'rebuilding':'contact';return s;
  }
  let count=0;group.traverse(o=>{if(o.isMesh)count++;});world.dataset.contactMeshes=count;
  return {group,update,dispose(){scene.remove(group);group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}};

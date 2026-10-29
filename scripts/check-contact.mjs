@@ -1,21 +1,21 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as THREE from 'three';
-import {contactFilmState} from '../js/lib/contact-state.js';
+import {contactFilmState,contactLayerOpen} from '../js/lib/contact-state.js';
 import {createContactCinema} from '../js/three/contact-cinema.js';
 import {SoftwareRenderer} from '../js/software-renderer.js';
 
 const steps=Array.from({length:401},(_,i)=>i/400),states=steps.map(p=>contactFilmState(p,12345));
 for(let i=steps.length-1;i>=0;i--)assert.deepEqual(contactFilmState(steps[i],12345),states[i]);
 for(const p of [-1,0,.4,1,2,NaN,Infinity])for(const t of [-1,0,12345,1e7,NaN,Infinity]){
- const s=contactFilmState(p,t);assert(Object.values(s).every(Number.isFinite));assert(s.phase>=0&&s.phase<3);
- for(const key of ['open','plan','finish','flow'])assert(s[key]>=0&&s[key]<=1);
+ const s=contactFilmState(p,t);assert(Object.values(s).every(Number.isFinite));assert(s.phase>=0&&s.phase<4);
+ for(const key of ['open','plan','finish','flow','tilt','reveal'])assert(s[key]>=0&&s[key]<=1);
 }
 assert.equal(contactFilmState(1).plan,1);assert.equal(contactFilmState(0).plan,0);
 assert.notEqual(contactFilmState(.7,1000).flow,contactFilmState(.7,3000).flow);
 assert.notEqual(contactFilmState(.7,1000).lift,contactFilmState(.7,3000).lift);
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
-assert.equal([...html.matchAll(/data-scene-window="contato"/g)].length,1);assert(html.includes('css/contact-cinema.css?v=contact-film-20261028'));
+assert.equal([...html.matchAll(/data-scene-window="contato"/g)].length,1);assert(html.includes('css/contact-cinema.css?v=contact-film-20261029'));
 assert(!html.includes('class="scene-window contact-window"'));assert(html.includes('Conversar no WhatsApp'));assert(html.includes('Prefiro começar pelo assistente'));
 const noop=()=>{},world={dataset:{}},context={createRadialGradient:()=>({addColorStop:noop})};
 for(const k of ['beginPath','roundRect','fill','fillRect','fillText','moveTo','lineTo','stroke','strokeRect','clearRect','arc'])context[k]=noop;
@@ -31,22 +31,29 @@ for(const software of [true,false]){
  for(const mobile of [false,true])for(const aspect of [.70,1,1.5,2.1]){
   camera.aspect=aspect;
   for(const p of [0,.2,.5,.8,1]){model.update(p,12345,camera,{mobile});const a=snapshot();model.update(1-p,25000,camera,{mobile});model.update(p,12345,camera,{mobile});assert.deepEqual(snapshot(),a);}
+  for(const p of [.45,.74]){
+   model.update(p,12345,camera,{mobile});model.group.updateMatrixWorld(true);
+   for(const name of ['display','frame','back-cover'])model.group.getObjectByName(`contact-${name}`).traverse(o=>{
+    if(!o.isMesh)return;const pos=o.geometry.attributes.position,v=new THREE.Vector3();
+    for(let i=0;i<pos.count;i++){v.fromBufferAttribute(pos,i).applyMatrix4(o.matrixWorld).project(camera);assert(Math.abs(v.x)<1&&Math.abs(v.y)<1,`${name} clipped at ${aspect}`);}
+   });
+  }
  }
  model.update(.8,1000,camera);const idle=snapshot();model.update(.8,3000,camera);assert.notDeepEqual(snapshot(),idle);
- // Physical groups open in order, with a true multi-element optical stack and
- // independently moving processor/RAM packages. Closed poses restore every
- // group exactly; this catches choreography drift and detached flex endpoints.
+ // Reference composition: whole parallel layers with genuine depth gaps.
+ // No fragmented screen or front-facing pile of unrelated components.
  const part=name=>model.group.getObjectByName(`contact-${name}`);
  const partNames=['chassis','thermal','battery','logic-board','processor','memory','camera-array','io-board','speaker','haptic'];
  const closed=()=>partNames.map(name=>[...part(name).position.toArray(),...part(name).quaternion.toArray()]);
  model.update(0,0,camera);const assembled=closed();model.update(1,0,camera);assert.deepEqual(closed(),assembled);
- for(const [p,name,next] of [[.29,'battery','processor'],[.42,'logic-board','camera-array'],[.55,'processor','io-board'],[.65,'camera-array','haptic']]){
-  model.update(p,1000,camera);assert(part(name).userData.separation>.8,name);assert.equal(part(next).userData.separation,0,next);
- }
- const names=['BATERIA E ALIMENTAÇÃO','PLACA LÓGICA','PROCESSADOR E MEMÓRIA','LENTES E SENSORES','CONEXÕES, SOM E VIBRAÇÃO'];
- [.25,.38,.50,.62,.76].forEach((p,i)=>{model.update(p,1000,camera);assert.equal(world.dataset.internalPart,names[i]);});
- model.update(.50,1000,camera);assert(part('processor').rotation.y>Math.PI*.8);assert(part('memory').position.x<-.25);
- model.update(.70,1000,camera);assert(part('lens-0-3').position.z-part('lens-0-0').position.z>.35);
+ model.update(.45,1000,camera);
+ const parallel=['display','chassis','battery','logic-board','thermal','camera-array','back-cover'];
+ for(let i=0;i<parallel.length;i++){const o=part(parallel[i]);assert(o);assert.deepEqual(o.rotation.toArray().slice(0,3),[0,0,0]);if(i)assert(o.position.z-part(parallel[i-1]).position.z>.60,parallel[i]);}
+ assert.equal(part('whole-screen').geometry.attributes.position.count,4);
+ const glassVertices=Array.from(part('whole-screen').geometry.attributes.position.array);
+ for(const p of steps){model.update(p,1000,camera);if(contactFilmState(p).reveal>0){assert(partNames.every(n=>part(n).userData.separation===0));assert.equal(part('display').position.z,.18);assert.equal(part('back-cover').position.z,-.15);}assert.deepEqual(Array.from(part('whole-screen').geometry.attributes.position.array),glassVertices);}
+ for(let rank=0;rank<=6;rank++){assert.equal(contactLayerOpen(.40,rank),1);assert.equal(contactLayerOpen(.83,rank),0);}
+ assert.equal(contactFilmState(.86).reveal,0);assert.equal(contactFilmState(1).reveal,1);
  assert(part('fasteners').children.length===10);assert(part('usb-c').children.length>=6);
  let disposed=0;resources.forEach(r=>r.addEventListener('dispose',()=>disposed++));model.dispose();assert.equal(disposed,resources.size);assert.equal(scene.children.length,0);
  console.log(`Contact: ${meshes} meshes, reversible assembly, eight camera layouts, idle motion and resource disposal (${software?'Canvas':'WebGL'}).`);

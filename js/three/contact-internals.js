@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {contactLayerOpen} from '../lib/contact-state.js';
 
 const clamp=n=>Math.max(0,Math.min(1,n));
 const ease=n=>{const p=clamp(n);return p*p*(3-2*p);};
@@ -10,7 +11,7 @@ const window=(p,a,b)=>ease((p-a)/.035)*(1-ease((p-b+.035)/.035));
 export function createContactInternals({parent,low,geo,mat,textures,boxGeo,planeGeo,palette}){
  const {graphite,black,copper,silver,ceramic,light,pale,violet}=palette;
  const boardMat=mat({color:'#163b30',roughness:.65,metalness:.23});
- const cellMat=mat({color:'#373a37',roughness:.63,metalness:.35});
+ const cellMat=mat({color:'#ce8b46',roughness:.63,metalness:.35});
  const glass=mat({color:'#83728d',roughness:.15,metalness:.75});
  const darkGlass=mat({color:'#202823',roughness:.14,metalness:.7});
  const unitTorus=geo(new THREE.TorusGeometry(1,.075,low?3:6,low?20:48));
@@ -47,11 +48,11 @@ export function createContactInternals({parent,low,geo,mat,textures,boxGeo,plane
   ctx.fillStyle='#b9c4a7';ctx.font='13px Manrope, Arial';ctx.fillText('AB / LOGIC ASSEMBLY',22,487);
  });
  const batteryTexture=artwork(384,512,(ctx,w,h)=>{
-  ctx.fillStyle='#30352f';ctx.fillRect(0,0,w,h);ctx.fillStyle='#e7dfc9';ctx.font='600 30px Manrope, Arial';ctx.fillText('Li-ion',31,71);
+  ctx.fillStyle='#ce8b46';ctx.fillRect(0,0,w,h);ctx.fillStyle='#302719';ctx.font='600 30px Manrope, Arial';ctx.fillText('Li-ion',31,71);
   ctx.font='15px Manrope, Arial';['RECHARGEABLE CELL','POWER / 01','NOMINAL 3.85 V','ILLUSTRATIVE ASSEMBLY'].forEach((s,i)=>ctx.fillText(s,32,111+i*28));
   ctx.strokeStyle='#9da28f';ctx.lineWidth=2;ctx.strokeRect(33,277,98,49);ctx.fillStyle='#9da28f';ctx.fillRect(131,290,8,21);ctx.fillRect(42,286,78,31);
   ctx.font='34px Manrope, Arial';ctx.fillText('+',294,72);ctx.fillText('−',294,119);
-  ctx.fillStyle='#c4b998';for(let i=0;i<49;i++)ctx.fillRect(32+i*6.4,374,1+i%3,47+(i%4)*3);
+  ctx.fillStyle='#53452e';for(let i=0;i<49;i++)ctx.fillRect(32+i*6.4,374,1+i%3,47+(i%4)*3);
   ctx.font='12px Manrope, Arial';ctx.fillText('ENERGY MODULE  /  AB-01',32,465);
  });
  const chipTexture=artwork(256,256,(ctx,w,h)=>{
@@ -70,6 +71,9 @@ export function createContactInternals({parent,low,geo,mat,textures,boxGeo,plane
  for(let i=0;i<(low?10:15);i++)ring(.27+i*.015,copper,thermal,0,-.23,.047+i*.001);
  const thermalTrace=[];for(let i=0;i<8;i++)thermalTrace.push(entry(-.54+i*.022,.69,.055,.010,1.04,.009));batch(thermalTrace,copper,thermal);
  box(.33,.29,.015,silver,thermal,-.34,1.07,.05);
+ // Machined shield windows and copper heat spreaders retain a complete layer
+ // silhouette, while exposing the PCB and camera sockets underneath.
+ for(const side of [-1,1]){box(.055,2.63,.055,silver,thermal,side*.64,0,.02);for(const y of [-1.24,1.24])ring(.035,black,thermal,side*.54,y,.05);}
 
  // Battery pouch, folded seam, adhesive release tabs, connector and terminals.
  const battery=component('battery',v(0,-.47,.06),v(.72,-.62,.84),.18,[.03,-.32,-.08]);
@@ -85,6 +89,12 @@ export function createContactInternals({parent,low,geo,mat,textures,boxGeo,plane
  // socket teeth and a separate processor/RAM/BGA package.
  const logic=component('logic-board',v(.03,.94,.06),v(.45,1.00,.52),.29,[-.11,.20,.03]);
  box(1.43,.96,.07,boardMat,logic);face(1.40,.93,pcbTexture,logic,0,0,.041);
+ box(.46,1.90,.07,boardMat,logic,-.48,-1.34,0);face(.43,1.86,pcbTexture,logic,-.48,-1.34,.041);
+ box(.82,.50,.07,boardMat,logic,.12,-2.03,0);face(.79,.47,pcbTexture,logic,.12,-2.03,.041);
+ const extensionChips=[],extensionPins=[];
+ for(let i=0;i<(low?14:26);i++){const x=i%2?-.49:.10,y=i%2?-.73-Math.floor(i/2)*.205:-1.92+(i%3)*.15;extensionChips.push(entry(x,y,.10,i%2?.25:.28,i%2?.13:.12,.075));for(let k=0;k<4;k++)extensionPins.push(entry(x-.12+k*.08,y-.08,.08,.021,.035,.025));}
+ batch(extensionChips,graphite,logic);batch(extensionPins,silver,logic);
+ box(.45,.36,.023,copper,logic,-.46,-1.08,.151);box(.30,.28,.025,copper,logic,.45,.08,.16);
  const passives=[],caps=[],pads=[],teeth=[];
  for(let i=0;i<(low?44:88);i++){
   const side=i%4,k=Math.floor(i/4),span=(low?11:22),u=k/(span-1);
@@ -168,35 +178,42 @@ export function createContactInternals({parent,low,geo,mat,textures,boxGeo,plane
  const focusNames=['BATERIA E ALIMENTAÇÃO','PLACA LÓGICA','PROCESSADOR E MEMÓRIA','LENTES E SENSORES','CONEXÕES, SOM E VIBRAÇÃO'];
  const focusRanges=[[.19,.32],[.32,.44],[.44,.56],[.56,.69],[.69,.83]];
  const focus=new THREE.Vector3();
+ const stack={
+  chassis:{to:v(0,0,-1.28),rank:5,order:10},thermal:{to:v(0,-.09,1.75),rank:1,order:50},
+  battery:{to:v(0,-.42,-.27),rank:4,order:30},'logic-board':{to:v(.03,.94,.74),rank:3,order:40},
+  processor:{to:v(0,.015,.27),rank:3,order:40},memory:{to:v(0,0,-.08),rank:3,order:40},
+  'camera-array':{to:v(-.48,1.18,2.65),rank:2,order:60},'io-board':{to:v(0,-1.38,-1.26),rank:5,order:10},
+  speaker:{to:v(-.47,-.12,.12),rank:5,order:10},haptic:{to:v(.48,-.10,.11),rank:5,order:10}
+ };
+ layers.forEach(item=>{const config=stack[item.g.name.replace('contact-','')];Object.assign(item,config);item.g.traverse(o=>{if(o.isMesh&&o.userData.localOrder===undefined)o.userData.localOrder=o.renderOrder;});});
  function update(p,t,burst){
-  const closing=1-ease((p-.84)/.14);
-  layers.forEach(({g,home,destination,start,rotation})=>{
-   const amount=ease((p-start)/.11)*closing;
-   g.position.lerpVectors(home,destination,amount);g.rotation.set(rotation[0]*amount,rotation[1]*amount,rotation[2]*amount);
+  layers.forEach(({g,home,to,rank,order})=>{
+   const amount=contactLayerOpen(p,rank);
+   g.position.lerpVectors(home,to,amount);g.rotation.set(0,0,0);
    g.scale.setScalar(1);
    g.userData.separation=amount;
+   g.traverse(o=>{if(o.isMesh)o.renderOrder=order+o.userData.localOrder;});
   });
-  bolts.forEach(({g,x,y},i)=>{const amount=ease((p-.12-i*.004)/.13)*closing;g.position.set(x*(1+amount*.08),y,.03+amount*(.30+i%3*.045));g.rotation.z=amount*Math.PI*3;});
+  bolts.forEach(({g,x,y},i)=>{const amount=contactLayerOpen(p,5);g.position.set(x*(1+amount*.12),y,.03+amount*(-.64+i%3*.02));g.rotation.z=amount*Math.PI*3;g.traverse(o=>{if(o.isMesh)o.renderOrder=28;});});
   cameraStacks.forEach(({lensParts,barrel,index})=>{
-   const amount=ease((p-.54-index*.018)/.12)*closing;
-   lensParts.forEach(({piece,home,index:j})=>{piece.position.z=home+amount*(.08+j*.11);piece.rotation.set(amount*.08*Math.sin(j),amount*.09*Math.cos(j),0);});
+   const amount=contactLayerOpen(p,2);
+   lensParts.forEach(({piece,home,index:j})=>{piece.position.z=home+amount*j*.025;piece.rotation.set(0,0,0);});
    barrel.position.z=.12-amount*.13;barrel.scale.y=.13*(1-amount*.60);
   });
-  hapticMass.position.x=Math.sin(t*13)*.023*window(p,.68,.84);
+  hapticMass.position.x=Math.sin(t*13)*.013*burst;
   let index=-1,weight=0;
   focusRanges.forEach(([start,end],i)=>{const w=window(p,start,end);if(w>weight){weight=w;index=i;}});
-  if(index>=0){const selected=focusParts[index];selected.scale.setScalar(1+weight*(index===2?.23:.10));selected.position.z+=weight*.13;if(index===2)selected.rotation.y+=Math.PI*.95*window(p,.47,.55);}
   parent.updateMatrixWorld(true);
   for(const f of flexes){
    parent.worldToLocal(f.from.getWorldPosition(a));parent.worldToLocal(f.to.getWorldPosition(b));a.x+=f.offset;a.z+=.10;b.z+=.10;
    for(let i=0;i<=f.n;i++){
     const u=i/f.n;c.lerpVectors(a,b,u);c.x+=Math.sin(u*Math.PI)*.13*burst;c.z+=Math.sin(u*Math.PI)*(.12+burst*.19);
     f.positions.set([c.x-.047,c.y,c.z,c.x+.047,c.y,c.z],i*6);
-   }f.mesh.geometry.attributes.position.needsUpdate=true;
+   }f.mesh.geometry.attributes.position.needsUpdate=true;f.mesh.renderOrder=43;
   }
   focus.set(0,0,0);
   if(index>=0){parent.worldToLocal(focusParts[index].getWorldPosition(focus));focus.multiplyScalar(weight);}
-  return {focus,weight,index,label:index>=0?focusNames[index]:'',open:ease((p-.14)/.14)*closing};
+  return {focus,weight,index,label:index>=0?focusNames[index]:'',open:burst};
  }
  return {update,layers};
 }

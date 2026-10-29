@@ -60,8 +60,10 @@ export class SoftwareRenderer {
           z: this.vector.z,
         });
       }
-      const count = index ? index.count : pos.count;
-      for (let i = 0; i < count; i += 3) {
+      const total = index ? index.count : pos.count,
+        start = Math.max(0, geometry.drawRange.start || 0),
+        count = Math.min(total, start + geometry.drawRange.count);
+      for (let i = start; i < count; i += 3) {
         const ia = index ? index.getX(i) : i,
           ib = index ? index.getX(i + 1) : i + 1,
           ic = index ? index.getX(i + 2) : i + 2;
@@ -119,7 +121,7 @@ export class SoftwareRenderer {
           };
         }
         let quad = null;
-        if (!tex && geometry.type === "BoxGeometry" && index && i % 6 === 0) {
+        if (!tex && geometry.type === "BoxGeometry" && index && i % 6 === 0 && i + 6 <= count) {
           const ids = [
             ...new Set(Array.from({ length: 6 }, (_, k) => index.getX(i + k))),
           ];

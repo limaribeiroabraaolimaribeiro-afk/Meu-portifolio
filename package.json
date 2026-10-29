@@ -21,6 +21,7 @@
     "check:notebook": "node scripts/check-notebook.mjs",
     "check:solutions": "node scripts/check-solutions.mjs",
     "check:reactor": "node scripts/check-reactor.mjs",
-    "check:result": "node scripts/check-result.mjs"
+    "check:result": "node scripts/check-result.mjs",
+    "check:contact": "node scripts/check-contact.mjs"
   }
 }

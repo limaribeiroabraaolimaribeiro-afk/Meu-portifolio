@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {contactFilmState} from '../lib/contact-state.js';
+import {createContactInternals} from './contact-internals.js';
 const ease=n=>{const p=Math.max(0,Math.min(1,n));return p*p*(3-2*p);};
 
 // One physical instrument: a message surface separates into suspended pixels,
@@ -58,15 +59,7 @@ export function createContactCinema({scene,software=false,quality='medium'}){
  // Tiny physical typing lights and a moving scan on the glass keep it alive.
  const typing=[];for(let i=0;i<3;i++){const o=new THREE.Mesh(sphereGeo,light);o.scale.setScalar(.025);o.position.set(-.54+i*.09,-1.19,.178);o.renderOrder=10;phone.add(o);typing.push(o);}
  const mechanism=new THREE.Group();phone.add(mechanism);
- // The revealed mechanism has three separated planes, socket blocks, solder
- // contacts, and an optical core. It is still present behind the whole display.
- const board=box(1.48,3.07,.10,black,mechanism,0,0,-.03,2);
- const battery=box(1.17,1.54,.17,ceramic,mechanism,0,-.47,.06,3);
- for(let i=0;i<6;i++)box(.017,1.35,.015,i%2?copper:silver,mechanism,-.46+i*.185,-.47,.155,4);
- const processor=box(.70,.67,.16,graphite,mechanism,.07,.78,.07,3);
- for(let i=0;i<4;i++)box(.07,.08,.12,silver,mechanism,-.48+i*.31,1.32,.06,3);
- const pins=new THREE.InstancedMesh(boxGeo,copper,low?60:100);mechanism.add(pins);
- for(let i=0;i<pins.count;i++){const side=Math.floor(i/(pins.count/4)),u=(i%(pins.count/4))/(pins.count/4);dummy.position.set(side<2?(side?-.42:.56):-.37+u*.88,side<2?.44+u*.68:side===2?.4:1.15,.14);dummy.scale.set(.035,.065,.045);dummy.rotation.set(0,0,side<2?Math.PI/2:0);dummy.updateMatrix();pins.setMatrixAt(i,dummy.matrix);}
+ const internals=createContactInternals({parent:mechanism,low,geo,mat,textures,boxGeo,planeGeo,palette:{graphite,black,copper,silver,ceramic,light,pale,violet}});
  const engine=new THREE.Group();mechanism.add(engine);engine.position.set(0,.65,.28);
  const core=new THREE.Mesh(geo(new THREE.TorusKnotGeometry(.26,.085,low?40:88,low?5:9,2,3)),silver);engine.add(core);
  const lens=new THREE.Mesh(geo(new THREE.IcosahedronGeometry(.19,low?0:2)),violet);engine.add(lens);
@@ -109,7 +102,10 @@ export function createContactCinema({scene,software=false,quality='medium'}){
  const haloCanvas=document.createElement('canvas');haloCanvas.width=haloCanvas.height=128;const ctx=haloCanvas.getContext('2d'),gradient=ctx.createRadialGradient(64,64,0,64,64,64);gradient.addColorStop(0,'#b9b9ff38');gradient.addColorStop(.25,'#b7865422');gradient.addColorStop(1,'#b7865400');ctx.fillStyle=gradient;ctx.fillRect(0,0,128,128);
  const haloTex=new THREE.CanvasTexture(haloCanvas);textures.add(haloTex);const halo=new THREE.Mesh(geo(new THREE.PlaneGeometry(7,7)),mat({map:haloTex,color:'#fff',transparent:true,opacity:.7,depthWrite:false,toneMapped:false},true));halo.renderOrder=-30;group.add(halo);
  if(!software){const key=new THREE.PointLight('#e0d2ff',13,12);key.position.set(-2,3,4);group.add(key);const rim=new THREE.PointLight('#a7e6f0',9,12);rim.position.set(3,-1,-2);group.add(rim);}
- mechanism.traverse(o=>{if(o.isMesh)o.renderOrder=5;});
+ engine.traverse(o=>{if(o.isMesh)o.renderOrder=5;});
+ const detailCanvas=document.createElement('canvas');detailCanvas.width=768;detailCanvas.height=64;const detailContext=detailCanvas.getContext('2d');
+ const detailTexture=new THREE.CanvasTexture(detailCanvas);detailTexture.colorSpace=THREE.SRGBColorSpace;textures.add(detailTexture);
+ const detailLabel=new THREE.Mesh(geo(new THREE.PlaneGeometry(4.4,.367)),mat({map:detailTexture,color:'#fff',transparent:true,depthWrite:false,toneMapped:false},true));detailLabel.renderOrder=12;group.add(detailLabel);let previousDetail=-2;
  const look=new THREE.Vector3(),direction=new THREE.Vector3();
  function stamp(mesh,i,p,w,h,d,rx=0,ry=0,rz=0){dummy.position.copy(p);dummy.rotation.set(rx,ry,rz);dummy.scale.set(w,h,d);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);}
  function update(progress,now,camera,viewport={}){
@@ -118,14 +114,15 @@ export function createContactCinema({scene,software=false,quality='medium'}){
   const turn=-.16-.38*Math.sin(p*Math.PI)+.12*Math.sin(p*Math.PI*2);
   phone.position.set(-.08+Math.sin(t*.33)*.035,.06+s.lift,.10);
   phone.rotation.set(.06+burst*.10,turn+Math.sin(t*.23)*.028,-.11+.17*burst);
-  bodyShell.position.z=-burst*.38;bodyTrim.position.z=-.055-burst*.38;screenBed.visible=burst<.025;mechanism.position.z=.07+burst*.22;board.position.z=-.12-burst*.20;battery.position.z=.05+burst*.08;processor.position.z=.12+burst*.20;
-  engine.rotation.set(t*.12,t*.32,-t*.13);engine.scale.setScalar(.82+burst*.9);core.rotation.z=-t*.4;lens.scale.setScalar(.92+Math.sin(t*1.4)*.08);
+  bodyShell.position.z=-burst*.38;bodyTrim.position.z=-.055-burst*.38;screenBed.visible=burst<.025;mechanism.position.z=.07+burst*.22;
+  const detail=internals.update(p,t,burst);
+  engine.position.set(-.82*detail.open,.65,.28);engine.rotation.set(t*.12,t*.32,-t*.13);engine.scale.setScalar((.82+burst*.9)*(1-.64*detail.open));core.rotation.z=-t*.4;lens.scale.setScalar(.92+Math.sin(t*1.4)*.08);
   innerRings.forEach((r,i)=>{r.rotation.set(.4+i*.65+t*(i%2?.25:-.22),i*.52+t*.15,t*(i%2?-.24:.17));});
   tiles.forEach((o,i)=>{
    const u=(o.col+.5)/cols,v=(o.row+.5)/rows,a=(u-.5)*1.16;
    const tx=Math.sin(a)*1.95+.28*Math.sin(v*Math.PI),ty=o.y+.12*Math.sin(v*Math.PI*2+t*.55);
    const tz=.17+burst*(1.17+.38*Math.cos(a)+.15*Math.sin(v*Math.PI*2+t*.5));
-   o.mesh.position.set(o.x+(tx-o.x)*burst,o.y+(ty-o.y)*burst,tz);
+   o.mesh.position.set(o.x+(tx-o.x)*burst-1.15*detail.open,o.y+(ty-o.y)*burst,tz);
    o.mesh.rotation.set(Math.cos(v*Math.PI*2+t*.5)*burst*.10,-a*burst*.75,Math.sin(v*Math.PI)*burst*.035);
    o.mesh.updateMatrix();dummy.position.copy(o.mesh.position);dummy.quaternion.copy(o.mesh.quaternion);dummy.position.addScaledVector(point.set(0,0,-1).applyQuaternion(o.mesh.quaternion),.025);dummy.scale.set(o.w*(.99-.04*burst),o.h*(.99-.04*burst),.035);dummy.updateMatrix();tileBacks.setMatrixAt(i,dummy.matrix);
   });tileBacks.instanceMatrix.needsUpdate=true;
@@ -150,11 +147,14 @@ export function createContactCinema({scene,software=false,quality='medium'}){
    const size=.028+i%4*.008;stamp(shards,i,point,size,size*(1.5+i%3*.7),size*.35,t*.1+i,t*.16+i,t*.11);
   }shards.instanceMatrix.needsUpdate=true;
   look.set(0,.02+burst*.12,.1);
-  const fit=Math.max(mobile?5.8:6.45,(mobile?8.0:8.2)/camera.aspect)*(1.04-burst*.15);
+  mechanism.localToWorld(point.copy(detail.focus));look.lerp(point,detail.weight*.16);
+  const fit=Math.max(mobile?5.8:6.45,(mobile?8.0:8.2)/camera.aspect)*(1.04-burst*.15)*(1-detail.weight*.09);
   const distance=fit/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)));
   direction.set(.10+burst*.14,.17+burst*.25,1).normalize();camera.position.copy(direction).multiplyScalar(distance).add(look);camera.lookAt(look);camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
   halo.position.set(0,.18,-1.7);halo.quaternion.copy(camera.quaternion);halo.scale.setScalar(.9+burst*.2+Math.sin(t*.4)*.035);
-  world.dataset.rendered='true';world.dataset.filmProgress=p.toFixed(4);world.dataset.motionTime=t.toFixed(2);world.dataset.packetPhase=s.flow.toFixed(4);world.dataset.cameraYaw=turn.toFixed(4);world.dataset.explosion=burst.toFixed(4);return s;
+  detailLabel.visible=detail.weight>.05;detailLabel.position.set(.12,2.14,.25);detailLabel.quaternion.copy(camera.quaternion);
+  if(previousDetail!==detail.index){previousDetail=detail.index;detailContext.clearRect(0,0,768,64);detailContext.fillStyle='#e5b785';detailContext.font='500 24px Manrope, Arial';detailContext.textAlign='center';detailContext.fillText(`${String(detail.index+1).padStart(2,'0')}  /  ${detail.label}`,384,38);detailContext.fillStyle='#ca965960';detailContext.fillRect(245,53,278,1);detailTexture.needsUpdate=true;}
+  world.dataset.rendered='true';world.dataset.filmProgress=p.toFixed(4);world.dataset.motionTime=t.toFixed(2);world.dataset.packetPhase=s.flow.toFixed(4);world.dataset.cameraYaw=turn.toFixed(4);world.dataset.explosion=burst.toFixed(4);world.dataset.internalPart=detail.index>=0?detail.label:'assembled';return s;
  }
  let count=0;group.traverse(o=>{if(o.isMesh)count++;});world.dataset.contactMeshes=count;
  return {group,update,dispose(){scene.remove(group);group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}};

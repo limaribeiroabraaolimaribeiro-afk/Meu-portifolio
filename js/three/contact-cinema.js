@@ -45,7 +45,8 @@ export function createContactCinema({scene,software=false,quality='medium'}){
   const t=new THREE.CanvasTexture(canvas);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=low?1:4;textures.add(t);return t;
  }
  function face(w,h,texture,parent,z,order=8){const o=new THREE.Mesh(planeGeo,mat({map:texture,color:'#fff',toneMapped:false},true));o.scale.set(w,h,1);o.position.z=z;o.renderOrder=order;parent.add(o);return o;}
- const phone=new THREE.Group();phone.name='contact-handset';group.add(phone);
+ const turntable=new THREE.Group();turntable.name='contact-turntable';group.add(turntable);
+ const phone=new THREE.Group();phone.name='contact-handset';turntable.add(phone);
  const display=new THREE.Group();display.name='contact-display';phone.add(display);
  box(1.84,3.72,.10,graphite,display);
  box(1.76,3.60,.035,black,display,0,0,.057,1);
@@ -66,7 +67,7 @@ export function createContactCinema({scene,software=false,quality='medium'}){
  for(let i=0;i<9;i++)box(.027,.023,.03,black,frame,-.34+i*.085,-1.892,0);
  // The uppermost cover retains the copper identity of the handset. Its camera
  // barrels and machined seams move with the cover as a single complete piece.
- const cover=new THREE.Group();cover.name='contact-back-cover';phone.add(cover);
+ const cover=new THREE.Group();cover.name='contact-back-cover';cover.rotation.y=Math.PI;phone.add(cover);
  box(1.88,3.78,.10,copper,cover);
  box(1.80,3.68,.012,mat({color:'#e99b54',roughness:.36,metalness:.72}),cover,0,0,.059,1);
  box(.93,1.01,.07,copper,cover,-.32,1.13,.10,2);
@@ -81,24 +82,30 @@ export function createContactCinema({scene,software=false,quality='medium'}){
  const stampCanvas=document.createElement('canvas');stampCanvas.width=256;stampCanvas.height=192;const sc=stampCanvas.getContext('2d');sc.fillStyle='#8a431c';sc.font='700 90px Arial';sc.textAlign='center';sc.fillText('a.',128,105);sc.font='16px Arial';sc.fillText('dev.abraao',128,145);
  const stampTexture=new THREE.CanvasTexture(stampCanvas);stampTexture.colorSpace=THREE.SRGBColorSpace;textures.add(stampTexture);
  const stamp=new THREE.Mesh(planeGeo,mat({map:stampTexture,color:'#fff',transparent:true,toneMapped:false},true));stamp.scale.set(.72,.54,1);stamp.position.set(0,-.1,.07);cover.add(stamp);
- const mechanism=new THREE.Group();phone.add(mechanism);
+ const mechanism=new THREE.Group();mechanism.name='contact-mechanism';mechanism.rotation.y=Math.PI;phone.add(mechanism);
  const internals=createContactInternals({parent:mechanism,low,geo,mat,textures,boxGeo,planeGeo,palette:{graphite,black,copper,silver:trim,ceramic,light,pale,violet}});
  if(!software){const key=new THREE.PointLight('#fff0d8',19,17);key.position.set(-3,5,5);group.add(key);const rim=new THREE.PointLight('#efad70',12,15);rim.position.set(4,-1,3);group.add(rim);}
- const look=new THREE.Vector3(),direction=new THREE.Vector3(),corner=new THREE.Vector3(),viewInverse=new THREE.Quaternion();
- function order(g,base){g.traverse(o=>{if(o.isMesh){if(o.userData.localOrder===undefined)o.userData.localOrder=o.renderOrder;o.renderOrder=base+o.userData.localOrder;}});}
+ const look=new THREE.Vector3(),direction=new THREE.Vector3(),corner=new THREE.Vector3(),depthPosition=new THREE.Vector3(),viewInverse=new THREE.Quaternion();
+ // The Canvas fallback sorts complete physical assemblies by their current
+ // camera depth. Front and back never swap fixed paint priorities mid-spin.
+ function depthOrder(g,camera){
+  if(g.isMesh){g.geometry.computeBoundingBox();g.geometry.boundingBox.getCenter(depthPosition).applyMatrix4(g.matrixWorld);}else g.getWorldPosition(depthPosition);
+  const base=depthPosition.applyMatrix4(camera.matrixWorldInverse).z*10000;
+  g.traverse(o=>{if(o.isMesh){if(o.userData.localOrder===undefined)o.userData.localOrder=o.renderOrder;o.renderOrder=base+o.userData.localOrder;}});
+ }
  function update(progress,now,camera,viewport={}){
   const s=contactFilmState(progress,now),{t,p,open,tilt,reveal}=s,mobile=viewport.mobile??camera.aspect<1.2;
   phone.position.set(Math.sin(t*.24)*.018,-.27*tilt+s.lift,0);
-  phone.rotation.set(.035-1.13*tilt,-.17+.10*tilt+Math.sin(t*.13)*.018,-.08-.78*tilt);
+  turntable.rotation.y=Math.PI*s.back;
+  phone.rotation.set(.035+1.065*tilt,-.17+.10*tilt+Math.sin(t*.13)*.018,-.08+.94*tilt);
   const displayOpen=contactLayerOpen(p,6),frameOpen=contactLayerOpen(p,5),coverOpen=contactLayerOpen(p,0);
-  display.position.set(0,0,.18+(-2.25-.18)*displayOpen);
-  frame.position.set(0,0,-1.28*frameOpen);
-  cover.position.set(0,0,-.15+3.67*coverOpen);
-  order(display,displayOpen>.015?-10:90);order(frame,10);order(cover,coverOpen>.015?80:0);
-  internals.update(p,t,open);mechanism.visible=tilt>.015&&p<.86;
+  display.position.set(0,0,.18+(2.25-.18)*displayOpen);
+  frame.position.set(0,0,1.28*frameOpen);
+  cover.position.set(0,0,-.15-3.37*coverOpen);
+  internals.update(p,t,open);mechanism.visible=open>.005&&p>.22&&p<.80;
   // Fit all eight corners of the complete layer envelope in camera space.
   // This keeps the copper cover and bottom glass in frame even on narrow phones.
-  const minZ=Math.min(-.28,display.position.z-.12),maxZ=Math.max(.38,cover.position.z+.28),tan=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+  const minZ=Math.min(-.38,cover.position.z-.28),maxZ=Math.max(.28,display.position.z+.12),tan=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
   phone.updateWorldMatrix(true,false);look.set(0,0,(minZ+maxZ)/2).applyMatrix4(phone.matrixWorld);
   direction.set(.13+.07*tilt,.18+.11*tilt,1).normalize();camera.position.copy(direction).add(look);camera.lookAt(look);viewInverse.copy(camera.quaternion).invert();
   let filmDistance=0;
@@ -108,7 +115,9 @@ export function createContactCinema({scene,software=false,quality='medium'}){
   }
   const contactFit=Math.max(mobile?5.8:6.45,(mobile?8.0:8.2)/camera.aspect),distance=THREE.MathUtils.lerp(filmDistance,contactFit/(2*tan),reveal);
   camera.position.copy(direction).multiplyScalar(distance).add(look);camera.lookAt(look);camera.updateProjectionMatrix();camera.updateMatrixWorld(true);
-  world.dataset.rendered='true';world.dataset.filmProgress=p.toFixed(4);world.dataset.motionTime=t.toFixed(2);world.dataset.packetPhase=s.flow.toFixed(4);world.dataset.cameraYaw=s.yaw.toFixed(4);world.dataset.explosion=open.toFixed(4);world.dataset.contactReveal=reveal.toFixed(4);world.dataset.internalPart=p<.34?'opening':p<.62?'parallel-layers':p<.87?'rebuilding':'contact';return s;
+  phone.updateWorldMatrix(true,true);depthOrder(display,camera);depthOrder(frame,camera);depthOrder(cover,camera);
+  internals.layers.forEach(({g})=>depthOrder(g,camera));internals.fasteners.children.forEach(g=>depthOrder(g,camera));internals.flexes.forEach(({mesh})=>depthOrder(mesh,camera));
+  world.dataset.rendered='true';world.dataset.filmProgress=p.toFixed(4);world.dataset.motionTime=t.toFixed(2);world.dataset.packetPhase=s.flow.toFixed(4);world.dataset.cameraYaw=s.yaw.toFixed(4);world.dataset.backTurn=s.back.toFixed(4);world.dataset.explosion=open.toFixed(4);world.dataset.contactReveal=reveal.toFixed(4);world.dataset.internalPart=['turning-back','opening','parallel-layers','rebuilding','turning-front','contact'][s.phase];return s;
  }
  let count=0;group.traverse(o=>{if(o.isMesh)count++;});world.dataset.contactMeshes=count;
  return {group,update,dispose(){scene.remove(group);group.traverse(o=>{if(o.isInstancedMesh)o.dispose();});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());}};

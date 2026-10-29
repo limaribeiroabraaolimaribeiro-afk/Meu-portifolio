@@ -215,5 +215,5 @@ export function createContactInternals({parent,low,geo,mat,textures,boxGeo,plane
   if(index>=0){parent.worldToLocal(focusParts[index].getWorldPosition(focus));focus.multiplyScalar(weight);}
   return {focus,weight,index,label:index>=0?focusNames[index]:'',open:burst};
  }
- return {update,layers};
+ return {update,layers,fasteners,flexes};
 }

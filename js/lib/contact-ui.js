@@ -3,7 +3,7 @@ export function initContactFilm(isReduced,onLayout){
  const section=document.getElementById('contato'),pin=section.querySelector('.contact-pin'),root=document.documentElement;
  const phase=section.querySelector('[data-contact-phase]'),caption=section.querySelector('[data-contact-caption]');
  const content=section.querySelector('.contact-content'),skip=section.querySelector('[data-contact-skip]');
- const phases=[['01 / MOSTRAR A TRASEIRA','Um giro antes de olhar por dentro.'],['02 / DESMONTAR','Cada camada ganha espaço.'],['03 / POR DENTRO','Peças diferentes. Um mesmo conjunto.'],['04 / RECONSTRUIR','Tudo volta ao seu lugar.'],['05 / VOLTAR À FRENTE','O celular gira de volta, já montado.'],['06 / O PRÓXIMO PASSO','Uma conversa começa um novo caminho.']];
+ const phases=[['01 / UMA CONVERSA','O próximo passo começa aqui.'],['02 / SEU CONTEXTO','Você traz o que precisa melhorar.'],['03 / ENTENDER O DESAFIO','Eu ajudo a encontrar o caminho.'],['04 / UM PRÓXIMO PASSO','Uma conversa começa a ganhar forma.'],['05 / VAMOS CONVERSAR','Seu contexto faz a diferença.'],['06 / O PRÓXIMO PASSO','Uma conversa começa um novo caminho.']];
  const tall=matchMedia('(min-height:570px)');let enhanced=false,queued=false,previous=-1;
  function update(){
   queued=false;const rect=pin.getBoundingClientRect();root.dataset.contactFilm=String(rect.top<innerHeight*.3&&rect.bottom>innerHeight*.4);

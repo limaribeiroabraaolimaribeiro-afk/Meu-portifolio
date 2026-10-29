@@ -391,6 +391,7 @@ function init() {
     root.dataset.morphShape = s.shape.toFixed(3);
     root.dataset.sceneOrder = s.order.toFixed(3);
     camera.clearViewOffset();
+    camera.fov = 38;
     target.set(0, -.3, 0);
     let worldHeight = Math.max(4, 4.4 / aspect);
     if (id === "transformacao") {target.y = .25; worldHeight = Math.max(4.5, 6.8 / aspect);}

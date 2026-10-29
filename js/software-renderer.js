@@ -14,6 +14,8 @@ export class SoftwareRenderer {
     this.normal = new THREE.Vector3();
     this.light = new THREE.Vector3(-0.5, 0.8, 0.9).normalize();
     this.half = new THREE.Vector3(-0.2, 0.4, 1).normalize();
+    this.studioHalf = new THREE.Vector3();
+    this.studioPosition = new THREE.Vector3();
   }
   setPixelRatio(r) {
     this.pixelRatio = Math.min(r, 1.25);
@@ -51,6 +53,8 @@ export class SoftwareRenderer {
       if (!pos) return;
       this.mvp.multiplyMatrices(cameraMatrix, modelMatrix);
       this.normalMatrix.getNormalMatrix(modelMatrix);
+      const studio=mat.userData.contactStudio===true;
+      if(studio){this.studioPosition.setFromMatrixPosition(modelMatrix);this.studioHalf.copy(camera.position).sub(this.studioPosition).normalize().add(this.light).normalize();}
       const points = [];
       for (let i = 0; i < pos.count; i++) {
         this.vector.fromBufferAttribute(pos, i).applyMatrix4(this.mvp);
@@ -95,6 +99,12 @@ export class SoftwareRenderer {
           shade = 0.26 + Math.max(0, this.normal.dot(this.light)) * 0.9;
           spec = Math.pow(Math.max(0, this.normal.dot(this.half)), 24) * 0.05;
           rim = Math.pow(1 - Math.abs(this.normal.z), 4) * 0.035;
+          if(studio){
+            const metal=mat.metalness||0,rough=mat.roughness??.3;
+            shade=.28+Math.max(0,this.normal.dot(this.light))*.74;
+            spec=Math.pow(Math.max(0,this.normal.dot(this.studioHalf)),14+(1-rough)*38)*(.08+metal*.26);
+            rim*=1+metal*1.8;
+          }
         }
         const color = mat.color.clone();
         if (tint) color.multiply(tint);
@@ -114,6 +124,7 @@ export class SoftwareRenderer {
           const img = mat.map.image;
           tex = {
             img,
+            studio,shade,spec,
             uv: [ia, ib, ic].map((k) => ({
               x: uv.getX(k) * img.width,
               y: (1 - uv.getY(k)) * img.height,
@@ -229,6 +240,12 @@ export class SoftwareRenderer {
     ctx.clip();
     ctx.transform(a, b, c, d, e, g);
     ctx.drawImage(f.tex.img, 0, 0);
+    if(f.tex.studio){
+      // Only the handset's opaque product maps receive this directional
+      // metallic response. Existing UI textures and other scenes retain theirs.
+      if(f.tex.shade<1){ctx.fillStyle=`rgba(0,0,0,${1-f.tex.shade})`;ctx.fillRect(0,0,f.tex.img.width,f.tex.img.height);}
+      if(f.tex.spec>.001){ctx.fillStyle=`rgba(255,237,209,${Math.min(.32,f.tex.spec)})`;ctx.fillRect(0,0,f.tex.img.width,f.tex.img.height);}
+    }
     ctx.restore();
   }
 }
